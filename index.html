@@ -341,6 +341,37 @@
     if (p.hint_color) root.setProperty('--tg-theme-hint-color', p.hint_color);
     if (p.button_color) root.setProperty('--tg-theme-button-color', p.button_color);
     if (p.button_text_color) root.setProperty('--tg-theme-button-text-color', p.button_text_color);
+
+    // ⚠️ Troque pela URL real da sua API (o túnel/domínio do mini_app_api.py)
+    const API_URL = "https://cycle-admissions-ticket-condos.trycloudflare.com/api/dashboard";
+
+    fetch(API_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({initData: tg.initData}),
+    })
+      .then(r => r.json())
+      .then(dados => {
+        if (dados.error) {
+          console.error("Erro da API:", dados.error);
+          return;
+        }
+        document.querySelector(".header .greet h1").textContent = `Olá, ${dados.nome} 👋`;
+        document.querySelector(".flame-count").innerHTML =
+          `${dados.posts_hoje} <small>/ atualizado agora</small>`;
+        document.querySelectorAll(".stat-card .num")[0].textContent = dados.canais_conectados;
+        document.querySelectorAll(".stat-card .num")[1].textContent = dados.produtos_disponiveis;
+        document.querySelectorAll(".stat-card .num")[2].textContent = dados.produtos_manuais;
+
+        const statusPill = document.querySelector(".status-pill");
+        if (!dados.motor_rodando) {
+          statusPill.innerHTML = `<span class="status-dot" style="background:#ff5a5a"></span>Parado`;
+          statusPill.style.background = "rgba(255,90,90,0.12)";
+          statusPill.style.borderColor = "rgba(255,90,90,0.35)";
+          statusPill.style.color = "#ff5a5a";
+        }
+      })
+      .catch(err => console.error("Não consegui carregar os dados reais:", err));
   }
 
   document.getElementById('btnFiltros').addEventListener('click', () => {
