@@ -377,6 +377,60 @@
     letter-spacing:.08em; font-family:'IBM Plex Mono',monospace;
     margin:18px 0 10px;
   }
+
+  .qr-wrap{ text-align:center; margin:16px 0; }
+  .qr-wrap img{ width:220px; height:220px; border-radius:14px; background:#fff; padding:10px; }
+  .status-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 14px; border-radius:100px;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+    margin-bottom:14px;
+  }
+  .status-badge.working{ background:rgba(53,210,164,.12); border:1px solid rgba(53,210,164,.35); color:var(--mint); }
+  .status-badge.pending{ background:rgba(242,184,75,.12); border:1px solid rgba(242,184,75,.35); color:var(--gold); }
+  .status-badge.failed{ background:rgba(255,90,90,.12); border:1px solid rgba(255,90,90,.35); color:#ff8f8f; }
+
+  .metodo-row{ display:flex; gap:8px; margin-bottom:10px; }
+  .metodo-btn{
+    flex:1; background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:12px 8px; text-align:center; font-size:12px; font-weight:600; color:var(--ink); cursor:pointer;
+  }
+  .metodo-btn:active{ transform:scale(0.98); }
+
+  .plano-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:14px; margin-bottom:10px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .plano-card .nome{ font-weight:600; font-size:13.5px; }
+  .plano-card .duracao{ font-size:11px; color:var(--muted); }
+  .plano-card .preco{ font-family:'IBM Plex Mono',monospace; color:var(--mint); font-weight:600; }
+  .plano-card button{
+    background:var(--flame); color:#14141A; border:none; border-radius:10px;
+    padding:9px 14px; font-weight:700; font-size:12.5px; cursor:pointer;
+  }
+
+  .copia-cola-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:12px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    word-break:break-all; color:var(--muted); margin-bottom:10px; max-height:80px; overflow-y:auto;
+  }
+
+  .mkt-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+  .mkt-badge{
+    display:flex; flex-direction:column; align-items:center; gap:5px;
+    padding:10px 8px; border-radius:14px; min-width:64px;
+    border:1px solid var(--line);
+  }
+  .mkt-badge .circulo{
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Sora',sans-serif; font-weight:800; font-size:12px; color:#14141A;
+  }
+  .mkt-badge .nome{ font-size:9.5px; font-weight:600; color:var(--muted); }
+  .mkt-badge.ativo{ background:rgba(255,106,61,0.08); border-color:rgba(255,106,61,0.3); }
+  .mkt-badge.ativo .nome{ color:var(--ink); }
+  .mkt-badge.em-breve{ opacity:0.4; }
 </style>
 </head>
 <body>
@@ -456,23 +510,21 @@
     <div class="dock-item" onclick="mostrarView('marketplace')">
       <span class="ic">🛒</span><span class="tt">Configurar API</span>
     </div>
-    <div class="dock-item disabled" onclick="emBreve()">
-      <span class="ic">🔗</span><span class="tt">Conectar WhatsApp</span><span class="soon">Em breve</span>
+    <div class="dock-item" onclick="mostrarView('whatsapp')">
+      <span class="ic">🔗</span><span class="tt">Conectar WhatsApp</span>
     </div>
     <div class="dock-item" onclick="mostrarView('manuais')">
       <span class="ic">📦</span><span class="tt">Produtos manuais</span>
     </div>
-    <div class="dock-item disabled" onclick="emBreve()">
-      <span class="ic">💳</span><span class="tt">Renovar/Pagar</span><span class="soon">Em breve</span>
+    <div class="dock-item" onclick="mostrarView('pagamento')">
+      <span class="ic">💳</span><span class="tt">Renovar/Pagar</span>
     </div>
   </div>
 
   </div><!-- /home-grid -->
 
   <div class="demo-note">
-    ✨ O Dashboard e as ferramentas <b>Meus canais, Meus filtros, Tempo de divulgação,
-    Configurar API e Produtos manuais</b> já usam dados reais do seu bot. As demais
-    (WhatsApp, Pagamento) ainda estão só visuais, chegam em breve.
+    ✨ Todas as ferramentas do painel já usam dados reais do seu bot.
   </div>
 
   </div><!-- /view-home -->
@@ -580,6 +632,25 @@
       <h2>🛒 Configurar API</h2>
     </div>
 
+    <div class="mkt-row">
+      <div class="mkt-badge ativo">
+        <div class="circulo" style="background:#EE4D2D;">Sh</div>
+        <div class="nome">Shopee</div>
+      </div>
+      <div class="mkt-badge em-breve">
+        <div class="circulo" style="background:#FF9900;">Az</div>
+        <div class="nome">Amazon</div>
+      </div>
+      <div class="mkt-badge em-breve">
+        <div class="circulo" style="background:#0086FF;">Ml</div>
+        <div class="nome">Magalu</div>
+      </div>
+      <div class="mkt-badge em-breve">
+        <div class="circulo" style="background:#FF6600;">Ae</div>
+        <div class="nome">AliExpress</div>
+      </div>
+    </div>
+
     <div id="marketplace-status" class="empty-state">Carregando...</div>
 
     <div class="divider-label">Shopee</div>
@@ -650,6 +721,39 @@
     </div>
     <button id="man-salvar-btn" class="save-btn" onclick="salvarManual()">Adicionar produto</button>
     <div class="toast" id="manuais-toast"></div>
+  </div>
+
+  <!-- ===================== VIEW: Conectar WhatsApp ===================== -->
+  <div id="view-whatsapp" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="pararPollingWhatsapp(); mostrarView('home')">←</div>
+      <h2>🔗 Conectar WhatsApp</h2>
+    </div>
+
+    <div id="wa-conteudo">
+      <div class="empty-state">Carregando...</div>
+    </div>
+    <div class="toast" id="whatsapp-toast"></div>
+  </div>
+
+  <!-- ===================== VIEW: Renovar/Pagar ===================== -->
+  <div id="view-pagamento" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="pararPollingPagamento(); mostrarView('home')">←</div>
+      <h2>💳 Renovar/Pagar</h2>
+    </div>
+
+    <div class="mkt-row">
+      <div class="mkt-badge ativo">
+        <div class="circulo" style="background:#00B1EA;">Mp</div>
+        <div class="nome">Mercado Pago</div>
+      </div>
+    </div>
+
+    <div id="pag-conteudo">
+      <div class="empty-state">Carregando...</div>
+    </div>
+    <div class="toast" id="pagamento-toast"></div>
   </div>
 
 <script>
@@ -734,6 +838,8 @@
 
   // ---------- Navegação entre telas ----------
   function mostrarView(nome) {
+    pararPollingWhatsapp();
+    pararPollingPagamento();
     document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
     document.getElementById(`view-${nome}`).classList.add("active");
     if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
@@ -747,6 +853,8 @@
       if (nome === "tempo") carregarTempo();
       if (nome === "marketplace") carregarMarketplace();
       if (nome === "manuais") carregarManuais();
+      if (nome === "whatsapp") iniciarTelaWhatsapp();
+      if (nome === "pagamento") iniciarTelaPagamento();
     }
   }
   tg?.BackButton?.onClick(() => mostrarView('home'));
@@ -1003,6 +1111,216 @@
       if (dados.error) { mostrarToast("manuais-toast", dados.error, false); return; }
       carregarManuais();
     });
+  }
+
+  // ---------- WhatsApp ----------
+  let waPollingInterval = null;
+
+  function pararPollingWhatsapp() {
+    if (waPollingInterval) { clearInterval(waPollingInterval); waPollingInterval = null; }
+  }
+
+  function iniciarTelaWhatsapp() {
+    document.getElementById("wa-conteudo").innerHTML = `<div class="empty-state">Carregando...</div>`;
+    chamarApi("/api/whatsapp/status").then(dados => renderizarStatusWhatsapp(dados.status));
+  }
+
+  function renderizarStatusWhatsapp(status) {
+    const el = document.getElementById("wa-conteudo");
+    if (status === "WORKING") {
+      el.innerHTML = `
+        <div class="status-badge working">✅ Conectado</div>
+        <p style="font-size:12.5px;color:var(--muted); margin-bottom:12px;">Se ainda não tiver, crie um Canal de verdade nesse WhatsApp (Comunidades/Atualizações → Canais → Criar canal).</p>
+        <button class="save-btn" onclick="buscarCanaisWhatsapp()">🔍 Buscar meus canais</button>
+        <div id="wa-canais-lista" style="margin-top:12px;"></div>
+      `;
+    } else if (status === "FAILED") {
+      el.innerHTML = `
+        <div class="status-badge failed">⚠️ Travado (FAILED)</div>
+        <p style="font-size:12.5px;color:var(--muted); margin-bottom:12px;">Isso costuma acontecer quando o número foi desvinculado direto pelo WhatsApp.</p>
+        <button class="save-btn" onclick="recriarWhatsapp()">🔄 Recriar conexão do zero</button>
+      `;
+    } else {
+      el.innerHTML = `
+        <p style="font-size:12.5px;color:var(--muted); margin-bottom:12px;">⚠️ Se já conectou antes e desvinculou, clique em recriar primeiro. Escolha como conectar:</p>
+        <div class="metodo-row">
+          <div class="metodo-btn" onclick="conectarComQr()">📷 QR Code</div>
+          <div class="metodo-btn" onclick="mostrarFormTelefone()">🔢 Código</div>
+        </div>
+        <button class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="recriarWhatsapp()">🔄 Recriar conexão do zero</button>
+      `;
+    }
+  }
+
+  function recriarWhatsapp() {
+    document.getElementById("wa-conteudo").innerHTML = `<div class="empty-state">⏳ Recriando conexão...</div>`;
+    chamarApi("/api/whatsapp/recriar", {}, 30000).then(dados => {
+      if (dados.error) { mostrarToast("whatsapp-toast", dados.error, false); iniciarTelaWhatsapp(); return; }
+      conectarComQr();
+    });
+  }
+
+  function conectarComQr() {
+    document.getElementById("wa-conteudo").innerHTML = `<div class="empty-state">⏳ Preparando conexão...</div>`;
+    chamarApi("/api/whatsapp/iniciar", {}, 30000).then(dados => {
+      if (dados.error) { mostrarToast("whatsapp-toast", dados.error, false); iniciarTelaWhatsapp(); return; }
+      buscarQrCode();
+    });
+  }
+
+  function buscarQrCode() {
+    const el = document.getElementById("wa-conteudo");
+    el.innerHTML = `<div class="empty-state">⏳ Gerando QR code... pode levar até 1 minuto, aguarde.</div>`;
+    chamarApi("/api/whatsapp/qr", {}, 90000).then(dados => {
+      if (dados.error) {
+        el.innerHTML = `<div class="empty-state">${dados.error}</div>`;
+        setTimeout(() => { el.innerHTML += `<button class="save-btn" onclick="buscarQrCode()">Tentar de novo</button>`; }, 10);
+        return;
+      }
+      el.innerHTML = `
+        <div class="qr-wrap"><img src="${dados.qr_base64}" alt="QR Code"></div>
+        <p style="font-size:12px;color:var(--muted); text-align:center;">Escaneie com OUTRO celular, no WhatsApp do número que vai divulgar: Aparelhos conectados → Conectar um aparelho</p>
+      `;
+      iniciarPollingStatusWhatsapp();
+    });
+  }
+
+  function mostrarFormTelefone() {
+    document.getElementById("wa-conteudo").innerHTML = `
+      <div class="field">
+        <label>Número (DDI+DDD+número, só dígitos)</label>
+        <input type="text" id="wa-telefone" placeholder="5511999999999">
+      </div>
+      <button class="save-btn" onclick="pedirCodigoWhatsapp()">Gerar código</button>
+    `;
+  }
+
+  function pedirCodigoWhatsapp() {
+    const telefone = document.getElementById("wa-telefone").value.trim();
+    const el = document.getElementById("wa-conteudo");
+    el.innerHTML = `<div class="empty-state">⏳ Gerando código...</div>`;
+    chamarApi("/api/whatsapp/iniciar", {}, 30000)
+      .then(() => chamarApi("/api/whatsapp/codigo", {telefone}, 30000))
+      .then(dados => {
+        if (dados.error) {
+          el.innerHTML = `<div class="empty-state">${dados.error}</div><button class="save-btn" onclick="mostrarFormTelefone()">Tentar de novo</button>`;
+          return;
+        }
+        el.innerHTML = `
+          <div style="text-align:center;">
+            <div class="status-badge pending">Seu código</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:28px; font-weight:700; margin:10px 0;">${dados.codigo}</div>
+            <p style="font-size:12px;color:var(--muted);">No WhatsApp desse número: Aparelhos conectados → Conectar com número de telefone → digite esse código</p>
+          </div>
+        `;
+        iniciarPollingStatusWhatsapp();
+      });
+  }
+
+  function iniciarPollingStatusWhatsapp() {
+    pararPollingWhatsapp();
+    waPollingInterval = setInterval(() => {
+      chamarApi("/api/whatsapp/status").then(dados => {
+        if (dados.status === "WORKING") {
+          pararPollingWhatsapp();
+          mostrarToast("whatsapp-toast", "Conectado com sucesso!", true);
+          renderizarStatusWhatsapp("WORKING");
+        }
+      });
+    }, 4000);
+  }
+
+  function buscarCanaisWhatsapp() {
+    const lista = document.getElementById("wa-canais-lista");
+    lista.innerHTML = `<div class="empty-state">Buscando canais...</div>`;
+    chamarApi("/api/whatsapp/canais", {}, 30000).then(dados => {
+      if (dados.error || !dados.canais.length) {
+        lista.innerHTML = `<div class="empty-state">${dados.error || "Nenhum canal encontrado. Crie um no WhatsApp primeiro."}</div>`;
+        return;
+      }
+      lista.innerHTML = dados.canais.map(c => `
+        <div class="canal-item">
+          <div class="info">${c.name}</div>
+          <button class="del" style="color:var(--mint);" onclick="escolherCanalWhatsapp('${c.id}')">✅</button>
+        </div>
+      `).join("");
+    });
+  }
+
+  function escolherCanalWhatsapp(canalId) {
+    chamarApi("/api/whatsapp/canal/adicionar", {canal_id: canalId}).then(dados => {
+      mostrarToast("whatsapp-toast", dados.error || "Canal vinculado!", !dados.error);
+    });
+  }
+
+  // ---------- Pagamento (PIX) ----------
+  let pagPollingInterval = null;
+
+  function pararPollingPagamento() {
+    if (pagPollingInterval) { clearInterval(pagPollingInterval); pagPollingInterval = null; }
+  }
+
+  function iniciarTelaPagamento() {
+    const el = document.getElementById("pag-conteudo");
+    el.innerHTML = `<div class="empty-state">Carregando...</div>`;
+    chamarApi("/api/planos").then(dados => {
+      if (dados.error) { el.innerHTML = `<div class="empty-state">${dados.error}</div>`; return; }
+      if (!dados.planos.length) {
+        el.innerHTML = `<div class="empty-state">Nenhum plano disponível ainda.</div>`;
+        return;
+      }
+      el.innerHTML = `<p style="font-size:12px;color:var(--muted); margin-bottom:12px;">Status atual: <b style="color:var(--ink)">${dados.status_atual}</b></p>`
+        + dados.planos.map(p => `
+          <div class="plano-card">
+            <div>
+              <div class="nome">${p.nome}</div>
+              <div class="duracao">${p.duracao_dias} dias</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="preco">R$${formatarPrecoBR(p.preco)}</div>
+              <button onclick="gerarPix(${p.plan_id})">Pagar</button>
+            </div>
+          </div>
+        `).join("");
+    });
+  }
+
+  function gerarPix(planId) {
+    const el = document.getElementById("pag-conteudo");
+    el.innerHTML = `<div class="empty-state">⏳ Gerando PIX...</div>`;
+    chamarApi("/api/pagamento/gerar", {plan_id: planId}, 30000).then(dados => {
+      if (dados.error) {
+        el.innerHTML = `<div class="empty-state">${dados.error}</div><button class="save-btn" onclick="iniciarTelaPagamento()">Voltar</button>`;
+        return;
+      }
+      const pixEscapado = dados.pix_copia_cola.replace(/'/g, "\\'");
+      el.innerHTML = `
+        <div class="qr-wrap"><img src="${dados.qr_base64}" alt="QR Code PIX"></div>
+        <div class="divider-label">Pix copia e cola</div>
+        <div class="copia-cola-box">${dados.pix_copia_cola}</div>
+        <button class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="copiarPix('${pixEscapado}')">📋 Copiar código</button>
+        <div class="status-badge pending" style="margin-top:14px;">⏳ Aguardando pagamento...</div>
+      `;
+      iniciarPollingPagamento(dados.payment_id);
+    });
+  }
+
+  function copiarPix(codigo) {
+    navigator.clipboard?.writeText(codigo);
+    mostrarToast("pagamento-toast", "Código copiado!", true);
+  }
+
+  function iniciarPollingPagamento(paymentId) {
+    pararPollingPagamento();
+    pagPollingInterval = setInterval(() => {
+      chamarApi("/api/pagamento/status", {payment_id: paymentId}).then(dados => {
+        if (dados.status === "aprovado") {
+          pararPollingPagamento();
+          document.getElementById("pag-conteudo").innerHTML = `<div class="status-badge working">✅ Pagamento aprovado!</div>`;
+          carregarDashboard();
+        }
+      });
+    }, 5000);
   }
 
   // ---------- Inicialização ----------
