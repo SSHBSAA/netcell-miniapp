@@ -28,6 +28,33 @@
     --line: rgba(255,255,255,0.07);
   }
 
+  /* Tema escolhido manualmente pelo cliente (sobrepõe o tema do Telegram) */
+  html[data-theme="dark"]{
+    --tg-theme-bg-color: #12141C;
+    --tg-theme-secondary-bg-color: #1B1E2B;
+    --tg-theme-text-color: #F5F3EE;
+    --tg-theme-hint-color: #8B8FA3;
+    --line: rgba(255,255,255,0.07);
+    --flame: #FF6A3D; --mint: #35D2A4; --gold: #F2B84B;
+  }
+  html[data-theme="light"]{
+    --tg-theme-bg-color: #F5F5F7;
+    --tg-theme-secondary-bg-color: #FFFFFF;
+    --tg-theme-text-color: #16161D;
+    --tg-theme-hint-color: #6B6F7D;
+    --line: rgba(0,0,0,0.08);
+    --flame: #E8552C; --mint: #1B9E78; --gold: #B9800F;
+  }
+
+  .skeleton{
+    display:inline-block; border-radius:6px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.06) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+    color: transparent !important;
+  }
+  @keyframes shimmer{ 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
@@ -442,7 +469,10 @@
       <div class="eyebrow">Suporte Netcell</div>
       <h1>Olá 👋</h1>
     </div>
-    <div class="status-pill"><span class="status-dot"></span>Carregando</div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="status-pill"><span class="status-dot"></span>Carregando</div>
+      <button id="tema-toggle" onclick="alternarTema()" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; font-size:16px; cursor:pointer;">☀️</button>
+    </div>
   </div>
 
   <div id="admin-seletor" style="display:none; margin-bottom:14px;">
@@ -458,13 +488,13 @@
     <div class="flame-top">
       <div>
         <div class="label">Ofertas divulgadas hoje</div>
-        <div class="flame-count">- <small>carregando...</small></div>
+        <div class="flame-count"><span class="skeleton">00</span></div>
       </div>
       <div style="font-size:26px;">🔥</div>
     </div>
     <div class="flame-gauge"><div class="flame-gauge-fill" style="--gauge-to:0%; width:0%;"></div></div>
     <div class="flame-foot">
-      <span id="flame-ritmo">-</span>
+      <span id="flame-ritmo" class="skeleton">0 a cada 00 min</span>
       <span>Reinicia à 00:00</span>
     </div>
   </div>
@@ -472,17 +502,17 @@
   <div class="stat-grid">
     <div class="stat-card">
       <span class="ic">📡</span>
-      <div class="num">-</div>
+      <div class="num"><span class="skeleton">00</span></div>
       <div class="lbl">Canais conectados</div>
     </div>
     <div class="stat-card">
       <span class="ic">🛒</span>
-      <div class="num">-</div>
+      <div class="num"><span class="skeleton">00</span></div>
       <div class="lbl">Ofertas no pool</div>
     </div>
     <div class="stat-card">
       <span class="ic">📦</span>
-      <div class="num">-</div>
+      <div class="num"><span class="skeleton">00</span></div>
       <div class="lbl">Produtos manuais</div>
     </div>
 
@@ -764,19 +794,29 @@
   let initData = "";
   let verClientId = null; // se o admin escolher outro cliente, fica aqui
 
+  // Tema: se o cliente já escolheu antes, usa essa escolha. Senão, começa
+  // sempre escuro (em vez de seguir o tema do Telegram) - resolve o problema
+  // de ficar muito claro/branco pra quem usa o Telegram no modo claro.
+  const temaSalvo = localStorage.getItem("netcell_tema") || "dark";
+  document.documentElement.setAttribute("data-theme", temaSalvo);
+  atualizarIconeTema(temaSalvo);
+
+  function alternarTema() {
+    const atual = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", atual);
+    localStorage.setItem("netcell_tema", atual);
+    atualizarIconeTema(atual);
+  }
+
+  function atualizarIconeTema(tema) {
+    const btn = document.getElementById("tema-toggle");
+    if (btn) btn.textContent = tema === "dark" ? "☀️" : "🌙";
+  }
+
   if (tg) {
     tg.ready();
     tg.expand();
     initData = tg.initData || "";
-
-    const root = document.documentElement.style;
-    const p = tg.themeParams || {};
-    if (p.bg_color) root.setProperty('--tg-theme-bg-color', p.bg_color);
-    if (p.secondary_bg_color) root.setProperty('--tg-theme-secondary-bg-color', p.secondary_bg_color);
-    if (p.text_color) root.setProperty('--tg-theme-text-color', p.text_color);
-    if (p.hint_color) root.setProperty('--tg-theme-hint-color', p.hint_color);
-    if (p.button_color) root.setProperty('--tg-theme-button-color', p.button_color);
-    if (p.button_text_color) root.setProperty('--tg-theme-button-text-color', p.button_text_color);
   }
 
   // ---------- Chamada genérica pra API, sempre incluindo o initData ----------
@@ -909,7 +949,9 @@
       const pct = dados.meta_diaria > 0 ? Math.min(100, Math.round((dados.posts_hoje / dados.meta_diaria) * 100)) : 0;
       document.querySelector(".flame-gauge-fill").style.setProperty("--gauge-to", `${pct}%`);
       document.querySelector(".flame-gauge-fill").style.width = `${pct}%`;
-      document.getElementById("flame-ritmo").textContent = `1 a cada ${formatarMinutos(dados.intervalo_minutos)}`;
+      const ritmoEl = document.getElementById("flame-ritmo");
+      ritmoEl.textContent = `${dados.posts_por_ciclo} a cada ${formatarMinutos(dados.intervalo_minutos)}`;
+      ritmoEl.classList.remove("skeleton");
       document.querySelectorAll(".stat-card .num")[0].textContent = dados.canais_conectados;
       document.querySelectorAll(".stat-card .num")[1].textContent = dados.produtos_disponiveis;
       document.querySelectorAll(".stat-card .num")[2].textContent = dados.produtos_manuais;
