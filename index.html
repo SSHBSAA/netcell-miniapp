@@ -464,7 +464,7 @@
     </div>
     <div class="flame-gauge"><div class="flame-gauge-fill" style="--gauge-to:62%"></div></div>
     <div class="flame-foot">
-      <span>1 a cada 12 min</span>
+      <span id="flame-ritmo">1 a cada 12 min</span>
       <span>Reinicia à 00:00</span>
     </div>
   </div>
@@ -869,6 +869,11 @@
     return Number(valor).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
   }
 
+  function formatarMinutos(minutos) {
+    const labels = {5: "5 min", 10: "10 min", 15: "15 min", 20: "20 min", 30: "30 min", 60: "1 hora", 180: "3 horas", 300: "5 horas"};
+    return labels[minutos] || `${minutos} min`;
+  }
+
   function renderizarOfertasRecentes(lista) {
     const container = document.getElementById("ofertas-recentes-lista");
     if (!lista || !lista.length) {
@@ -898,7 +903,11 @@
     chamarApi("/api/dashboard").then(dados => {
       if (dados.error) { console.error(dados.error); return; }
       document.querySelector(".header .greet h1").textContent = `Olá, ${dados.nome} 👋`;
-      document.querySelector(".flame-count").innerHTML = `${dados.posts_hoje} <small>/ atualizado agora</small>`;
+      document.querySelector(".flame-count").innerHTML = `${dados.posts_hoje} <small>/ ${dados.meta_diaria} no ritmo atual</small>`;
+      const pct = dados.meta_diaria > 0 ? Math.min(100, Math.round((dados.posts_hoje / dados.meta_diaria) * 100)) : 0;
+      document.querySelector(".flame-gauge-fill").style.setProperty("--gauge-to", `${pct}%`);
+      document.querySelector(".flame-gauge-fill").style.width = `${pct}%`;
+      document.getElementById("flame-ritmo").textContent = `1 a cada ${formatarMinutos(dados.intervalo_minutos)}`;
       document.querySelectorAll(".stat-card .num")[0].textContent = dados.canais_conectados;
       document.querySelectorAll(".stat-card .num")[1].textContent = dados.produtos_disponiveis;
       document.querySelectorAll(".stat-card .num")[2].textContent = dados.produtos_manuais;
