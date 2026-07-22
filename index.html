@@ -9,41 +9,46 @@
   @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
   :root{
-    /* Fallback quando aberto fora do Telegram (ex: navegador comum) */
-    --tg-theme-bg-color: #12141C;
-    --tg-theme-secondary-bg-color: #1B1E2B;
-    --tg-theme-text-color: #F5F3EE;
-    --tg-theme-hint-color: #8B8FA3;
-    --tg-theme-button-color: #FF6A3D;
-    --tg-theme-button-text-color: #14141A;
+    /* Nomes só nossos - o Telegram NÃO controla essas, então nosso botão
+    de tema funciona de verdade dentro do app (o Telegram sobrescreve as
+    variáveis --tg-theme-* dele mesmo, então não usamos mais elas aqui). */
+    --app-bg: #12141C;
+    --app-surface: #1B1E2B;
+    --app-ink: #F5F3EE;
+    --app-muted: #8B8FA3;
+    --app-line: rgba(255,255,255,0.07);
+    --app-flame: #FF6A3D;
+    --app-mint: #35D2A4;
+    --app-gold: #B9800F;
 
-    --flame: #FF6A3D;
     --flame-dim: #C6522D;
-    --mint: #35D2A4;
-    --gold: #F2B84B;
-    --surface: var(--tg-theme-secondary-bg-color);
-    --bg: var(--tg-theme-bg-color);
-    --ink: var(--tg-theme-text-color);
-    --muted: var(--tg-theme-hint-color);
-    --line: rgba(255,255,255,0.07);
+    --surface: var(--app-surface);
+    --bg: var(--app-bg);
+    --ink: var(--app-ink);
+    --muted: var(--app-muted);
+    --line: var(--app-line);
+    --flame: var(--app-flame);
+    --mint: var(--app-mint);
+    --gold: var(--app-gold);
   }
 
-  /* Tema escolhido manualmente pelo cliente (sobrepõe o tema do Telegram) */
+  /* Tema escolhido manualmente pelo cliente (nunca é sobrescrito pelo
+  Telegram, já que não usamos mais os nomes --tg-theme-*) */
   html[data-theme="dark"]{
-    --tg-theme-bg-color: #12141C;
-    --tg-theme-secondary-bg-color: #1B1E2B;
-    --tg-theme-text-color: #F5F3EE;
-    --tg-theme-hint-color: #8B8FA3;
-    --line: rgba(255,255,255,0.07);
-    --flame: #FF6A3D; --mint: #35D2A4; --gold: #F2B84B;
+    --app-bg: #12141C;
+    --app-surface: #1B1E2B;
+    --app-ink: #F5F3EE;
+    --app-muted: #8B8FA3;
+    --app-line: rgba(255,255,255,0.07);
+    --app-flame: #FF6A3D; --app-mint: #35D2A4; --app-gold: #F2B84B;
   }
   html[data-theme="light"]{
-    --tg-theme-bg-color: #F5F5F7;
-    --tg-theme-secondary-bg-color: #FFFFFF;
-    --tg-theme-text-color: #16161D;
-    --tg-theme-hint-color: #6B6F7D;
-    --line: rgba(0,0,0,0.08);
-    --flame: #E8552C; --mint: #1B9E78; --gold: #B9800F;
+    --app-bg: #F5F5F7;
+    --app-surface: #FFFFFF;
+    --app-ink: #16161D;
+    --app-muted: #6B6F7D;
+    --app-line: rgba(0,0,0,0.08);
+    --app-flame: #E8552C; --app-mint: #1B9E78; --app-gold: #B9800F;
   }
 
   .skeleton{
@@ -242,8 +247,8 @@
     display:flex; align-items:center; justify-content:center; gap:7px;
   }
   .btn-primary{
-    background: var(--tg-theme-button-color);
-    color: var(--tg-theme-button-text-color);
+    background: var(--flame);
+    color: #14141A;
   }
   .btn-ghost{
     background: transparent;
