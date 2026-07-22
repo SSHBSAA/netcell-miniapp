@@ -236,9 +236,124 @@
     color: var(--gold);
     line-height:1.5;
   }
+
+  /* ---------- Menu de ferramentas (grade de atalhos) ---------- */
+  .tool-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:10px;
+    margin-top:10px;
+  }
+  .tool-btn{
+    display:flex; flex-direction:column; align-items:flex-start; gap:6px;
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px 12px;
+    cursor:pointer;
+    text-align:left;
+    font-family:'Inter', sans-serif;
+    color: var(--ink);
+  }
+  .tool-btn .ic{ font-size:19px; }
+  .tool-btn .tt{ font-size:12.5px; font-weight:600; line-height:1.25; }
+  .tool-btn:active{ transform: scale(0.98); }
+  .tool-btn.disabled{
+    opacity:0.45;
+    cursor:not-allowed;
+  }
+  .tool-btn .soon{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9px; letter-spacing:.06em;
+    color: var(--gold);
+    text-transform:uppercase;
+  }
+
+  /* ---------- Telas internas (canais / filtros / tempo / marketplace) ---------- */
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  .view-header{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:16px;
+  }
+  .view-header h2{ font-size:17px; font-weight:700; }
+  .back-btn{
+    width:34px; height:34px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--surface); border:1px solid var(--line);
+    color: var(--ink); font-size:16px; cursor:pointer; flex-shrink:0;
+  }
+
+  .field{ margin-bottom:14px; }
+  .field label{
+    display:block; font-size:12px; color:var(--muted); margin-bottom:6px; font-weight:500;
+  }
+  .field input, .field select{
+    width:100%;
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:11px 12px;
+    color: var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+  }
+  .field input:focus, .field select:focus{
+    outline:none; border-color: var(--flame);
+  }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+  .save-btn{
+    width:100%;
+    background: var(--flame);
+    color:#14141A;
+    border:none; border-radius:14px;
+    padding:14px;
+    font-family:'Sora', sans-serif; font-weight:700; font-size:14px;
+    cursor:pointer;
+    margin-top:6px;
+  }
+  .save-btn:active{ transform: scale(0.98); }
+  .save-btn:disabled{ opacity:0.5; }
+
+  .toast{
+    margin-top:12px;
+    padding:10px 12px;
+    border-radius:12px;
+    font-size:12.5px;
+    display:none;
+  }
+  .toast.ok{ background: rgba(53,210,164,0.12); border:1px solid rgba(53,210,164,0.35); color:var(--mint); }
+  .toast.err{ background: rgba(255,90,90,0.12); border:1px solid rgba(255,90,90,0.35); color:#ff8f8f; }
+
+  .canal-item{
+    display:flex; justify-content:space-between; align-items:center;
+    background: var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:12px 13px; margin-bottom:9px;
+  }
+  .canal-item .info{ font-size:13px; }
+  .canal-item .info .tipo{ color:var(--muted); font-size:10.5px; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; }
+  .canal-item .del{
+    background:none; border:none; color:#ff8f8f; font-size:16px; cursor:pointer;
+    width:30px; height:30px; border-radius:8px;
+  }
+  .canal-item .del:active{ background: rgba(255,90,90,0.12); }
+
+  .empty-state{
+    text-align:center; padding:24px 10px; color:var(--muted); font-size:13px;
+  }
+
+  .divider-label{
+    font-size:11px; color:var(--muted); text-transform:uppercase;
+    letter-spacing:.08em; font-family:'IBM Plex Mono',monospace;
+    margin:18px 0 10px;
+  }
 </style>
 </head>
 <body>
+
+  <div id="view-home" class="view active">
 
   <div class="header">
     <div class="greet">
@@ -314,24 +429,167 @@
     <div class="offer-chan">📱</div>
   </div>
 
-  <div class="cta-row">
-    <button class="btn btn-primary" id="btnFiltros">🎯 Meus filtros</button>
-    <button class="btn btn-ghost" id="btnCanais">📡 Meus canais</button>
+  <div class="divider-label">Ferramentas</div>
+  <div class="tool-grid">
+    <div class="tool-btn" onclick="mostrarView('canais')">
+      <span class="ic">📡</span><span class="tt">Meus canais</span>
+    </div>
+    <div class="tool-btn" onclick="mostrarView('filtros')">
+      <span class="ic">🎯</span><span class="tt">Meus filtros</span>
+    </div>
+    <div class="tool-btn" onclick="mostrarView('tempo')">
+      <span class="ic">⏱️</span><span class="tt">Tempo de divulgação</span>
+    </div>
+    <div class="tool-btn" onclick="mostrarView('marketplace')">
+      <span class="ic">🛒</span><span class="tt">Configurar API</span>
+    </div>
+    <div class="tool-btn disabled" onclick="emBreve()">
+      <span class="ic">🔗</span><span class="tt">Conectar WhatsApp</span><span class="soon">Em breve</span>
+    </div>
+    <div class="tool-btn disabled" onclick="emBreve()">
+      <span class="ic">📦</span><span class="tt">Produtos manuais</span><span class="soon">Em breve</span>
+    </div>
+    <div class="tool-btn disabled" onclick="emBreve()">
+      <span class="ic">💳</span><span class="tt">Renovar/Pagar</span><span class="soon">Em breve</span>
+    </div>
   </div>
 
   <div class="demo-note">
-    ✨ Isso é um <b>demo visual</b> — os dados aqui são fixos, só pra mostrar como um
-    Mini App do Telegram ficaria no lugar do menu de botões. Abrindo dentro do
-    Telegram de verdade, ele herda automaticamente as cores do tema do usuário
-    (claro ou escuro).
+    ✨ O Dashboard e as ferramentas <b>Meus canais, Meus filtros, Tempo de divulgação
+    e Configurar API</b> já usam dados reais do seu bot. As demais (WhatsApp,
+    Produtos manuais, Pagamento) ainda estão só visuais, chegam em breve.
+  </div>
+
+  </div><!-- /view-home -->
+
+  <!-- ===================== VIEW: Meus canais ===================== -->
+  <div id="view-canais" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="mostrarView('home')">←</div>
+      <h2>📡 Meus canais</h2>
+    </div>
+
+    <div id="canais-lista"><div class="empty-state">Carregando...</div></div>
+
+    <div class="divider-label">Adicionar canal (Telegram)</div>
+    <div class="field">
+      <label>ID ou @usuário do canal</label>
+      <input type="text" id="canal-destino" placeholder="-1001234567890 ou @meucanal">
+    </div>
+    <div class="field">
+      <label>Token do bot (deixe vazio pra usar o bot central)</label>
+      <input type="text" id="canal-token" placeholder="Opcional">
+    </div>
+    <button class="save-btn" onclick="salvarCanal()">Adicionar canal</button>
+    <div class="toast" id="canal-toast"></div>
+  </div>
+
+  <!-- ===================== VIEW: Meus filtros ===================== -->
+  <div id="view-filtros" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="mostrarView('home')">←</div>
+      <h2>🎯 Meus filtros</h2>
+    </div>
+
+    <div class="field">
+      <label>Palavras-chave (separadas por vírgula)</label>
+      <input type="text" id="f-palavras" placeholder="ex: banho,cozinha">
+    </div>
+    <div class="field">
+      <label>Desconto mínimo (%)</label>
+      <input type="number" id="f-desconto" placeholder="20">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Preço mínimo (R$)</label>
+        <input type="number" id="f-preco-min" placeholder="0">
+      </div>
+      <div class="field">
+        <label>Preço máximo (R$)</label>
+        <input type="number" id="f-preco-max" placeholder="999999">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Nota mínima</label>
+        <input type="number" step="0.1" id="f-nota" placeholder="4.0">
+      </div>
+      <div class="field">
+        <label>Máx. posts/dia</label>
+        <input type="number" id="f-max-dia" placeholder="20">
+      </div>
+    </div>
+    <button class="save-btn" onclick="salvarFiltros()">Salvar filtros</button>
+    <div class="toast" id="filtros-toast"></div>
+  </div>
+
+  <!-- ===================== VIEW: Tempo de divulgação ===================== -->
+  <div id="view-tempo" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="mostrarView('home')">←</div>
+      <h2>⏱️ Tempo de divulgação</h2>
+    </div>
+
+    <div class="field">
+      <label>De quanto em quanto tempo</label>
+      <select id="t-intervalo">
+        <option value="5">5 min</option>
+        <option value="10">10 min</option>
+        <option value="15">15 min</option>
+        <option value="20">20 min</option>
+        <option value="30">30 min</option>
+        <option value="60">1 hora</option>
+        <option value="180">3 horas</option>
+        <option value="300">5 horas</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Quantos produtos por vez</label>
+      <select id="t-quantidade">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+      </select>
+    </div>
+    <button class="save-btn" onclick="salvarTempo()">Salvar</button>
+    <div class="toast" id="tempo-toast"></div>
+  </div>
+
+  <!-- ===================== VIEW: Configurar API (marketplace) ===================== -->
+  <div id="view-marketplace" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="mostrarView('home')">←</div>
+      <h2>🛒 Configurar API</h2>
+    </div>
+
+    <div id="marketplace-status" class="empty-state">Carregando...</div>
+
+    <div class="divider-label">Shopee</div>
+    <div class="field">
+      <label>App ID</label>
+      <input type="text" id="m-app-id" placeholder="Seu App ID da Shopee">
+    </div>
+    <div class="field">
+      <label>App Secret</label>
+      <input type="text" id="m-app-secret" placeholder="Seu App Secret da Shopee">
+    </div>
+    <button class="save-btn" onclick="salvarMarketplace()">Salvar credencial</button>
+    <div class="toast" id="marketplace-toast"></div>
   </div>
 
 <script>
-  // Se estiver rodando dentro do Telegram de verdade, usa as cores reais do tema do usuário
-  if (window.Telegram && window.Telegram.WebApp) {
-    const tg = window.Telegram.WebApp;
+  const API_BASE = "https://huntington-navy-benz-tea.trycloudflare.com"; // ⚠️ troque pela sua URL
+
+  const tg = window.Telegram?.WebApp;
+  let initData = "";
+
+  if (tg) {
     tg.ready();
     tg.expand();
+    initData = tg.initData || "";
 
     const root = document.documentElement.style;
     const p = tg.themeParams || {};
@@ -341,47 +599,180 @@
     if (p.hint_color) root.setProperty('--tg-theme-hint-color', p.hint_color);
     if (p.button_color) root.setProperty('--tg-theme-button-color', p.button_color);
     if (p.button_text_color) root.setProperty('--tg-theme-button-text-color', p.button_text_color);
-
-    // ⚠️ Troque pela URL real da sua API (o túnel/domínio do mini_app_api.py)
-    const API_URL = "https://lions-harry-poll-postings.trycloudflare.com/api/dashboard";
-
-    fetch(API_URL, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({initData: tg.initData}),
-    })
-      .then(r => r.json())
-      .then(dados => {
-        if (dados.error) {
-          console.error("Erro da API:", dados.error);
-          return;
-        }
-        document.querySelector(".header .greet h1").textContent = `Olá, ${dados.nome} 👋`;
-        document.querySelector(".flame-count").innerHTML =
-          `${dados.posts_hoje} <small>/ atualizado agora</small>`;
-        document.querySelectorAll(".stat-card .num")[0].textContent = dados.canais_conectados;
-        document.querySelectorAll(".stat-card .num")[1].textContent = dados.produtos_disponiveis;
-        document.querySelectorAll(".stat-card .num")[2].textContent = dados.produtos_manuais;
-
-        const statusPill = document.querySelector(".status-pill");
-        if (!dados.motor_rodando) {
-          statusPill.innerHTML = `<span class="status-dot" style="background:#ff5a5a"></span>Parado`;
-          statusPill.style.background = "rgba(255,90,90,0.12)";
-          statusPill.style.borderColor = "rgba(255,90,90,0.35)";
-          statusPill.style.color = "#ff5a5a";
-        }
-      })
-      .catch(err => console.error("Não consegui carregar os dados reais:", err));
   }
 
-  document.getElementById('btnFiltros').addEventListener('click', () => {
-    if (window.Telegram?.WebApp) window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-    alert('Aqui abriria a tela de filtros (demo)');
-  });
-  document.getElementById('btnCanais').addEventListener('click', () => {
-    if (window.Telegram?.WebApp) window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-    alert('Aqui abriria a tela de canais (demo)');
-  });
+  // ---------- Chamada genérica pra API, sempre incluindo o initData ----------
+  async function chamarApi(endpoint, body = {}) {
+    const resp = await fetch(`${API_BASE}${endpoint}`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({initData, ...body}),
+    });
+    return resp.json();
+  }
+
+  function mostrarToast(elId, texto, ok) {
+    const el = document.getElementById(elId);
+    el.textContent = texto;
+    el.className = "toast " + (ok ? "ok" : "err");
+    el.style.display = "block";
+    setTimeout(() => { el.style.display = "none"; }, 4000);
+  }
+
+  // ---------- Navegação entre telas ----------
+  function mostrarView(nome) {
+    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+    document.getElementById(`view-${nome}`).classList.add("active");
+    if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+
+    if (nome === "home") {
+      tg?.BackButton?.hide();
+    } else {
+      tg?.BackButton?.show();
+      if (nome === "canais") carregarCanais();
+      if (nome === "filtros") carregarFiltros();
+      if (nome === "tempo") carregarTempo();
+      if (nome === "marketplace") carregarMarketplace();
+    }
+  }
+  tg?.BackButton?.onClick(() => mostrarView('home'));
+
+  function emBreve() {
+    if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
+    alert('Essa parte ainda não está pronta - chega em breve! 🚧');
+  }
+
+  // ---------- Dashboard ----------
+  function carregarDashboard() {
+    chamarApi("/api/dashboard").then(dados => {
+      if (dados.error) { console.error(dados.error); return; }
+      document.querySelector(".header .greet h1").textContent = `Olá, ${dados.nome} 👋`;
+      document.querySelector(".flame-count").innerHTML = `${dados.posts_hoje} <small>/ atualizado agora</small>`;
+      document.querySelectorAll(".stat-card .num")[0].textContent = dados.canais_conectados;
+      document.querySelectorAll(".stat-card .num")[1].textContent = dados.produtos_disponiveis;
+      document.querySelectorAll(".stat-card .num")[2].textContent = dados.produtos_manuais;
+
+      const statusPill = document.querySelector(".status-pill");
+      if (!dados.motor_rodando) {
+        statusPill.innerHTML = `<span class="status-dot" style="background:#ff5a5a"></span>Parado`;
+        statusPill.style.background = "rgba(255,90,90,0.12)";
+        statusPill.style.borderColor = "rgba(255,90,90,0.35)";
+        statusPill.style.color = "#ff5a5a";
+      }
+    }).catch(err => console.error("Não consegui carregar o dashboard:", err));
+  }
+
+  // ---------- Canais ----------
+  function carregarCanais() {
+    const lista = document.getElementById("canais-lista");
+    lista.innerHTML = `<div class="empty-state">Carregando...</div>`;
+    chamarApi("/api/canais").then(dados => {
+      if (dados.error) { lista.innerHTML = `<div class="empty-state">${dados.error}</div>`; return; }
+      if (!dados.canais.length) {
+        lista.innerHTML = `<div class="empty-state">Nenhum canal ainda.</div>`;
+        return;
+      }
+      lista.innerHTML = dados.canais.map(c => `
+        <div class="canal-item">
+          <div class="info">${c.destino}<div class="tipo">${c.tipo}</div></div>
+          <button class="del" onclick="removerCanal(${c.channel_id})">🗑️</button>
+        </div>
+      `).join("");
+    });
+  }
+
+  function salvarCanal() {
+    const destino = document.getElementById("canal-destino").value.trim();
+    const bot_token = document.getElementById("canal-token").value.trim();
+    if (!destino) { mostrarToast("canal-toast", "Preencha o ID/usuário do canal.", false); return; }
+
+    chamarApi("/api/canais/adicionar", {destino, bot_token}).then(dados => {
+      if (dados.error) { mostrarToast("canal-toast", dados.error, false); return; }
+      mostrarToast("canal-toast", "Canal adicionado!", true);
+      document.getElementById("canal-destino").value = "";
+      document.getElementById("canal-token").value = "";
+      carregarCanais();
+    });
+  }
+
+  function removerCanal(id) {
+    chamarApi("/api/canais/remover", {channel_id: id}).then(dados => {
+      if (dados.error) { mostrarToast("canal-toast", dados.error, false); return; }
+      carregarCanais();
+    });
+  }
+
+  // ---------- Filtros ----------
+  function carregarFiltros() {
+    chamarApi("/api/filtros").then(dados => {
+      if (dados.error) return;
+      document.getElementById("f-palavras").value = dados.palavras_chave || "";
+      document.getElementById("f-desconto").value = dados.desconto_minimo;
+      document.getElementById("f-preco-min").value = dados.preco_min;
+      document.getElementById("f-preco-max").value = dados.preco_max;
+      document.getElementById("f-nota").value = dados.nota_minima;
+      document.getElementById("f-max-dia").value = dados.max_posts_dia;
+    });
+  }
+
+  function salvarFiltros() {
+    const body = {
+      palavras_chave: document.getElementById("f-palavras").value.trim(),
+      desconto_minimo: Number(document.getElementById("f-desconto").value || 0),
+      preco_min: Number(document.getElementById("f-preco-min").value || 0),
+      preco_max: Number(document.getElementById("f-preco-max").value || 999999),
+      nota_minima: Number(document.getElementById("f-nota").value || 0),
+      max_posts_dia: Number(document.getElementById("f-max-dia").value || 20),
+    };
+    chamarApi("/api/filtros/salvar", body).then(dados => {
+      mostrarToast("filtros-toast", dados.error || "Filtros salvos!", !dados.error);
+    });
+  }
+
+  // ---------- Tempo de divulgação ----------
+  function carregarTempo() {
+    chamarApi("/api/tempo").then(dados => {
+      if (dados.error) return;
+      document.getElementById("t-intervalo").value = dados.intervalo_minutos;
+      document.getElementById("t-quantidade").value = dados.posts_por_ciclo;
+    });
+  }
+
+  function salvarTempo() {
+    const body = {
+      intervalo_minutos: Number(document.getElementById("t-intervalo").value),
+      posts_por_ciclo: Number(document.getElementById("t-quantidade").value),
+    };
+    chamarApi("/api/tempo/salvar", body).then(dados => {
+      mostrarToast("tempo-toast", dados.error || "Tempo de divulgação salvo!", !dados.error);
+    });
+  }
+
+  // ---------- Marketplace (API) ----------
+  function carregarMarketplace() {
+    const statusEl = document.getElementById("marketplace-status");
+    chamarApi("/api/marketplace").then(dados => {
+      if (dados.error) { statusEl.textContent = dados.error; return; }
+      statusEl.textContent = dados.configurados.length
+        ? `✅ Configurado: ${dados.configurados.join(", ")}`
+        : "Nenhum marketplace configurado ainda.";
+    });
+  }
+
+  function salvarMarketplace() {
+    const body = {
+      marketplace: "shopee",
+      app_id: document.getElementById("m-app-id").value.trim(),
+      app_secret: document.getElementById("m-app-secret").value.trim(),
+    };
+    chamarApi("/api/marketplace/salvar", body).then(dados => {
+      mostrarToast("marketplace-toast", dados.error || "Credencial salva!", !dados.error);
+      if (!dados.error) carregarMarketplace();
+    });
+  }
+
+  // ---------- Inicialização ----------
+  if (tg) carregarDashboard();
 </script>
 
 </body>
