@@ -608,7 +608,7 @@
     <div class="field">
       <label>Link do produto (já com seu link de afiliado)</label>
       <input type="text" id="man-url" placeholder="https://...">
-      <button class="save-btn" style="margin-top:8px; background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="buscarProdutoManual()">🔍 Tentar buscar dados automaticamente</button>
+      <button id="man-buscar-btn" class="save-btn" style="margin-top:8px; background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="buscarProdutoManual()">🔍 Tentar buscar dados automaticamente</button>
     </div>
     <div class="field">
       <label>Nome do produto</label>
@@ -648,7 +648,7 @@
         <option value="5">5</option>
       </select>
     </div>
-    <button class="save-btn" onclick="salvarManual()">Adicionar produto</button>
+    <button id="man-salvar-btn" class="save-btn" onclick="salvarManual()">Adicionar produto</button>
     <div class="toast" id="manuais-toast"></div>
   </div>
 
@@ -675,13 +675,27 @@
   }
 
   // ---------- Chamada genérica pra API, sempre incluindo o initData ----------
-  async function chamarApi(endpoint, body = {}) {
-    const resp = await fetch(`${API_BASE}${endpoint}`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({initData, ver_client_id: verClientId, ...body}),
-    });
-    return resp.json();
+  async function chamarApi(endpoint, body = {}, timeoutMs = 20000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+      const resp = await fetch(`${API_BASE}${endpoint}`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({initData, ver_client_id: verClientId, ...body}),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      return await resp.json();
+    } catch (err) {
+      clearTimeout(timeoutId);
+      console.error(`Falha ao chamar ${endpoint}:`, err);
+      if (err.name === "AbortError") {
+        return {error: "Demorou demais pra responder. Confira sua conexão e tenta de novo."};
+      }
+      return {error: "Não consegui falar com o servidor agora. Tenta de novo em instantes."};
+    }
   }
 
   // ---------- Seletor de cliente (só aparece se for admin) ----------
@@ -929,14 +943,22 @@
     const url = document.getElementById("man-url").value.trim();
     if (!url) { mostrarToast("manuais-toast", "Cola o link primeiro.", false); return; }
 
-    mostrarToast("manuais-toast", "Buscando...", true);
-    chamarApi("/api/manuais/buscar", {produto_url: url}).then(dados => {
+    const btn = document.getElementById("man-buscar-btn");
+    btn.disabled = true;
+    btn.textContent = "⏳ Buscando... pode levar até 1 minuto";
+
+    chamarApi("/api/manuais/buscar", {produto_url: url}, 90000).then(dados => {
+      btn.disabled = false;
+      btn.textContent = "🔍 Tentar buscar dados automaticamente";
+
       if (dados.produto_nome) document.getElementById("man-nome").value = dados.produto_nome;
       if (dados.imagem_url) document.getElementById("man-imagem").value = dados.imagem_url;
       if (dados.preco) document.getElementById("man-preco").value = String(dados.preco).replace(".", ",");
       if (dados.preco_original) document.getElementById("man-preco-original").value = String(dados.preco_original).replace(".", ",");
 
-      if (!dados.produto_nome && !dados.imagem_url) {
+      if (dados.error) {
+        mostrarToast("manuais-toast", dados.error, false);
+      } else if (!dados.produto_nome && !dados.imagem_url) {
         mostrarToast("manuais-toast", "Não consegui buscar automaticamente dessa vez - preenche na mão mesmo.", false);
       } else {
         mostrarToast("manuais-toast", "Dados encontrados! Confira antes de salvar.", true);
@@ -959,7 +981,14 @@
       mostrarToast("manuais-toast", "Preencha ao menos o link e o nome do produto.", false);
       return;
     }
+
+    const btn = document.getElementById("man-salvar-btn");
+    btn.disabled = true;
+    btn.textContent = "Salvando...";
+
     chamarApi("/api/manuais/adicionar", body).then(dados => {
+      btn.disabled = false;
+      btn.textContent = "Adicionar produto";
       mostrarToast("manuais-toast", dados.error || "Produto adicionado!", !dados.error);
       if (!dados.error) {
         ["man-url","man-nome","man-imagem","man-preco","man-preco-original","man-nota","man-vendas"]
