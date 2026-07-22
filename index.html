@@ -237,14 +237,17 @@
     line-height:1.5;
   }
 
-  /* ---------- Menu de ferramentas (grade de atalhos) ---------- */
-  .tool-grid{
+  /* ---------- Layout de duas colunas na tela inicial (dashboard + dock) ---------- */
+  .home-grid{
+    display:block; /* no celular, empilhado normalmente */
+  }
+  .tools-dock{
     display:grid;
     grid-template-columns: repeat(2, 1fr);
     gap:10px;
     margin-top:10px;
   }
-  .tool-btn{
+  .dock-item{
     display:flex; flex-direction:column; align-items:flex-start; gap:6px;
     background: var(--surface);
     border:1px solid var(--line);
@@ -255,18 +258,43 @@
     font-family:'Inter', sans-serif;
     color: var(--ink);
   }
-  .tool-btn .ic{ font-size:19px; }
-  .tool-btn .tt{ font-size:12.5px; font-weight:600; line-height:1.25; }
-  .tool-btn:active{ transform: scale(0.98); }
-  .tool-btn.disabled{
+  .dock-item .ic{ font-size:19px; }
+  .dock-item .tt{ font-size:12.5px; font-weight:600; line-height:1.25; }
+  .dock-item:active{ transform: scale(0.98); }
+  .dock-item.disabled{
     opacity:0.45;
     cursor:not-allowed;
   }
-  .tool-btn .soon{
+  .dock-item .soon{
     font-family:'IBM Plex Mono', monospace;
     font-size:9px; letter-spacing:.06em;
     color: var(--gold);
     text-transform:uppercase;
+  }
+
+  /* Em telas largas (Telegram Desktop), vira um dock compacto vertical à direita */
+  @media (min-width: 700px){
+    body{ max-width:820px; }
+    .home-grid{
+      display:grid;
+      grid-template-columns: 1fr 84px;
+      gap:16px;
+      align-items:start;
+    }
+    .tools-dock{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .dock-item{
+      align-items:center;
+      text-align:center;
+      padding:10px 4px;
+      gap:4px;
+    }
+    .dock-item .ic{ font-size:18px; }
+    .dock-item .tt{ font-size:9px; line-height:1.15; font-weight:500; color:var(--muted); }
+    .dock-item .soon{ display:none; } /* sem espaço pro rótulo "em breve" nesse tamanho */
   }
 
   /* ---------- Telas internas (canais / filtros / tempo / marketplace) ---------- */
@@ -363,6 +391,9 @@
     <div class="status-pill"><span class="status-dot"></span>Rodando</div>
   </div>
 
+  <div class="home-grid">
+  <div class="home-main">
+
   <!-- Elemento-assinatura -->
   <div class="flame-card">
     <div class="flame-top">
@@ -429,30 +460,33 @@
     <div class="offer-chan">📱</div>
   </div>
 
-  <div class="divider-label">Ferramentas</div>
-  <div class="tool-grid">
-    <div class="tool-btn" onclick="mostrarView('canais')">
+  </div><!-- /home-main -->
+
+  <div class="tools-dock">
+    <div class="dock-item" onclick="mostrarView('canais')">
       <span class="ic">📡</span><span class="tt">Meus canais</span>
     </div>
-    <div class="tool-btn" onclick="mostrarView('filtros')">
+    <div class="dock-item" onclick="mostrarView('filtros')">
       <span class="ic">🎯</span><span class="tt">Meus filtros</span>
     </div>
-    <div class="tool-btn" onclick="mostrarView('tempo')">
+    <div class="dock-item" onclick="mostrarView('tempo')">
       <span class="ic">⏱️</span><span class="tt">Tempo de divulgação</span>
     </div>
-    <div class="tool-btn" onclick="mostrarView('marketplace')">
+    <div class="dock-item" onclick="mostrarView('marketplace')">
       <span class="ic">🛒</span><span class="tt">Configurar API</span>
     </div>
-    <div class="tool-btn disabled" onclick="emBreve()">
+    <div class="dock-item disabled" onclick="emBreve()">
       <span class="ic">🔗</span><span class="tt">Conectar WhatsApp</span><span class="soon">Em breve</span>
     </div>
-    <div class="tool-btn disabled" onclick="emBreve()">
+    <div class="dock-item disabled" onclick="emBreve()">
       <span class="ic">📦</span><span class="tt">Produtos manuais</span><span class="soon">Em breve</span>
     </div>
-    <div class="tool-btn disabled" onclick="emBreve()">
+    <div class="dock-item disabled" onclick="emBreve()">
       <span class="ic">💳</span><span class="tt">Renovar/Pagar</span><span class="soon">Em breve</span>
     </div>
   </div>
+
+  </div><!-- /home-grid -->
 
   <div class="demo-note">
     ✨ O Dashboard e as ferramentas <b>Meus canais, Meus filtros, Tempo de divulgação
