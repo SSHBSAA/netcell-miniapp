@@ -391,6 +391,11 @@
     <div class="status-pill"><span class="status-dot"></span>Rodando</div>
   </div>
 
+  <div id="admin-seletor" style="display:none; margin-bottom:14px;">
+    <label style="display:block; font-size:11px; color:var(--muted); margin-bottom:5px;">👁️ Visualizando como (admin)</label>
+    <select id="admin-cliente-select" style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px; color:var(--ink); font-family:'Inter',sans-serif; font-size:13px;"></select>
+  </div>
+
   <div class="home-grid">
   <div class="home-main">
 
@@ -619,6 +624,7 @@
 
   const tg = window.Telegram?.WebApp;
   let initData = "";
+  let verClientId = null; // se o admin escolher outro cliente, fica aqui
 
   if (tg) {
     tg.ready();
@@ -640,9 +646,35 @@
     const resp = await fetch(`${API_BASE}${endpoint}`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({initData, ...body}),
+      body: JSON.stringify({initData, ver_client_id: verClientId, ...body}),
     });
     return resp.json();
+  }
+
+  // ---------- Seletor de cliente (só aparece se for admin) ----------
+  function configurarSeletorAdmin() {
+    fetch(`${API_BASE}/api/admin/clientes`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({initData}),
+    })
+      .then(r => r.json())
+      .then(dados => {
+        if (dados.error || !dados.clientes) return; // não é admin, segue normal
+
+        const bloco = document.getElementById("admin-seletor");
+        const select = document.getElementById("admin-cliente-select");
+        select.innerHTML = dados.clientes
+          .map(c => `<option value="${c.client_id}">#${c.client_id} - ${c.nome} (${c.status})</option>`)
+          .join("");
+        bloco.style.display = "block";
+
+        select.addEventListener("change", () => {
+          verClientId = Number(select.value);
+          carregarDashboard();
+        });
+      })
+      .catch(() => {});
   }
 
   function mostrarToast(elId, texto, ok) {
@@ -806,7 +838,10 @@
   }
 
   // ---------- Inicialização ----------
-  if (tg) carregarDashboard();
+  if (tg) {
+    carregarDashboard();
+    configurarSeletorAdmin();
+  }
 </script>
 
 </body>
