@@ -440,9 +440,9 @@
   <div class="header">
     <div class="greet">
       <div class="eyebrow">Suporte Netcell</div>
-      <h1>Olá, Loja do João 👋</h1>
+      <h1>Olá 👋</h1>
     </div>
-    <div class="status-pill"><span class="status-dot"></span>Rodando</div>
+    <div class="status-pill"><span class="status-dot"></span>Carregando</div>
   </div>
 
   <div id="admin-seletor" style="display:none; margin-bottom:14px;">
@@ -458,13 +458,13 @@
     <div class="flame-top">
       <div>
         <div class="label">Ofertas divulgadas hoje</div>
-        <div class="flame-count">62 <small>/ 100 no ritmo atual</small></div>
+        <div class="flame-count">- <small>carregando...</small></div>
       </div>
       <div style="font-size:26px;">🔥</div>
     </div>
-    <div class="flame-gauge"><div class="flame-gauge-fill" style="--gauge-to:62%"></div></div>
+    <div class="flame-gauge"><div class="flame-gauge-fill" style="--gauge-to:0%; width:0%;"></div></div>
     <div class="flame-foot">
-      <span id="flame-ritmo">1 a cada 12 min</span>
+      <span id="flame-ritmo">-</span>
       <span>Reinicia à 00:00</span>
     </div>
   </div>
@@ -472,19 +472,20 @@
   <div class="stat-grid">
     <div class="stat-card">
       <span class="ic">📡</span>
-      <div class="num">2</div>
+      <div class="num">-</div>
       <div class="lbl">Canais conectados</div>
     </div>
     <div class="stat-card">
       <span class="ic">🛒</span>
-      <div class="num">114</div>
+      <div class="num">-</div>
       <div class="lbl">Ofertas no pool</div>
     </div>
     <div class="stat-card">
       <span class="ic">📦</span>
-      <div class="num">4</div>
+      <div class="num">-</div>
       <div class="lbl">Produtos manuais</div>
     </div>
+
   </div>
 
   <div class="section-title">
@@ -846,6 +847,7 @@
 
     if (nome === "home") {
       tg?.BackButton?.hide();
+      carregarDashboard();
     } else {
       tg?.BackButton?.show();
       if (nome === "canais") carregarCanais();
