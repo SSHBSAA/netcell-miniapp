@@ -22,6 +22,7 @@
     --app-gold: #B9800F;
 
     --flame-dim: var(--app-flame-dim);
+    --sucesso: #35D2A4;
     --surface: var(--app-surface);
     --bg: var(--app-bg);
     --ink: var(--app-ink);
@@ -120,7 +121,7 @@
     display:flex; align-items:center; gap:6px;
     background: rgba(53,210,164,0.12);
     border:1px solid rgba(53,210,164,0.35);
-    color: var(--mint);
+    color: var(--sucesso);
     font-family:'IBM Plex Mono', monospace;
     font-size:11px;
     padding:6px 10px;
@@ -129,7 +130,7 @@
   }
   .status-dot{
     width:7px; height:7px; border-radius:50%;
-    background: var(--mint);
+    background: var(--sucesso);
     box-shadow: 0 0 0 0 rgba(53,210,164,0.5);
     animation: pulse 2s infinite;
   }
@@ -275,8 +276,21 @@
     margin-bottom:4px;
   }
   .offer-price{ display:flex; align-items:baseline; gap:6px; }
-  .offer-price .now{ font-family:'IBM Plex Mono',monospace; color:var(--mint); font-weight:600; font-size:13px;}
+  .offer-price .now{ font-family:'IBM Plex Mono',monospace; color:var(--sucesso); font-weight:600; font-size:13px;}
   .offer-price .was{ font-family:'IBM Plex Mono',monospace; color:var(--muted); font-size:11px; text-decoration:line-through;}
+
+  .ajuda-card{
+    display:flex; align-items:center; gap:12px;
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:14px; margin-top:14px;
+    text-decoration:none; color:var(--ink);
+  }
+  .ajuda-card .icon-badge{
+    width:38px; height:38px; border-radius:11px; flex-shrink:0;
+    background:rgba(53,210,164,0.14); box-shadow:0 0 16px rgba(53,210,164,0.4); color:var(--sucesso);
+  }
+  .ajuda-nome{ font-size:13px; font-weight:700; }
+  .ajuda-sub{ font-size:11px; color:var(--muted); margin-top:2px; }
   .offer-chan{ font-size:15px; flex-shrink:0; }
 
   /* ---------- Botão principal (imita o MainButton do Telegram) ---------- */
@@ -608,6 +622,14 @@
   <div id="ofertas-recentes-lista">
     <div class="empty-state">Carregando...</div>
   </div>
+
+  <a href="https://wa.me/5591982351518" target="_blank" class="ajuda-card">
+    <div class="icon-badge ib-ajuda"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5Z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5Z"/></svg></span></div>
+    <div>
+      <div class="ajuda-nome">Suporte Netcell</div>
+      <div class="ajuda-sub">Fale com a gente no WhatsApp</div>
+    </div>
+  </a>
 
   </div><!-- /home-main -->
 
