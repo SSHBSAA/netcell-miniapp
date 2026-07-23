@@ -428,6 +428,22 @@
     padding:12px 8px; text-align:center; font-size:12px; font-weight:600; color:var(--ink); cursor:pointer;
   }
   .metodo-btn:active{ transform:scale(0.98); }
+  .metodo-btn.ativo{ background:rgba(255,106,61,0.12); border-color:var(--flame); color:var(--flame); }
+
+  .massa-item{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:12px; margin-bottom:9px;
+  }
+  .massa-item .topo{ display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .massa-item .topo input[type="checkbox"]{ width:18px; height:18px; flex-shrink:0; }
+  .massa-item .url-curta{ font-size:10.5px; color:var(--muted); font-family:'IBM Plex Mono',monospace; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .massa-item .nao-achou{ font-size:10.5px; color:var(--gold); margin-bottom:6px; }
+  .massa-item input{
+    width:100%; background:var(--bg); border:1px solid var(--line); border-radius:8px;
+    padding:7px 9px; color:var(--ink); font-size:12px; margin-bottom:6px;
+  }
+  .massa-item .linha2{ display:flex; gap:6px; }
+  .massa-item .linha2 input{ flex:1; }
 
   .plano-card{
     background:var(--surface); border:1px solid var(--line); border-radius:16px;
@@ -712,6 +728,12 @@
     <div id="manuais-lista"><div class="empty-state">Carregando...</div></div>
 
     <div class="divider-label">Adicionar produto</div>
+    <div style="display:flex; gap:8px; margin-bottom:14px;">
+      <div class="metodo-btn ativo" id="tab-individual" onclick="mostrarModoManual('individual')" style="flex:1;">1 por vez</div>
+      <div class="metodo-btn" id="tab-massa" onclick="mostrarModoManual('massa')" style="flex:1;">Em massa</div>
+    </div>
+
+    <div id="manual-modo-individual">
     <div class="field">
       <label>Link do produto (já com seu link de afiliado)</label>
       <input type="text" id="man-url" placeholder="https://...">
@@ -756,6 +778,30 @@
       </select>
     </div>
     <button id="man-salvar-btn" class="save-btn" onclick="salvarManual()">Adicionar produto</button>
+    </div>
+
+    <div id="manual-modo-massa" style="display:none;">
+      <div class="field">
+        <label>Cole vários links, um por linha (até 30 de uma vez)</label>
+        <textarea id="man-massa-urls" rows="6" style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:11px 12px; color:var(--ink); font-family:'Inter',sans-serif; font-size:13px; resize:vertical;" placeholder="https://...&#10;https://...&#10;https://..."></textarea>
+      </div>
+      <button id="man-massa-buscar-btn" class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="buscarProdutosMassa()">🔍 Buscar todos automaticamente</button>
+
+      <div id="man-massa-revisao" style="margin-top:14px;"></div>
+
+      <div class="field" id="man-massa-vezes-wrap" style="display:none; margin-top:10px;">
+        <label>Vezes por dia (pra todos os produtos do lote)</label>
+        <select id="man-massa-vezes">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <button id="man-massa-salvar-btn" class="save-btn" style="display:none; margin-top:10px;" onclick="salvarProdutosMassa()">Cadastrar todos selecionados</button>
+    </div>
+
     <div class="toast" id="manuais-toast"></div>
   </div>
 
@@ -1167,6 +1213,91 @@
   function removerManual(id) {
     chamarApi("/api/manuais/remover", {id}).then(dados => {
       if (dados.error) { mostrarToast("manuais-toast", dados.error, false); return; }
+      carregarManuais();
+    });
+  }
+
+  // ---------- Produtos manuais: cadastro em massa ----------
+  let itensMassa = [];
+
+  function mostrarModoManual(modo) {
+    document.getElementById("tab-individual").classList.toggle("ativo", modo === "individual");
+    document.getElementById("tab-massa").classList.toggle("ativo", modo === "massa");
+    document.getElementById("manual-modo-individual").style.display = modo === "individual" ? "block" : "none";
+    document.getElementById("manual-modo-massa").style.display = modo === "massa" ? "block" : "none";
+  }
+
+  function buscarProdutosMassa() {
+    const texto = document.getElementById("man-massa-urls").value.trim();
+    const urls = texto.split("\n").map(u => u.trim()).filter(u => u);
+    if (!urls.length) { mostrarToast("manuais-toast", "Cola pelo menos um link.", false); return; }
+    if (urls.length > 30) { mostrarToast("manuais-toast", "Máximo de 30 links por vez.", false); return; }
+
+    const btn = document.getElementById("man-massa-buscar-btn");
+    btn.disabled = true;
+    btn.textContent = `⏳ Buscando ${urls.length} produto(s)... pode levar alguns minutos`;
+
+    chamarApi("/api/manuais/buscar_massa", {urls}, 150000).then(dados => {
+      btn.disabled = false;
+      btn.textContent = "🔍 Buscar todos automaticamente";
+
+      if (dados.error) { mostrarToast("manuais-toast", dados.error, false); return; }
+
+      itensMassa = dados.resultados.map(r => ({
+        produto_url: r.produto_url,
+        produto_nome: r.produto_nome || "",
+        imagem_url: r.imagem_url || "",
+        preco: r.preco != null ? String(r.preco).replace(".", ",") : "",
+        preco_original: r.preco_original != null ? String(r.preco_original).replace(".", ",") : "",
+        nota: "", vendas: "",
+        incluir: r.encontrado,
+      }));
+
+      renderizarRevisaoMassa();
+      document.getElementById("man-massa-vezes-wrap").style.display = "block";
+      document.getElementById("man-massa-salvar-btn").style.display = "block";
+    });
+  }
+
+  function renderizarRevisaoMassa() {
+    const container = document.getElementById("man-massa-revisao");
+    container.innerHTML = itensMassa.map((item, i) => `
+      <div class="massa-item">
+        <div class="topo">
+          <input type="checkbox" ${item.incluir ? "checked" : ""} onchange="itensMassa[${i}].incluir = this.checked">
+          <div class="url-curta">${item.produto_url}</div>
+        </div>
+        ${!item.produto_nome ? '<div class="nao-achou">⚠️ Não achei automaticamente - preencha na mão</div>' : ""}
+        <input type="text" placeholder="Nome do produto" value="${(item.produto_nome || "").replace(/"/g, "&quot;")}" onchange="itensMassa[${i}].produto_nome = this.value">
+        <div class="linha2">
+          <input type="text" placeholder="Preço" value="${item.preco}" onchange="itensMassa[${i}].preco = this.value">
+          <input type="text" placeholder="Preço original" value="${item.preco_original}" onchange="itensMassa[${i}].preco_original = this.value">
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function salvarProdutosMassa() {
+    const selecionados = itensMassa.filter(i => i.incluir);
+    if (!selecionados.length) { mostrarToast("manuais-toast", "Marque pelo menos um produto.", false); return; }
+
+    const btn = document.getElementById("man-massa-salvar-btn");
+    btn.disabled = true;
+    btn.textContent = "Salvando...";
+
+    const vezes_por_dia = document.getElementById("man-massa-vezes").value;
+    chamarApi("/api/manuais/adicionar_massa", {itens: selecionados, vezes_por_dia}, 30000).then(dados => {
+      btn.disabled = false;
+      btn.textContent = "Cadastrar todos selecionados";
+
+      if (dados.error) { mostrarToast("manuais-toast", dados.error, false); return; }
+
+      mostrarToast("manuais-toast", `${dados.criados} produto(s) cadastrado(s)!` + (dados.erros.length ? ` (${dados.erros.length} com erro)` : ""), true);
+      itensMassa = [];
+      document.getElementById("man-massa-urls").value = "";
+      document.getElementById("man-massa-revisao").innerHTML = "";
+      document.getElementById("man-massa-vezes-wrap").style.display = "none";
+      document.getElementById("man-massa-salvar-btn").style.display = "none";
       carregarManuais();
     });
   }
