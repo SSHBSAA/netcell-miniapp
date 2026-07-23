@@ -1395,7 +1395,8 @@
         imagem_url: r.imagem_url || "",
         preco: r.preco != null ? String(r.preco).replace(".", ",") : "",
         preco_original: r.preco_original != null ? String(r.preco_original).replace(".", ",") : "",
-        nota: "", vendas: "",
+        nota: r.nota ? String(r.nota).replace(".", ",") : "",
+        vendas: r.vendas != null ? String(r.vendas) : "",
         incluir: r.encontrado,
       }));
       massaPagina = 0;
