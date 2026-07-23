@@ -915,7 +915,7 @@
       </div>
       <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); margin-bottom:10px;">
         <input type="checkbox" id="man-csv-buscar-imagens">
-        🖼️ Tentar buscar imagens também (bem mais lento - máximo 15 produtos por vez usando essa opção)
+        🖼️ Tentar buscar imagens também (bem mais lento - pode levar vários minutos com lotes grandes)
       </label>
       <button id="man-csv-buscar-btn" class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="importarCsvShopee()">📋 Processar linhas</button>
 
@@ -1600,7 +1600,7 @@
     btn.disabled = true;
     btn.textContent = buscarImagens ? "⏳ Processando e buscando imagens... pode levar alguns minutos" : "⏳ Processando...";
 
-    const timeoutMs = buscarImagens ? 600000 : 20000;
+    const timeoutMs = buscarImagens ? 1200000 : 20000;
     chamarApi("/api/manuais/importar_csv_shopee", {csv: texto, buscar_imagens: buscarImagens}, timeoutMs).then(dados => {
       btn.disabled = false;
       btn.textContent = "📋 Processar linhas";
