@@ -895,16 +895,6 @@
       <div id="man-massa-revisao" style="margin-top:14px;"></div>
       <div id="man-massa-paginacao"></div>
 
-      <div class="field" id="man-massa-vezes-wrap" style="display:none; margin-top:10px;">
-        <label>Vezes por dia (pra todos os produtos do lote)</label>
-        <select id="man-massa-vezes">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
       <button id="man-massa-salvar-btn" class="save-btn" style="display:none; margin-top:10px;" onclick="salvarProdutosMassa()">Cadastrar todos selecionados</button>
     </div>
 
@@ -926,16 +916,6 @@
       <div id="man-csv-revisao" style="margin-top:14px;"></div>
       <div id="man-csv-paginacao"></div>
 
-      <div class="field" id="man-csv-vezes-wrap" style="display:none; margin-top:10px;">
-        <label>Vezes por dia (pra todos os produtos do lote)</label>
-        <select id="man-csv-vezes">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
       <button id="man-csv-salvar-btn" class="save-btn" style="display:none; margin-top:10px;" onclick="salvarCsvShopee()">Cadastrar todos selecionados</button>
     </div>
 
@@ -1516,7 +1496,6 @@
       massaPagina = 0;
 
       renderizarRevisaoMassa();
-      document.getElementById("man-massa-vezes-wrap").style.display = "block";
       document.getElementById("man-massa-salvar-btn").style.display = "block";
     });
   }
@@ -1571,7 +1550,7 @@
     btn.disabled = true;
     btn.textContent = "Salvando...";
 
-    const vezes_por_dia = document.getElementById("man-massa-vezes").value;
+    const vezes_por_dia = 1; // sem seletor aqui - o ritmo de envio já é controlado por "Tempo de divulgação"
     chamarApi("/api/manuais/adicionar_massa", {itens: selecionados, vezes_por_dia}, 30000).then(dados => {
       btn.disabled = false;
       btn.textContent = "Cadastrar todos selecionados";
@@ -1582,7 +1561,6 @@
       itensMassa = [];
       document.getElementById("man-massa-urls").value = "";
       document.getElementById("man-massa-revisao").innerHTML = "";
-      document.getElementById("man-massa-vezes-wrap").style.display = "none";
       document.getElementById("man-massa-salvar-btn").style.display = "none";
       carregarManuais();
     });
@@ -1619,7 +1597,6 @@
       csvPagina = 0;
 
       renderizarRevisaoCsv();
-      document.getElementById("man-csv-vezes-wrap").style.display = "block";
       document.getElementById("man-csv-salvar-btn").style.display = "block";
     });
   }
@@ -1673,7 +1650,7 @@
     btn.disabled = true;
     btn.textContent = "Salvando...";
 
-    const vezes_por_dia = document.getElementById("man-csv-vezes").value;
+    const vezes_por_dia = 1; // sem seletor aqui - o ritmo de envio já é controlado por "Tempo de divulgação"
     chamarApi("/api/manuais/adicionar_massa", {itens: selecionados, vezes_por_dia}, 30000).then(dados => {
       btn.disabled = false;
       btn.textContent = "Cadastrar todos selecionados";
@@ -1684,7 +1661,6 @@
       itensCsv = [];
       document.getElementById("man-csv-texto").value = "";
       document.getElementById("man-csv-revisao").innerHTML = "";
-      document.getElementById("man-csv-vezes-wrap").style.display = "none";
       document.getElementById("man-csv-salvar-btn").style.display = "none";
       carregarManuais();
     });
