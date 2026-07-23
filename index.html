@@ -837,6 +837,10 @@
         <label>Cole aqui o texto exportado do painel de afiliado da Shopee (uma linha por produto, até 100 de uma vez)</label>
         <textarea id="man-csv-texto" rows="6" style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:11px 12px; color:var(--ink); font-family:'IBM Plex Mono',monospace; font-size:11px; resize:vertical;" placeholder="23393969622,Nome do produto,&quot;13,99&quot;,3mil+,Loja,16%,&quot;R$2,24&quot;,https://...,https://s.shopee.com.br/..."></textarea>
       </div>
+      <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); margin-bottom:10px;">
+        <input type="checkbox" id="man-csv-buscar-imagens">
+        🖼️ Tentar buscar imagens também (mais lento - alguns segundos a mais por produto)
+      </label>
       <button id="man-csv-buscar-btn" class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="importarCsvShopee()">📋 Processar linhas</button>
 
       <div class="selecao-row" id="man-csv-selecao" style="display:none;">
@@ -1471,11 +1475,13 @@
     const texto = document.getElementById("man-csv-texto").value.trim();
     if (!texto) { mostrarToast("manuais-toast", "Cola o texto exportado primeiro.", false); return; }
 
+    const buscarImagens = document.getElementById("man-csv-buscar-imagens").checked;
     const btn = document.getElementById("man-csv-buscar-btn");
     btn.disabled = true;
-    btn.textContent = "⏳ Processando...";
+    btn.textContent = buscarImagens ? "⏳ Processando e buscando imagens... pode levar alguns minutos" : "⏳ Processando...";
 
-    chamarApi("/api/manuais/importar_csv_shopee", {csv: texto}, 20000).then(dados => {
+    const timeoutMs = buscarImagens ? 180000 : 20000;
+    chamarApi("/api/manuais/importar_csv_shopee", {csv: texto, buscar_imagens: buscarImagens}, timeoutMs).then(dados => {
       btn.disabled = false;
       btn.textContent = "📋 Processar linhas";
 
@@ -1512,6 +1518,7 @@
           <input type="checkbox" ${item.incluir ? "checked" : ""} onchange="itensCsv[${i}].incluir = this.checked">
           <div class="url-curta">${item.produto_url}</div>
         </div>
+        ${item.imagem_url ? `<img src="${item.imagem_url}" style="width:50px; height:50px; border-radius:8px; object-fit:cover; margin-bottom:8px;" onerror="this.style.display='none'">` : '<div class="nao-achou">🖼️ Sem imagem (o export da Shopee não traz - ative "buscar imagens" pra tentar)</div>'}
         <input type="text" placeholder="Nome do produto" value="${(item.produto_nome || "").replace(/"/g, "&quot;")}" onchange="itensCsv[${i}].produto_nome = this.value">
         <div class="linha2">
           <input type="text" placeholder="Preço" value="${item.preco}" onchange="itensCsv[${i}].preco = this.value">
