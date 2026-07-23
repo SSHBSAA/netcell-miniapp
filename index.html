@@ -410,6 +410,24 @@
     margin:18px 0 10px;
   }
 
+  .paginacao{
+    display:flex; flex-wrap:wrap; gap:6px; justify-content:center;
+    margin:12px 0;
+  }
+  .pagina-btn{
+    min-width:32px; height:32px; padding:0 6px;
+    border-radius:8px; border:1px solid var(--line); background:var(--surface);
+    color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+    cursor:pointer;
+  }
+  .pagina-btn.ativa{ background:var(--flame); border-color:var(--flame); color:#14141A; }
+
+  .selecao-row{ display:flex; gap:8px; margin-bottom:10px; }
+  .selecao-row button{
+    flex:1; background:var(--surface); color:var(--ink); border:1px solid var(--line);
+    border-radius:10px; padding:9px; font-size:12px; font-weight:600; cursor:pointer;
+  }
+
   .qr-wrap{ text-align:center; margin:16px 0; }
   .qr-wrap img{ width:220px; height:220px; border-radius:14px; background:#fff; padding:10px; }
   .status-badge{
@@ -726,6 +744,7 @@
     </div>
 
     <div id="manuais-lista"><div class="empty-state">Carregando...</div></div>
+    <div id="manuais-paginacao"></div>
 
     <div class="divider-label">Adicionar produto</div>
     <div style="display:flex; gap:8px; margin-bottom:14px;">
@@ -788,7 +807,12 @@
       </div>
       <button id="man-massa-buscar-btn" class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="buscarProdutosMassa()">🔍 Buscar todos automaticamente</button>
 
+      <div class="selecao-row" id="man-massa-selecao" style="display:none;">
+        <button onclick="marcarTodosMassa(true)">✅ Marcar todos</button>
+        <button onclick="marcarTodosMassa(false)">⬜ Desmarcar todos</button>
+      </div>
       <div id="man-massa-revisao" style="margin-top:14px;"></div>
+      <div id="man-massa-paginacao"></div>
 
       <div class="field" id="man-massa-vezes-wrap" style="display:none; margin-top:10px;">
         <label>Vezes por dia (pra todos os produtos do lote)</label>
@@ -810,7 +834,12 @@
       </div>
       <button id="man-csv-buscar-btn" class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="importarCsvShopee()">📋 Processar linhas</button>
 
+      <div class="selecao-row" id="man-csv-selecao" style="display:none;">
+        <button onclick="marcarTodosCsv(true)">✅ Marcar todos</button>
+        <button onclick="marcarTodosCsv(false)">⬜ Desmarcar todos</button>
+      </div>
       <div id="man-csv-revisao" style="margin-top:14px;"></div>
+      <div id="man-csv-paginacao"></div>
 
       <div class="field" id="man-csv-vezes-wrap" style="display:none; margin-top:10px;">
         <label>Vezes por dia (pra todos os produtos do lote)</label>
@@ -1156,22 +1185,55 @@
   }
 
   // ---------- Produtos manuais ----------
+  const ITENS_POR_PAGINA = 10;
+
+  function renderizarPaginacao(containerId, totalItens, paginaAtual, callbackNome) {
+    const totalPag = Math.max(1, Math.ceil(totalItens / ITENS_POR_PAGINA));
+    const el = document.getElementById(containerId);
+    if (totalPag <= 1) { el.innerHTML = ""; return; }
+    let html = '<div class="paginacao">';
+    for (let p = 0; p < totalPag; p++) {
+      html += `<div class="pagina-btn ${p === paginaAtual ? "ativa" : ""}" onclick="${callbackNome}(${p})">${p + 1}</div>`;
+    }
+    html += "</div>";
+    el.innerHTML = html;
+  }
+
+  let manuaisTodos = [];
+  let manuaisPagina = 0;
+
   function carregarManuais() {
     const lista = document.getElementById("manuais-lista");
     lista.innerHTML = `<div class="empty-state">Carregando...</div>`;
     chamarApi("/api/manuais").then(dados => {
       if (dados.error) { lista.innerHTML = `<div class="empty-state">${dados.error}</div>`; return; }
-      if (!dados.manuais.length) {
-        lista.innerHTML = `<div class="empty-state">Nenhum produto manual ainda.</div>`;
-        return;
-      }
-      lista.innerHTML = dados.manuais.map(m => `
-        <div class="canal-item">
-          <div class="info">${m.produto_nome}<div class="tipo">R$${formatarPrecoBR(m.preco)} · ${m.vezes_por_dia}x/dia</div></div>
-          <button class="del" onclick="removerManual(${m.id})">🗑️</button>
-        </div>
-      `).join("");
+      manuaisTodos = dados.manuais;
+      manuaisPagina = 0;
+      renderizarPaginaManuais();
     });
+  }
+
+  function renderizarPaginaManuais() {
+    const lista = document.getElementById("manuais-lista");
+    if (!manuaisTodos.length) {
+      lista.innerHTML = `<div class="empty-state">Nenhum produto manual ainda.</div>`;
+      document.getElementById("manuais-paginacao").innerHTML = "";
+      return;
+    }
+    const inicio = manuaisPagina * ITENS_POR_PAGINA;
+    const fatia = manuaisTodos.slice(inicio, inicio + ITENS_POR_PAGINA);
+    lista.innerHTML = fatia.map(m => `
+      <div class="canal-item">
+        <div class="info">${m.produto_nome}<div class="tipo">R$${formatarPrecoBR(m.preco)} · ${m.vezes_por_dia}x/dia</div></div>
+        <button class="del" onclick="removerManual(${m.id})">🗑️</button>
+      </div>
+    `).join("");
+    renderizarPaginacao("manuais-paginacao", manuaisTodos.length, manuaisPagina, "irParaPaginaManuais");
+  }
+
+  function irParaPaginaManuais(p) {
+    manuaisPagina = p;
+    renderizarPaginaManuais();
   }
 
   function buscarProdutoManual() {
@@ -1277,6 +1339,7 @@
         nota: "", vendas: "",
         incluir: r.encontrado,
       }));
+      massaPagina = 0;
 
       renderizarRevisaoMassa();
       document.getElementById("man-massa-vezes-wrap").style.display = "block";
@@ -1284,9 +1347,15 @@
     });
   }
 
+  let massaPagina = 0;
+
   function renderizarRevisaoMassa() {
+    const inicio = massaPagina * ITENS_POR_PAGINA;
+    const fatia = itensMassa.slice(inicio, inicio + ITENS_POR_PAGINA);
     const container = document.getElementById("man-massa-revisao");
-    container.innerHTML = itensMassa.map((item, i) => `
+    container.innerHTML = fatia.map((item, iRel) => {
+      const i = inicio + iRel;
+      return `
       <div class="massa-item">
         <div class="topo">
           <input type="checkbox" ${item.incluir ? "checked" : ""} onchange="itensMassa[${i}].incluir = this.checked">
@@ -1299,7 +1368,20 @@
           <input type="text" placeholder="Preço original" value="${item.preco_original}" onchange="itensMassa[${i}].preco_original = this.value">
         </div>
       </div>
-    `).join("");
+    `;
+    }).join("");
+    document.getElementById("man-massa-selecao").style.display = itensMassa.length ? "flex" : "none";
+    renderizarPaginacao("man-massa-paginacao", itensMassa.length, massaPagina, "irParaPaginaMassa");
+  }
+
+  function irParaPaginaMassa(p) {
+    massaPagina = p;
+    renderizarRevisaoMassa();
+  }
+
+  function marcarTodosMassa(valor) {
+    itensMassa.forEach(item => item.incluir = valor);
+    renderizarRevisaoMassa();
   }
 
   function salvarProdutosMassa() {
@@ -1353,6 +1435,7 @@
         nota: "", vendas: r.vendas != null ? String(r.vendas) : "",
         incluir: !!r.produto_nome,
       }));
+      csvPagina = 0;
 
       renderizarRevisaoCsv();
       document.getElementById("man-csv-vezes-wrap").style.display = "block";
@@ -1360,9 +1443,15 @@
     });
   }
 
+  let csvPagina = 0;
+
   function renderizarRevisaoCsv() {
+    const inicio = csvPagina * ITENS_POR_PAGINA;
+    const fatia = itensCsv.slice(inicio, inicio + ITENS_POR_PAGINA);
     const container = document.getElementById("man-csv-revisao");
-    container.innerHTML = itensCsv.map((item, i) => `
+    container.innerHTML = fatia.map((item, iRel) => {
+      const i = inicio + iRel;
+      return `
       <div class="massa-item">
         <div class="topo">
           <input type="checkbox" ${item.incluir ? "checked" : ""} onchange="itensCsv[${i}].incluir = this.checked">
@@ -1374,7 +1463,20 @@
           <input type="text" placeholder="Vendas" value="${item.vendas}" onchange="itensCsv[${i}].vendas = this.value">
         </div>
       </div>
-    `).join("");
+    `;
+    }).join("");
+    document.getElementById("man-csv-selecao").style.display = itensCsv.length ? "flex" : "none";
+    renderizarPaginacao("man-csv-paginacao", itensCsv.length, csvPagina, "irParaPaginaCsv");
+  }
+
+  function irParaPaginaCsv(p) {
+    csvPagina = p;
+    renderizarRevisaoCsv();
+  }
+
+  function marcarTodosCsv(valor) {
+    itensCsv.forEach(item => item.incluir = valor);
+    renderizarRevisaoCsv();
   }
 
   function salvarCsvShopee() {
