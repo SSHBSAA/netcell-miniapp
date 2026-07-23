@@ -1311,6 +1311,8 @@
       if (dados.imagem_url) document.getElementById("man-imagem").value = dados.imagem_url;
       if (dados.preco) document.getElementById("man-preco").value = String(dados.preco).replace(".", ",");
       if (dados.preco_original) document.getElementById("man-preco-original").value = String(dados.preco_original).replace(".", ",");
+      if (dados.nota) document.getElementById("man-nota").value = String(dados.nota).replace(".", ",");
+      if (dados.vendas) document.getElementById("man-vendas").value = String(dados.vendas);
 
       if (dados.error) {
         mostrarToast("manuais-toast", dados.error, false);
@@ -1421,11 +1423,16 @@
           <input type="checkbox" ${item.incluir ? "checked" : ""} onchange="itensMassa[${i}].incluir = this.checked">
           <div class="url-curta">${item.produto_url}</div>
         </div>
+        ${item.imagem_url ? `<img src="${item.imagem_url}" style="width:50px; height:50px; border-radius:8px; object-fit:cover; margin-bottom:8px;" onerror="this.style.display='none'">` : ""}
         ${!item.produto_nome ? '<div class="nao-achou">⚠️ Não achei automaticamente - preencha na mão</div>' : ""}
         <input type="text" placeholder="Nome do produto" value="${(item.produto_nome || "").replace(/"/g, "&quot;")}" onchange="itensMassa[${i}].produto_nome = this.value">
         <div class="linha2">
           <input type="text" placeholder="Preço" value="${item.preco}" onchange="itensMassa[${i}].preco = this.value">
           <input type="text" placeholder="Preço original" value="${item.preco_original}" onchange="itensMassa[${i}].preco_original = this.value">
+        </div>
+        <div class="linha2">
+          <input type="text" placeholder="Nota (0-5)" value="${item.nota}" onchange="itensMassa[${i}].nota = this.value">
+          <input type="text" placeholder="Vendas" value="${item.vendas}" onchange="itensMassa[${i}].vendas = this.value">
         </div>
       </div>
     `;
