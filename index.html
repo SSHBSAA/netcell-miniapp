@@ -21,7 +21,7 @@
     --app-mint: #35D2A4;
     --app-gold: #B9800F;
 
-    --flame-dim: #C6522D;
+    --flame-dim: var(--app-flame-dim);
     --surface: var(--app-surface);
     --bg: var(--app-bg);
     --ink: var(--app-ink);
@@ -40,7 +40,7 @@
     --app-ink: #F5F3EE;
     --app-muted: #8B8FA3;
     --app-line: rgba(255,255,255,0.07);
-    --app-flame: #FF6A3D; --app-mint: #35D2A4; --app-gold: #F2B84B;
+    --app-flame: #FF6A3D; --app-mint: #35D2A4; --app-gold: #F2B84B; --app-flame-dim: #C6522D;
   }
   html[data-theme="light"]{
     --app-bg: #F5F5F7;
@@ -48,8 +48,31 @@
     --app-ink: #16161D;
     --app-muted: #6B6F7D;
     --app-line: rgba(0,0,0,0.08);
-    --app-flame: #E8552C; --app-mint: #1B9E78; --app-gold: #B9800F;
+    --app-flame: #E8552C; --app-mint: #1B9E78; --app-gold: #B9800F; --app-flame-dim: #B8441A;
   }
+  html[data-theme="neon"]{
+    --app-bg: #0A0A0F;
+    --app-surface: #15151F;
+    --app-ink: #F2F1F7;
+    --app-muted: #8A88A0;
+    --app-line: rgba(255,255,255,0.07);
+    --app-flame: #A855F7; --app-mint: #4F9EFF; --app-gold: #FFCE6B; --app-flame-dim: #6B21A8;
+  }
+
+  .tema-card{
+    display:flex; align-items:center; gap:14px;
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:16px; margin-bottom:10px; cursor:pointer;
+  }
+  .tema-card.ativo{ border-color:var(--flame); }
+  .tema-preview{
+    width:52px; height:52px; border-radius:12px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:20px;
+  }
+  .tema-nome{ font-size:13.5px; font-weight:700; margin-bottom:2px; }
+  .tema-desc{ font-size:11px; color:var(--muted); }
+  .tema-check{ margin-left:auto; font-size:16px; color:var(--flame); opacity:0; }
+  .tema-card.ativo .tema-check{ opacity:1; }
 
   .skeleton{
     display:inline-block; border-radius:6px;
@@ -192,6 +215,27 @@
     text-align:left;
   }
   .stat-card .ic{ font-size:17px; margin-bottom:8px; display:block; }
+
+  /* Selo colorido com brilho nos ícones - só aparece no tema Neon;
+  nos outros temas fica um wrapper "invisível" (sem mudar nada visualmente) */
+  .icon-badge{ display:inline-flex; align-items:center; justify-content:center; color:var(--muted); }
+  html[data-theme="neon"] .icon-badge{
+    width:32px; height:32px; border-radius:10px; margin-bottom:8px;
+  }
+  html[data-theme="neon"] .ib-canais{ background:rgba(168,85,247,0.14); box-shadow:0 0 16px rgba(168,85,247,0.4); color:#C79BFF; }
+  html[data-theme="neon"] .ib-pool{ background:rgba(79,158,255,0.14); box-shadow:0 0 16px rgba(79,158,255,0.4); color:#7FB8FF; }
+  html[data-theme="neon"] .ib-manuais{ background:rgba(45,212,191,0.14); box-shadow:0 0 16px rgba(45,212,191,0.4); color:#6EE7DA; }
+  /* mesmas cores, nomes genéricos - usadas no dock de ferramentas */
+  html[data-theme="neon"] .ib-roxo{ background:rgba(168,85,247,0.14); box-shadow:0 0 16px rgba(168,85,247,0.4); color:#C79BFF; }
+  html[data-theme="neon"] .ib-azul{ background:rgba(79,158,255,0.14); box-shadow:0 0 16px rgba(79,158,255,0.4); color:#7FB8FF; }
+  html[data-theme="neon"] .ib-teal{ background:rgba(45,212,191,0.14); box-shadow:0 0 16px rgba(45,212,191,0.4); color:#6EE7DA; }
+  html[data-theme="neon"] .ib-amber{ background:rgba(255,206,107,0.14); box-shadow:0 0 16px rgba(255,206,107,0.4); color:#FFCE6B; }
+  html[data-theme="neon"] .ib-verde{ background:rgba(37,211,102,0.14); box-shadow:0 0 16px rgba(37,211,102,0.4); color:#5EE896; }
+  html[data-theme="neon"] .ib-rosa{ background:rgba(255,77,158,0.14); box-shadow:0 0 16px rgba(255,77,158,0.4); color:#FF8CBB; }
+  html[data-theme="neon"] .ib-vermelho{ background:rgba(255,107,107,0.14); box-shadow:0 0 16px rgba(255,107,107,0.4); color:#FF9B9B; }
+  html[data-theme="neon"] .dock-item .icon-badge{
+    width:30px; height:30px; border-radius:9px; margin-bottom:6px;
+  }
   .stat-card .num{
     font-family:'Sora', sans-serif;
     font-size:20px; font-weight:700; line-height:1;
@@ -510,7 +554,7 @@
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
       <div class="status-pill"><span class="status-dot"></span>Carregando</div>
-      <button id="tema-toggle" onclick="alternarTema()" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; font-size:16px; cursor:pointer;">☀️</button>
+      <button id="tema-toggle" onclick="alternarTemaSimples()" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; font-size:16px; cursor:pointer;">🌙</button>
     </div>
   </div>
 
@@ -540,17 +584,17 @@
 
   <div class="stat-grid">
     <div class="stat-card">
-      <span class="ic">📡</span>
+      <div class="icon-badge ib-canais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span></div>
       <div class="num"><span class="skeleton">00</span></div>
       <div class="lbl">Canais conectados</div>
     </div>
     <div class="stat-card">
-      <span class="ic">🛒</span>
+      <div class="icon-badge ib-pool"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span></div>
       <div class="num"><span class="skeleton">00</span></div>
       <div class="lbl">Ofertas no pool</div>
     </div>
     <div class="stat-card">
-      <span class="ic">📦</span>
+      <div class="icon-badge ib-manuais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3.5l-1.7-3.5A2 2 0 0 0 13 2.5h-2a2 2 0 0 0-1.8 1L7.5 7H4a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1Z"/><path d="M12 12v.01"/><path d="M9 10.5a3 3 0 0 0 6 0"/></svg></span></div>
       <div class="num"><span class="skeleton">00</span></div>
       <div class="lbl">Produtos manuais</div>
     </div>
@@ -569,25 +613,35 @@
 
   <div class="tools-dock">
     <div class="dock-item" onclick="mostrarView('canais')">
-      <span class="ic">📡</span><span class="tt">Meus canais</span>
+      <div class="icon-badge ib-roxo"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span></div>
+      <span class="tt">Meus canais</span>
     </div>
     <div class="dock-item" onclick="mostrarView('filtros')">
-      <span class="ic">🎯</span><span class="tt">Meus filtros</span>
+      <div class="icon-badge ib-azul"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span></div>
+      <span class="tt">Meus filtros</span>
     </div>
     <div class="dock-item" onclick="mostrarView('tempo')">
-      <span class="ic">⏱️</span><span class="tt">Tempo de divulgação</span>
+      <div class="icon-badge ib-teal"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span></div>
+      <span class="tt">Tempo de divulgação</span>
     </div>
     <div class="dock-item" onclick="mostrarView('marketplace')">
-      <span class="ic">🛒</span><span class="tt">Configurar API</span>
+      <div class="icon-badge ib-amber"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span></div>
+      <span class="tt">Configurar API</span>
     </div>
     <div class="dock-item" onclick="mostrarView('whatsapp')">
-      <span class="ic">🔗</span><span class="tt">Conectar WhatsApp</span>
+      <div class="icon-badge ib-verde"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg></span></div>
+      <span class="tt">Conectar WhatsApp</span>
     </div>
     <div class="dock-item" onclick="mostrarView('manuais')">
-      <span class="ic">📦</span><span class="tt">Produtos manuais</span>
+      <div class="icon-badge ib-rosa"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span></div>
+      <span class="tt">Produtos manuais</span>
     </div>
     <div class="dock-item" onclick="mostrarView('pagamento')">
-      <span class="ic">💳</span><span class="tt">Renovar/Pagar</span>
+      <div class="icon-badge ib-vermelho"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span></div>
+      <span class="tt">Renovar/Pagar</span>
+    </div>
+    <div class="dock-item" onclick="mostrarView('temas')">
+      <span class="ic">🎨</span><span class="tt">Temas</span>
     </div>
   </div>
 
@@ -899,6 +953,25 @@
     <div class="toast" id="pagamento-toast"></div>
   </div>
 
+  <!-- ===================== VIEW: Temas ===================== -->
+  <div id="view-temas" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="mostrarView('home')">←</div>
+      <h2>🎨 Temas</h2>
+    </div>
+
+    <p style="font-size:12.5px; color:var(--muted); margin-bottom:14px;">Escuro e claro ficam no botão do topo, na tela inicial. Aqui é só o tema especial:</p>
+
+    <div class="tema-card" data-tema="neon" onclick="alternarTemaNeon()">
+      <div class="tema-preview" style="background:linear-gradient(135deg,#A855F7,#4F9EFF);">✨</div>
+      <div>
+        <div class="tema-nome">Neon</div>
+        <div class="tema-desc">Visual premium, ícones com brilho colorido</div>
+      </div>
+      <div class="tema-check">✓</div>
+    </div>
+  </div>
+
 <script>
   const API_BASE = "https://afiliados.netcellsshpainel.pro"; // URL permanente (Cloudflare Tunnel)
 
@@ -913,16 +986,32 @@
   document.documentElement.setAttribute("data-theme", temaSalvo);
   atualizarIconeTema(temaSalvo);
 
-  function alternarTema() {
-    const atual = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", atual);
-    localStorage.setItem("netcell_tema", atual);
-    atualizarIconeTema(atual);
+  function aplicarTema(tema) {
+    document.documentElement.setAttribute("data-theme", tema);
+    localStorage.setItem("netcell_tema", tema);
+    atualizarIconeTema(tema);
+  }
+
+  // Ativa o Neon se não estiver ativo, ou volta pro escuro se já estiver
+  function alternarTemaNeon() {
+    const atual = document.documentElement.getAttribute("data-theme");
+    aplicarTema(atual === "neon" ? "dark" : "neon");
+  }
+
+  // Botão do topo: alterna só entre claro/escuro (o Neon fica só na aba "Temas")
+  function alternarTemaSimples() {
+    const atual = document.documentElement.getAttribute("data-theme");
+    aplicarTema(atual === "light" ? "dark" : "light");
   }
 
   function atualizarIconeTema(tema) {
+    const icones = {dark: "🌙", light: "☀️", neon: "✨"};
     const btn = document.getElementById("tema-toggle");
-    if (btn) btn.textContent = tema === "dark" ? "☀️" : "🌙";
+    if (btn) btn.textContent = icones[tema] || "🌙";
+
+    document.querySelectorAll(".tema-card").forEach(el => {
+      el.classList.toggle("ativo", el.dataset.tema === tema);
+    });
   }
 
   if (tg) {
@@ -1006,6 +1095,7 @@
       if (nome === "filtros") carregarFiltros();
       if (nome === "tempo") carregarTempo();
       if (nome === "marketplace") carregarMarketplace();
+      if (nome === "temas") atualizarIconeTema(document.documentElement.getAttribute("data-theme"));
       if (nome === "manuais") carregarManuais();
       if (nome === "whatsapp") iniciarTelaWhatsapp();
       if (nome === "pagamento") iniciarTelaPagamento();
