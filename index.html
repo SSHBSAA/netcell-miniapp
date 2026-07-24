@@ -31,6 +31,8 @@
     --flame: var(--app-flame);
     --mint: var(--app-mint);
     --gold: var(--app-gold);
+    --manual: var(--app-manual);
+    --manual-dim: var(--app-manual-dim);
   }
 
   /* Tema escolhido manualmente pelo cliente (nunca é sobrescrito pelo
@@ -42,6 +44,7 @@
     --app-muted: #8B8FA3;
     --app-line: rgba(255,255,255,0.07);
     --app-flame: #FF6A3D; --app-mint: #35D2A4; --app-gold: #F2B84B; --app-flame-dim: #C6522D;
+    --app-manual: #FF9F1C; --app-manual-dim: #B36A0E;
   }
   html[data-theme="light"]{
     --app-bg: #F5F5F7;
@@ -50,6 +53,7 @@
     --app-muted: #6B6F7D;
     --app-line: rgba(0,0,0,0.08);
     --app-flame: #E8552C; --app-mint: #1B9E78; --app-gold: #B9800F; --app-flame-dim: #B8441A;
+    --app-manual: #C97A0A; --app-manual-dim: #A3620A;
   }
   html[data-theme="neon"]{
     --app-bg: #0A0A0F;
@@ -58,6 +62,7 @@
     --app-muted: #8A88A0;
     --app-line: rgba(255,255,255,0.07);
     --app-flame: #A855F7; --app-mint: #4F9EFF; --app-gold: #FFCE6B; --app-flame-dim: #6B21A8;
+    --app-manual: #FF9F1C; --app-manual-dim: #B36A0E;
   }
 
   .tema-card{
@@ -200,6 +205,45 @@
     font-size:11px;
     color:var(--muted);
   }
+
+  /* ---------- Dois cards de ritmo lado a lado (pool + manual) ---------- */
+  .cards-ritmo{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+  .card-ritmo{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px 12px;
+    position:relative;
+    overflow:hidden;
+    background: linear-gradient(155deg, var(--surface), rgba(0,0,0,0.15) 120%);
+  }
+  .card-ritmo-pool::before{
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(circle at 85% -10%, rgba(255,106,61,0.16), transparent 55%);
+    pointer-events:none;
+  }
+  .card-ritmo-manual::before{
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(circle at 85% -10%, rgba(255,159,28,0.18), transparent 55%);
+    pointer-events:none;
+  }
+  .card-ritmo .icone-badge{
+    width:26px; height:26px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:8px; color:var(--muted);
+  }
+  html[data-theme="neon"] .card-ritmo-pool .icone-badge{ background:rgba(168,85,247,0.16); box-shadow:0 0 14px rgba(168,85,247,0.4); color:var(--flame); }
+  html[data-theme="neon"] .card-ritmo-manual .icone-badge{ background:rgba(255,159,28,0.16); box-shadow:0 0 14px rgba(255,159,28,0.4); color:var(--manual); }
+  .card-ritmo .r-label{ font-size:10.5px; color:var(--muted); font-weight:500; }
+  .card-ritmo .r-count{
+    font-family:'Sora', sans-serif; font-size:24px; font-weight:800; line-height:1;
+    margin-top:4px; display:flex; align-items:baseline; gap:4px; flex-wrap:wrap;
+  }
+  .card-ritmo .r-count small{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); font-weight:500; }
+  .r-gauge{ margin-top:10px; height:7px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden; }
+  .r-gauge-fill-pool{ height:100%; width:0%; border-radius:100px; background:linear-gradient(90deg, var(--flame-dim), var(--flame)); transition:width .6s ease; }
+  .r-gauge-fill-manual{ height:100%; width:0%; border-radius:100px; background:linear-gradient(90deg, var(--manual-dim), var(--manual)); transition:width .6s ease; }
+  .card-ritmo .r-foot{ margin-top:8px; font-size:9px; color:var(--muted); line-height:1.5; }
+  .card-ritmo .r-foot b{ color:var(--ink); display:block; }
 
   /* ---------- Grid de estatísticas ---------- */
   .stat-grid{
@@ -581,18 +625,21 @@
   <div class="home-main">
 
   <!-- Elemento-assinatura -->
-  <div class="flame-card">
-    <div class="flame-top">
-      <div>
-        <div class="label">Ofertas divulgadas hoje</div>
-        <div class="flame-count"><span class="skeleton">00</span></div>
-      </div>
-      <div style="font-size:26px;">🔥</div>
+  <div class="cards-ritmo">
+    <div class="card-ritmo card-ritmo-pool">
+      <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
+      <div class="r-label">🧲 Pool (API)</div>
+      <div class="r-count"><span class="skeleton" id="r-pool-count">00</span><small id="r-pool-meta">/ 00</small></div>
+      <div class="r-gauge"><div class="r-gauge-fill-pool" id="r-pool-gauge"></div></div>
+      <div class="r-foot"><span id="r-pool-ritmo">-</span><b>Reinicia à 00:00</b></div>
     </div>
-    <div class="flame-gauge"><div class="flame-gauge-fill" style="--gauge-to:0%; width:0%;"></div></div>
-    <div class="flame-foot">
-      <span id="flame-ritmo" class="skeleton">0 a cada 00 min</span>
-      <span>Reinicia à 00:00</span>
+
+    <div class="card-ritmo card-ritmo-manual">
+      <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></div>
+      <div class="r-label">📦 Manuais</div>
+      <div class="r-count"><span class="skeleton" id="r-manual-count">00</span><small id="r-manual-meta">/ 00</small></div>
+      <div class="r-gauge"><div class="r-gauge-fill-manual" id="r-manual-gauge"></div></div>
+      <div class="r-foot"><span id="r-manual-ritmo">-</span><b id="r-manual-proximo">-</b></div>
     </div>
   </div>
 
@@ -743,6 +790,8 @@
       <h2>⏱️ Tempo de divulgação</h2>
     </div>
 
+    <div class="divider-label">🧲 Pool automático (API)</div>
+    <p style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Controla o ritmo das ofertas que o bot encontra sozinho (Shopee, etc).</p>
     <div class="field">
       <label>De quanto em quanto tempo</label>
       <select id="t-intervalo">
@@ -767,8 +816,37 @@
         <option value="10">10</option>
       </select>
     </div>
-    <button class="save-btn" onclick="salvarTempo()">Salvar</button>
+    <button class="save-btn" onclick="salvarTempo()">Salvar pool automático</button>
     <div class="toast" id="tempo-toast"></div>
+
+    <div class="divider-label" style="margin-top:26px;">📦 Produtos manuais</div>
+    <p style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Controla o ritmo dos produtos que você cadastra (1 por vez, links em massa, CSV Shopee) - roda separado do pool, com o próprio ritmo. Sempre com 10s de intervalo entre cada produto do mesmo disparo, pra não floodar.</p>
+    <div class="field">
+      <label>De quanto em quanto tempo</label>
+      <select id="tm-intervalo">
+        <option value="30">30 min</option>
+        <option value="60">1 hora</option>
+        <option value="120">2 horas</option>
+        <option value="180">3 horas</option>
+        <option value="240">4 horas</option>
+        <option value="360">6 horas</option>
+        <option value="720">12 horas</option>
+        <option value="1440">24 horas</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Quantos produtos por vez</label>
+      <select id="tm-quantidade">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+      </select>
+    </div>
+    <button class="save-btn" onclick="salvarTempoManual()">Salvar produtos manuais</button>
+    <div class="toast" id="tempo-manual-toast"></div>
   </div>
 
   <!-- ===================== VIEW: Configurar API (marketplace) ===================== -->
@@ -867,16 +945,6 @@
         <label>Vendas</label>
         <input type="text" id="man-vendas" placeholder="100">
       </div>
-    </div>
-    <div class="field">
-      <label>Vezes por dia</label>
-      <select id="man-vezes">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
     </div>
     <button id="man-salvar-btn" class="save-btn" onclick="salvarManual()">Adicionar produto</button>
     </div>
@@ -1116,7 +1184,11 @@
   }
 
   function formatarMinutos(minutos) {
-    const labels = {5: "5 min", 10: "10 min", 15: "15 min", 20: "20 min", 30: "30 min", 60: "1 hora", 180: "3 horas", 300: "5 horas"};
+    const labels = {
+      5: "5 min", 10: "10 min", 15: "15 min", 20: "20 min", 30: "30 min",
+      60: "1 hora", 120: "2 horas", 180: "3 horas", 240: "4 horas",
+      300: "5 horas", 360: "6 horas", 720: "12 horas", 1440: "24 horas",
+    };
     return labels[minutos] || `${minutos} min`;
   }
 
@@ -1149,13 +1221,28 @@
     chamarApi("/api/dashboard").then(dados => {
       if (dados.error) { console.error(dados.error); return; }
       document.querySelector(".header .greet h1").textContent = `Olá, ${dados.nome} 👋`;
-      document.querySelector(".flame-count").innerHTML = `${dados.posts_hoje} <small>/ ${dados.meta_diaria} no ritmo atual</small>`;
-      const pct = dados.meta_diaria > 0 ? Math.min(100, Math.round((dados.posts_hoje / dados.meta_diaria) * 100)) : 0;
-      document.querySelector(".flame-gauge-fill").style.setProperty("--gauge-to", `${pct}%`);
-      document.querySelector(".flame-gauge-fill").style.width = `${pct}%`;
-      const ritmoEl = document.getElementById("flame-ritmo");
-      ritmoEl.textContent = `${dados.posts_por_ciclo} a cada ${formatarMinutos(dados.intervalo_minutos)}`;
-      ritmoEl.classList.remove("skeleton");
+
+      // Card do pool automático
+      const pctPool = dados.meta_diaria > 0 ? Math.min(100, Math.round((dados.posts_pool_hoje / dados.meta_diaria) * 100)) : 0;
+      const poolCount = document.getElementById("r-pool-count");
+      poolCount.textContent = dados.posts_pool_hoje;
+      poolCount.classList.remove("skeleton");
+      document.getElementById("r-pool-meta").textContent = `/ ${dados.meta_diaria}`;
+      document.getElementById("r-pool-gauge").style.width = `${pctPool}%`;
+      document.getElementById("r-pool-ritmo").textContent = `${dados.posts_por_ciclo} a cada ${formatarMinutos(dados.intervalo_minutos)}`;
+
+      // Card dos produtos manuais
+      const pctManual = dados.meta_diaria_manual > 0 ? Math.min(100, Math.round((dados.posts_manual_hoje / dados.meta_diaria_manual) * 100)) : 0;
+      const manualCount = document.getElementById("r-manual-count");
+      manualCount.textContent = dados.posts_manual_hoje;
+      manualCount.classList.remove("skeleton");
+      document.getElementById("r-manual-meta").textContent = `/ ${dados.meta_diaria_manual}`;
+      document.getElementById("r-manual-gauge").style.width = `${pctManual}%`;
+      document.getElementById("r-manual-ritmo").textContent = `${dados.posts_por_ciclo_manual} a cada ${formatarMinutos(dados.intervalo_minutos_manual)}`;
+      document.getElementById("r-manual-proximo").textContent = dados.proximo_manual
+        ? (dados.proximo_manual === "agora" ? "Já está na hora" : `Próximo às ${dados.proximo_manual}`)
+        : "Aguardando 1º envio";
+
       document.querySelectorAll(".stat-card .num")[0].textContent = dados.canais_conectados;
       document.querySelectorAll(".stat-card .num")[1].textContent = dados.produtos_disponiveis;
       document.querySelectorAll(".stat-card .num")[2].textContent = dados.produtos_manuais;
@@ -1249,6 +1336,8 @@
       if (dados.error) return;
       document.getElementById("t-intervalo").value = dados.intervalo_minutos;
       document.getElementById("t-quantidade").value = dados.posts_por_ciclo;
+      document.getElementById("tm-intervalo").value = dados.intervalo_minutos_manual;
+      document.getElementById("tm-quantidade").value = dados.posts_por_ciclo_manual;
     });
   }
 
@@ -1258,7 +1347,17 @@
       posts_por_ciclo: Number(document.getElementById("t-quantidade").value),
     };
     chamarApi("/api/tempo/salvar", body).then(dados => {
-      mostrarToast("tempo-toast", dados.error || "Tempo de divulgação salvo!", !dados.error);
+      mostrarToast("tempo-toast", dados.error || "Pool automático salvo!", !dados.error);
+    });
+  }
+
+  function salvarTempoManual() {
+    const body = {
+      intervalo_minutos_manual: Number(document.getElementById("tm-intervalo").value),
+      posts_por_ciclo_manual: Number(document.getElementById("tm-quantidade").value),
+    };
+    chamarApi("/api/tempo_manual/salvar", body).then(dados => {
+      mostrarToast("tempo-manual-toast", dados.error || "Produtos manuais salvo!", !dados.error);
     });
   }
 
@@ -1425,7 +1524,6 @@
       preco_original: document.getElementById("man-preco-original").value.trim(),
       nota: document.getElementById("man-nota").value.trim(),
       vendas: document.getElementById("man-vendas").value.trim(),
-      vezes_por_dia: document.getElementById("man-vezes").value,
     };
     if (!body.produto_nome || !body.produto_url) {
       mostrarToast("manuais-toast", "Preencha ao menos o link e o nome do produto.", false);
