@@ -513,6 +513,29 @@
   }
   .toggle-switch input:checked + .toggle-slider{ background:var(--flame); }
   .toggle-switch input:checked + .toggle-slider::before{ transform:translateX(16px); }
+
+  .onboard-item{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:12.5px; }
+  .onboard-item .check{
+    width:19px; height:19px; border-radius:6px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:11px;
+    border:1.5px solid var(--line);
+  }
+  .onboard-item.feito .check{ background:var(--sucesso); border-color:var(--sucesso); color:#0d1712; }
+  .onboard-item.feito .txt{ color:var(--muted); text-decoration:line-through; }
+  .onboard-item:not(.feito) .txt{ color:var(--ink); font-weight:500; }
+
+  .notif-item{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:12px 14px; margin-bottom:8px; position:relative;
+  }
+  .notif-item.nao-lida{ border-color:var(--flame); }
+  .notif-item.nao-lida::before{
+    content:""; position:absolute; top:14px; left:-4px; width:7px; height:7px;
+    border-radius:50%; background:var(--flame);
+  }
+  .notif-item .titulo{ font-size:12.5px; font-weight:700; margin-bottom:4px; }
+  .notif-item .msg{ font-size:11.5px; color:var(--muted); line-height:1.4; }
+  .notif-item .quando{ font-size:10px; color:var(--muted); margin-top:6px; font-family:'IBM Plex Mono',monospace; }
   .canal-item .del:active{ background: rgba(255,90,90,0.12); }
 
   .empty-state{
@@ -623,8 +646,12 @@
       <div class="eyebrow">Suporte Netcell</div>
       <h1>Olá 👋</h1>
     </div>
-    <div style="display:flex; align-items:center; gap:8px;">
+    <div style="display:flex; align-items:center; gap:8px; position:relative;">
       <div class="status-pill"><span class="status-dot"></span>Carregando</div>
+      <button onclick="mostrarView('notificacoes')" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; cursor:pointer; position:relative; display:flex; align-items:center; justify-content:center; color:var(--muted);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span id="notif-badge" style="display:none; position:absolute; top:-3px; right:-3px; width:8px; height:8px; border-radius:50%; background:var(--flame); box-shadow:0 0 0 2px var(--surface);"></span>
+      </button>
       <button id="tema-toggle" onclick="alternarTemaSimples()" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; font-size:16px; cursor:pointer;">🌙</button>
     </div>
   </div>
@@ -638,6 +665,17 @@
   <div class="home-main">
 
   <!-- Elemento-assinatura -->
+  <div id="onboard-card" style="display:none; background:linear-gradient(155deg, var(--surface), rgba(0,0,0,0.15) 120%); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:14px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div style="font-size:13px; font-weight:700;">🚀 Primeiros passos</div>
+      <div id="onboard-prog" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold);"></div>
+    </div>
+    <div style="height:6px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden; margin-bottom:12px;">
+      <div id="onboard-bar-fill" style="height:100%; width:0%; border-radius:100px; background:linear-gradient(90deg,var(--flame-dim),var(--gold)); transition:width .4s ease;"></div>
+    </div>
+    <div id="onboard-itens"></div>
+  </div>
+
   <div class="cards-ritmo">
     <div class="card-ritmo card-ritmo-pool">
       <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
@@ -1053,6 +1091,15 @@
   </div>
 
   <!-- ===================== VIEW: Temas ===================== -->
+  <div id="view-notificacoes" class="view">
+    <div class="view-header">
+      <div class="back-btn" onclick="mostrarView('home')">←</div>
+      <h2>🔔 Notificações</h2>
+    </div>
+    <button class="save-btn" style="margin-bottom:14px;" onclick="marcarTodasNotificacoesLidas()">Marcar todas como lidas</button>
+    <div id="notificacoes-lista"><div class="empty-state">Carregando...</div></div>
+  </div>
+
   <div id="view-temas" class="view">
     <div class="view-header">
       <div class="back-btn" onclick="mostrarView('home')">←</div>
@@ -1095,6 +1142,42 @@
   function alternarTemaNeon() {
     const atual = document.documentElement.getAttribute("data-theme");
     aplicarTema(atual === "neon" ? "dark" : "neon");
+  }
+
+  // ---------- Notificações internas ----------
+  function formatarDataHoraNotif(texto) {
+    // vem em UTC do banco - ajusta pro horário de Brasília (UTC-3) igual o resto do painel
+    const d = new Date(texto.replace(" ", "T") + "Z");
+    d.setHours(d.getHours() - 3);
+    return d.toLocaleString("pt-BR", {day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"});
+  }
+
+  function carregarNotificacoes() {
+    const lista = document.getElementById("notificacoes-lista");
+    lista.innerHTML = `<div class="empty-state">Carregando...</div>`;
+    chamarApi("/api/notificacoes").then(dados => {
+      if (dados.error) { lista.innerHTML = `<div class="empty-state">${dados.error}</div>`; return; }
+      if (!dados.notificacoes.length) {
+        lista.innerHTML = `<div class="empty-state">Nenhuma notificação ainda.</div>`;
+        return;
+      }
+      lista.innerHTML = dados.notificacoes.map(n => `
+        <div class="notif-item ${n.lida ? "" : "nao-lida"}" onclick="marcarNotificacaoLida(${n.notification_id})">
+          <div class="titulo">${n.titulo}</div>
+          ${n.mensagem ? `<div class="msg">${n.mensagem}</div>` : ""}
+          <div class="quando">${formatarDataHoraNotif(n.criado_em)}</div>
+        </div>
+      `).join("");
+      document.getElementById("notif-badge").style.display = dados.nao_lidas > 0 ? "block" : "none";
+    });
+  }
+
+  function marcarNotificacaoLida(id) {
+    chamarApi("/api/notificacoes/marcar_lida", {notification_id: id}).then(() => carregarNotificacoes());
+  }
+
+  function marcarTodasNotificacoesLidas() {
+    chamarApi("/api/notificacoes/marcar_todas_lidas", {}).then(() => carregarNotificacoes());
   }
 
   // Botão do topo: alterna só entre claro/escuro (o Neon fica só na aba "Temas")
@@ -1195,6 +1278,7 @@
       if (nome === "tempo") carregarTempo();
       if (nome === "marketplace") carregarMarketplace();
       if (nome === "temas") atualizarIconeTema(document.documentElement.getAttribute("data-theme"));
+      if (nome === "notificacoes") carregarNotificacoes();
       if (nome === "manuais") carregarManuais();
       if (nome === "whatsapp") iniciarTelaWhatsapp();
       if (nome === "pagamento") iniciarTelaPagamento();
@@ -1250,6 +1334,26 @@
     chamarApi("/api/dashboard").then(dados => {
       if (dados.error) { console.error(dados.error); return; }
       document.querySelector(".header .greet h1").textContent = `Olá, ${dados.nome} 👋`;
+
+      // Badge de notificação
+      document.getElementById("notif-badge").style.display = dados.notificacoes_nao_lidas > 0 ? "block" : "none";
+
+      // Checklist de primeiros passos (some sozinho quando tudo completo)
+      const onboardCard = document.getElementById("onboard-card");
+      if (dados.onboarding && !dados.onboarding.completo) {
+        onboardCard.style.display = "block";
+        const feitos = dados.onboarding.passos.filter(p => p.feito).length;
+        document.getElementById("onboard-prog").textContent = `${feitos} de ${dados.onboarding.passos.length}`;
+        document.getElementById("onboard-bar-fill").style.width = `${(feitos / dados.onboarding.passos.length) * 100}%`;
+        document.getElementById("onboard-itens").innerHTML = dados.onboarding.passos.map(p => `
+          <div class="onboard-item ${p.feito ? "feito" : ""}">
+            <div class="check">${p.feito ? "✓" : ""}</div>
+            <span class="txt">${p.label}</span>
+          </div>
+        `).join("");
+      } else {
+        onboardCard.style.display = "none";
+      }
 
       // Card do pool automático
       const pctPool = dados.meta_diaria > 0 ? Math.min(100, Math.round((dados.posts_pool_hoje / dados.meta_diaria) * 100)) : 0;
