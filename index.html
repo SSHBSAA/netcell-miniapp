@@ -500,6 +500,19 @@
     background:none; border:none; color:#ff8f8f; font-size:16px; cursor:pointer;
     width:30px; height:30px; border-radius:8px;
   }
+
+  .toggle-switch{ position:relative; display:inline-block; width:38px; height:22px; flex-shrink:0; }
+  .toggle-switch input{ opacity:0; width:0; height:0; }
+  .toggle-slider{
+    position:absolute; cursor:pointer; inset:0;
+    background:rgba(255,255,255,0.12); border-radius:100px; transition:.2s;
+  }
+  .toggle-slider::before{
+    content:""; position:absolute; height:16px; width:16px; left:3px; bottom:3px;
+    background:white; border-radius:50%; transition:.2s;
+  }
+  .toggle-switch input:checked + .toggle-slider{ background:var(--flame); }
+  .toggle-switch input:checked + .toggle-slider::before{ transform:translateX(16px); }
   .canal-item .del:active{ background: rgba(255,90,90,0.12); }
 
   .empty-state{
@@ -742,6 +755,22 @@
     </div>
     <button class="save-btn" onclick="salvarCanal()">Adicionar canal</button>
     <div class="toast" id="canal-toast"></div>
+
+    <div class="divider-label" style="margin-top:26px;">🔗 Botões nas postagens (Telegram)</div>
+    <p style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Aparecem clicáveis embaixo de cada oferta postada, um abaixo do outro. Só nesse cliente, não afeta outros. Por enquanto só no Telegram.</p>
+
+    <div id="botoes-lista"><div class="empty-state">Carregando...</div></div>
+
+    <div class="field">
+      <label>Texto do botão</label>
+      <input type="text" id="botao-texto" placeholder="📢 Entre no nosso grupo">
+    </div>
+    <div class="field">
+      <label>Link (Telegram, WhatsApp, site...)</label>
+      <input type="text" id="botao-url" placeholder="https://t.me/seugrupo">
+    </div>
+    <button class="save-btn" onclick="salvarBotao()">Adicionar botão</button>
+    <div class="toast" id="botao-toast"></div>
   </div>
 
   <!-- ===================== VIEW: Meus filtros ===================== -->
@@ -1161,7 +1190,7 @@
       carregarDashboard();
     } else {
       tg?.BackButton?.show();
-      if (nome === "canais") carregarCanais();
+      if (nome === "canais") { carregarCanais(); carregarBotoes(); }
       if (nome === "filtros") carregarFiltros();
       if (nome === "tempo") carregarTempo();
       if (nome === "marketplace") carregarMarketplace();
@@ -1300,6 +1329,58 @@
     chamarApi("/api/canais/remover", {channel_id: id}).then(dados => {
       if (dados.error) { mostrarToast("canal-toast", dados.error, false); return; }
       carregarCanais();
+    });
+  }
+
+  // ---------- Botões personalizados (call-to-action) ----------
+  function carregarBotoes() {
+    const lista = document.getElementById("botoes-lista");
+    lista.innerHTML = `<div class="empty-state">Carregando...</div>`;
+    chamarApi("/api/botoes").then(dados => {
+      if (dados.error) { lista.innerHTML = `<div class="empty-state">${dados.error}</div>`; return; }
+      if (!dados.botoes.length) {
+        lista.innerHTML = `<div class="empty-state">Nenhum botão ainda.</div>`;
+        return;
+      }
+      lista.innerHTML = dados.botoes.map(b => `
+        <div class="canal-item">
+          <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+            <label class="toggle-switch">
+              <input type="checkbox" ${b.ativo ? "checked" : ""} onchange="toggleBotao(${b.button_id}, this.checked)">
+              <span class="toggle-slider"></span>
+            </label>
+            <div class="info">${b.texto}<div class="tipo" style="text-transform:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:180px;">${b.url}</div></div>
+          </div>
+          <button class="del" onclick="removerBotao(${b.button_id})">🗑️</button>
+        </div>
+      `).join("");
+    });
+  }
+
+  function salvarBotao() {
+    const texto = document.getElementById("botao-texto").value.trim();
+    const url = document.getElementById("botao-url").value.trim();
+    if (!texto || !url) { mostrarToast("botao-toast", "Preenche o texto e o link.", false); return; }
+
+    chamarApi("/api/botoes/adicionar", {texto, url}).then(dados => {
+      if (dados.error) { mostrarToast("botao-toast", dados.error, false); return; }
+      mostrarToast("botao-toast", "Botão adicionado!", true);
+      document.getElementById("botao-texto").value = "";
+      document.getElementById("botao-url").value = "";
+      carregarBotoes();
+    });
+  }
+
+  function toggleBotao(id, ativo) {
+    chamarApi("/api/botoes/toggle", {button_id: id, ativo}).then(dados => {
+      if (dados.error) { mostrarToast("botao-toast", dados.error, false); carregarBotoes(); }
+    });
+  }
+
+  function removerBotao(id) {
+    chamarApi("/api/botoes/remover", {button_id: id}).then(dados => {
+      if (dados.error) { mostrarToast("botao-toast", dados.error, false); return; }
+      carregarBotoes();
     });
   }
 
