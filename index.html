@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sua loja — Painel</title>
+<title>Sua loja — Painel</title><meta name="app-version" content="2026-09-23-layout-4">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
@@ -853,6 +853,38 @@ body,button,input,select,textarea,h1,h2,h3 {font-family:Inter,system-ui,-apple-s
 .settings-list button>span:nth-child(2) {flex:1;min-width:0}
 .channel-symbol {padding:0;display:flex}.channel-symbol .brand-icon {width:42px;height:42px}
 .save-btn .brand-icon {width:22px;height:22px;margin-right:9px}.view-header h2 .brand-icon{margin-right:7px}
+
+/* Fidélité de la référence: métriques et densité communes aux trois modèles. */
+body{padding:24px 18px calc(90px + env(safe-area-inset-bottom));max-width:540px}
+.view-header{padding:0;margin:0 0 4px;min-height:34px}.view-header h2{font-size:27px!important;line-height:1.25}
+.settings-intro{margin:0 0 20px;font-size:13px;line-height:1.5}
+html[data-theme="dark"]{--app-bg:#101f2b;--app-surface:#1a2c3c;--app-line:#30495e;--app-ink:#f0f4f8;--app-muted:#abc0d4;--app-flame:#15c77b;--app-manual:#66b7ff;--button-ink:#fff;--accent-soft:#1d3b3d}
+html[data-theme="dark"] body{background:radial-gradient(ellipse at 85% 20%,#162b3744,transparent 65%)}
+.connect-primary{display:block;width:100%;border:0;border-radius:8px;min-height:44px;background:linear-gradient(#1bc980,#0ca368);color:#fff;font-size:14px;font-weight:600;padding:10px}
+.product-actions{display:flex;gap:10px;margin:12px 0}.product-actions .connect-primary{flex:1;font-size:13px}
+.import-action{background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:0 12px;font-size:12px}
+#product-search{font-size:13px!important;padding:10px 12px;margin:0 0 12px;height:40px}
+.product-tabs{margin:0 0 10px;border-radius:8px}.product-tabs button{font-size:12px;padding:8px}
+#product-editor:not([open]),#channel-editor:not([open]){display:none}
+#manuais-selecao{display:none!important}#manuais-lista input[type="checkbox"]{display:none}
+#manuais-lista .canal-item{padding:9px!important;border-radius:9px!important;min-height:86px;margin-bottom:9px!important}
+#manuais-lista .manual-thumb{width:64px!important;height:64px!important;border-radius:7px!important}
+#manuais-lista .info{font-size:13px;font-weight:500}.tipo{font-family:inherit!important;text-transform:none!important;letter-spacing:0!important}
+#manuais-lista .del{font-size:14px}.rhythm-link{display:flex;align-items:center;gap:14px;width:100%;margin:22px 0 0;padding:16px 12px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:9px;text-align:left}
+.rhythm-link>span:first-of-type{flex:1;font-size:13px}.rhythm-link small{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.connection-card{display:flex;align-items:flex-start;gap:14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:18px 14px;margin:0 0 16px;min-height:136px}
+.connection-card .brand-icon{width:50px;height:50px}.channel-symbol{padding-top:5px}
+.connection-body{flex:1;min-width:0}.connection-body strong{display:block;font-size:14px;font-weight:600}.channel-platform{display:block;color:var(--muted);font-size:12px;margin-top:4px}.channel-state{display:block;color:var(--sucesso);font-size:12px;margin-top:8px}
+.channel-destination{display:block;overflow-wrap:anywhere;font-size:10px;color:var(--muted);margin-top:8px}.channel-manage summary{color:var(--manual);text-align:right;cursor:pointer;list-style:none;font-size:12px;margin-top:6px}.channel-manage p{font-size:11px;color:var(--muted)}
+.danger-action{border:1px solid #b55b63;color:#ffacac;background:transparent;padding:9px;border-radius:7px}
+.help-panel{margin-top:26px;padding:18px}.help-panel summary{color:var(--ink);font-size:13px}.help-panel p{font-size:12px}
+.profile-card{padding:12px;margin:0 0 18px;border-radius:9px;min-height:68px}.profile-card strong{font-size:13px;font-weight:500}.profile-avatar{font-size:16px;background:linear-gradient(135deg,#4f7aa1,#3c587e);color:#fff;width:44px;height:44px}
+.settings-label{font-size:13px;margin:22px 0 10px;font-weight:600}.settings-list{border-radius:9px;padding:0 12px;background:var(--surface)}
+.settings-list button{min-height:44px;padding:10px 0;gap:14px;background:none}.settings-list strong{font-size:12px;font-weight:400}.settings-list small{font-size:10px;margin-top:4px}.settings-icon .ui-icon{width:22px;height:22px}.settings-icon .brand-icon{width:24px;height:24px}
+.bottom-nav{max-width:540px;background:var(--surface);box-shadow:none}.bottom-nav button{font-size:10px}.bottom-nav .selected{background:none}.bottom-nav .selected::after{display:none}.bottom-nav .selected .ui-icon{fill:var(--flame);stroke:var(--flame)}
+@media(max-width:360px){body{padding-left:14px;padding-right:14px}.connection-card{gap:10px;padding:14px 10px}.connection-card .brand-icon{width:42px;height:42px}}
+
+.product-menu{position:relative;align-self:flex-start}.product-menu summary{list-style:none;cursor:pointer;color:var(--muted);font-size:22px;padding:0 8px}.product-menu[open] .danger-action{position:absolute;right:0;top:30px;z-index:5;background:var(--surface);min-width:90px}
 </style>
 </head>
 <body>
@@ -912,7 +944,7 @@ body,button,input,select,textarea,h1,h2,h3 {font-family:Inter,system-ui,-apple-s
   <div id="view-canais" class="view">
     <div class="view-header"><h2>Canais</h2></div><p class="settings-intro">Escolha onde suas ofertas aparecem.</p>
 
-    <div id="canais-lista"><div class="empty-state">Carregando...</div></div>
+    <button class="connect-primary" onclick="abrirConexao()">＋ Conectar canal</button><h3 class="settings-label">Seus canais</h3><div id="canais-lista"><div class="empty-state">Carregando...</div></div>
 
     
     
@@ -929,13 +961,13 @@ body,button,input,select,textarea,h1,h2,h3 {font-family:Inter,system-ui,-apple-s
     
     
     
-  <details class="editor-panel"><summary>＋ Conectar canal</summary><div class="divider-label">Adicionar canal (Telegram)</div><div class="field">
+  <details class="editor-panel" id="channel-editor"><summary>Configurar conexão</summary><div class="divider-label">Adicionar canal (Telegram)</div><div class="field">
       <label>ID ou @usuário do canal</label>
       <input type="text" id="canal-destino" placeholder="-1001234567890 ou @meucanal">
     </div><div class="field">
       <label>Token do bot (deixe vazio pra usar o bot central)</label>
       <input type="text" id="canal-token" placeholder="Opcional">
-    </div><button class="save-btn" onclick="salvarCanal()">Adicionar canal</button><div class="toast" id="canal-toast"></div><button class="save-btn" onclick="mostrarView('whatsapp')">Conectar WhatsApp</button></details><details class="help-panel"><summary>Conectando pela primeira vez?</summary><p>No Telegram, adicione o bot como administrador do canal e permita que publique mensagens. Para WhatsApp, use a conexão por QR Code.</p></details></div>
+    </div><button class="save-btn" onclick="salvarCanal()">Adicionar canal</button><div class="toast" id="canal-toast"></div><button class="save-btn" onclick="mostrarView('whatsapp')">Conectar WhatsApp</button></details><details class="help-panel" open><summary>Conectando pela primeira vez?</summary><p>No Telegram, adicione o bot como administrador do canal e permita que publique mensagens. Para WhatsApp, use a conexão por QR Code.</p></details></div>
 
   <!-- ===================== VIEW: Meus filtros ===================== -->
   <div id="view-filtros" class="view">
@@ -1141,7 +1173,7 @@ body,button,input,select,textarea,h1,h2,h3 {font-family:Inter,system-ui,-apple-s
     
 
     
-  <div id="manual-products"><details class="editor-panel" id="product-editor"><summary>＋ Adicionar produto / Importar</summary><div class="divider-label">Adicionar produto</div><div style="display:flex; gap:8px; margin-bottom:14px;">
+  <div id="manual-products"><div class="product-actions"><button class="connect-primary" onclick="abrirEditorProduto('individual')">＋ Adicionar produto</button><button class="import-action" onclick="abrirEditorProduto('csv')">↥ Importar</button></div><details class="editor-panel" id="product-editor"><summary>Formulário de produto</summary><div class="divider-label">Adicionar produto</div><div style="display:flex; gap:8px; margin-bottom:14px;">
       <div class="metodo-btn ativo" id="tab-individual" onclick="mostrarModoManual('individual')" style="flex:1;">1 por vez</div>
       <div class="metodo-btn" id="tab-massa" onclick="mostrarModoManual('massa')" style="flex:1;">Links em massa</div>
       <div class="metodo-btn" id="tab-csv" onclick="mostrarModoManual('csv')" style="flex:1;">CSV Shopee</div>
@@ -1264,7 +1296,7 @@ https://..."></textarea>
     <div id="notificacoes-lista"><div class="empty-state">Carregando...</div></div>
   </div>
 
-  <div id="view-ajustes" class="view"><div class="view-header"><h2>Ajustes</h2></div><p class="settings-intro">Sua loja do seu jeito.</p><div class="profile-card"><span class="profile-avatar">☺</span><div><strong id="profile-name">Minha conta</strong><small>Configurações da sua divulgação</small></div></div><div id="onboard-card" style="display:none; background:linear-gradient(155deg, var(--surface), rgba(0,0,0,0.15) 120%); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:14px;">
+  <div id="view-ajustes" class="view"><div class="view-header"><h2>Ajustes</h2></div><p class="settings-intro">Sua loja do seu jeito.</p><div class="profile-card"><span class="profile-avatar">☺</span><div><strong id="profile-name">Minha conta</strong><small>Minha conta</small></div></div><div id="onboard-card" style="display:none; background:linear-gradient(155deg, var(--surface), rgba(0,0,0,0.15) 120%); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:14px;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
       <div style="font-size:13px; font-weight:700;">🚀 Primeiros passos</div>
       <div id="onboard-prog" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold);"></div>
@@ -1296,6 +1328,7 @@ https://..."></textarea>
 
 <script>
   const interfaceIcons = {"home": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z\"/></svg>", "products": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 7V6a4 4 0 0 1 8 0v1M5 7h14l1 14H4L5 7Z\"/></svg>", "channels": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 10 15-6v16L3 14v-4Zm15-1h3v6h-3M6 15l2 6h4l-2-5\"/></svg>", "settings": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 3-1 3-3 1-2 3 2 2-1 3 3 2 1 3h4l1-3 3-1 2-3-2-2 1-3-3-2-1-3H9Z\" transform=\"translate(2 0)\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>", "filter": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 4h18l-7 8v7l-4 2v-9L3 4Z\"/></svg>", "clock": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 6v6l4 2\"/></svg>", "message": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 4H3v13h4v4l5-4h9V4Z\"/></svg>", "send": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 3 18 9-18 9 3-9-3-9Zm3 9h15\"/></svg>", "palette": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12a9 9 0 1 0-9 9h1a2 2 0 0 0 1-4 2 2 0 0 1 1-4h4a2 2 0 0 0 2-1Z\"/><path d=\"M7 10h.01M10 6h.01M15 6h.01\" stroke-width=\"3\"/></svg>", "bell": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 9a6 6 0 0 1 12 0c0 6 3 8 3 8H3s3-2 3-8M10 21h4\"/></svg>", "crown": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 6 5 4 4-7 4 7 5-4-2 13H5L3 6Zm2 16h14\"/></svg>", "support": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 13v-2a9 9 0 0 1 18 0v7a3 3 0 0 1-3 3h-4M3 12h4v7H3v-7Zm14 0h4v7h-4v-7Z\"/></svg>", "user": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21v-2a8 8 0 0 1 16 0v2\"/></svg>", "telegram": "<svg class=\"brand-icon telegram-icon\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#229ED9\"/><path d=\"m7 15 18-7-3 17-6-5-3 3 1-6 8-7-10 6Z\" fill=\"white\"/></svg>", "whatsapp": "<svg class=\"brand-icon whatsapp-icon\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#179E56\"/><path d=\"m7 26 1.5-5A10 10 0 1 1 12 25L7 26Z\" fill=\"none\" stroke=\"white\" stroke-width=\"1.8\"/><path d=\"M12 10c-2 0-2 3-1 5 2 4 6 7 9 6 2-1 2-3 1-3l-3-1-1 2c-3-1-4-3-5-5l2-1-1-3Z\" fill=\"white\"/></svg>", "shopee": "<svg class=\"brand-icon shopee-icon\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><path d=\"M5 10h22l1 20H4L5 10Z\" fill=\"#EE4D2D\"/><path d=\"M11 11V7a5 5 0 0 1 10 0v4\" fill=\"none\" stroke=\"#EE4D2D\" stroke-width=\"2.5\"/><path d=\"M21 15c-5-3-11 1-6 4l3 1c5 3 0 7-6 4\" fill=\"none\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>"};
+  interfaceIcons.tag = '<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 13 2h8v8L11 21 3 13Z"/><circle cx="17" cy="6" r="1"/></svg>';
   function icone(nome) { return interfaceIcons[nome] || interfaceIcons.channels; }
   const API_BASE = "https://afiliados.netcellsshpainel.pro"; // URL permanente (Cloudflare Tunnel)
 
@@ -1563,6 +1596,7 @@ https://..."></textarea>
       document.getElementById("dashboard-erro")?.remove();
       document.getElementById("cliente-nome").textContent = "Olá, " + (dados.nome || "bem-vindo") + " 👋";
       document.getElementById("profile-name").textContent = dados.nome || "Minha conta";
+      document.querySelector(".profile-avatar").textContent = (dados.nome || "Minha conta").split(/\s+/).filter(Boolean).slice(0,2).map(n=>n[0]).join("").toUpperCase();
       document.getElementById("overview-posts").textContent = (Number(dados.posts_pool_hoje) || 0) + (Number(dados.posts_manual_hoje) || 0);
       document.getElementById("overview-channels").textContent = dados.canais_conectados;
       document.getElementById("hero-title").textContent = dados.motor_rodando && dados.canais_conectados > 0 ? (dados.onboarding?.completo ? "Tudo pronto para divulgar" : "Sua divulgação em movimento") : "Prepare sua divulgação";
@@ -1633,6 +1667,12 @@ https://..."></textarea>
   }
 
   // ---------- Canais ----------
+  function abrirConexao() {
+    const area = document.getElementById("channel-editor"); area.open = true; area.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function abrirEditorProduto(modo) {
+    const area = document.getElementById("product-editor"); area.open = true; mostrarModoManual(modo); area.scrollIntoView({behavior:"smooth",block:"start"});
+  }
   function carregarCanais() {
     const lista = document.getElementById("canais-lista");
     lista.innerHTML = `<div class="empty-state">Carregando...</div>`;
@@ -1642,12 +1682,14 @@ https://..."></textarea>
         lista.innerHTML = `<div class="empty-state">Nenhum canal ainda.</div>`;
         return;
       }
-      lista.innerHTML = dados.canais.map(c => `
-        <div class="canal-item">
-          <span class="channel-symbol" aria-hidden="true">${icone(String(c.tipo).toLowerCase() === "telegram" ? "telegram" : String(c.tipo).toLowerCase() === "whatsapp" ? "whatsapp" : "channels")}</span><div class="info">${escaparHTML(c.destino)}<div class="tipo">${escaparHTML(c.tipo)} · Cadastrado</div></div>
-          <button class="del" onclick="removerCanal(${c.channel_id})">🗑️</button>
-        </div>
-      `).join("");
+      lista.innerHTML = dados.canais.map(c => {
+        const tipo = String(c.tipo).toLowerCase();
+        const nome = c.nome || c.titulo || (tipo === "telegram" ? "Canal Telegram" : "Canal WhatsApp");
+        return `<article class="connection-card">
+          <span class="channel-symbol">${icone(tipo)}</span>
+          <div class="connection-body"><strong>${escaparHTML(nome)}</strong><span class="channel-platform">${tipo === "telegram" ? "Telegram" : "WhatsApp"}</span><span class="channel-state">● Cadastrado</span><small class="channel-destination">${escaparHTML(c.destino)}</small>
+          <details class="channel-manage"><summary>Gerenciar ›</summary><p>Destino cadastrado. A conexão e as permissões são verificadas durante o envio.</p><button class="danger-action" onclick="removerCanal(${Number(c.channel_id)})">Remover canal</button></details></div></article>`;
+      }).join("");
     });
   }
 
@@ -1666,6 +1708,7 @@ https://..."></textarea>
   }
 
   function removerCanal(id) {
+    if (!window.confirm("Remover este canal da divulgação?")) return;
     chamarApi("/api/canais/remover", {channel_id: id}).then(dados => {
       if (dados.error) { mostrarToast("canal-toast", dados.error, false); return; }
       carregarCanais();
@@ -1886,7 +1929,7 @@ https://..."></textarea>
           <img class="manual-thumb" src="${imagemProdutoSegura(m.imagem_url)}" alt="" onerror="this.style.display='none'; this.nextElementSibling?.classList.add('image-unavailable')">
           <div class="info">${escaparHTML(m.produto_nome)}<div class="tipo">R$${formatarPrecoBR(m.preco)} · ${m.vezes_por_dia}x/dia</div></div>
         </div>
-        <button class="del" onclick="removerManual(${m.id})">🗑️</button>
+        <details class="product-menu"><summary aria-label="Opções do produto">⋮</summary><button class="danger-action" onclick="removerManual(${m.id})">Remover</button></details>
       </div>
     `).join("");
     renderizarPaginacao("manuais-paginacao", filtrados.length, manuaisPagina, "irParaPaginaManuais");
@@ -2481,7 +2524,7 @@ https://..."></textarea>
     }
   });
 
-  const navIcons = {home:"home", manuais:"products", canais:"channels", ajustes:"settings"};
+  const navIcons = {home:"home", manuais:"tag", canais:"channels", ajustes:"settings"};
   document.querySelectorAll(".bottom-nav button").forEach(button => {
     button.querySelector("span").innerHTML = icone(navIcons[button.dataset.view]);
   });
@@ -2500,6 +2543,18 @@ https://..."></textarea>
   if (waTitle) waTitle.innerHTML = icone("whatsapp") + " Conectar WhatsApp";
   const marketplaceTitle = document.querySelector("#view-marketplace h2");
   if (marketplaceTitle) marketplaceTitle.innerHTML = icone("shopee") + " Credencial Shopee";
+
+
+  const productEditor = document.getElementById("product-editor");
+  document.getElementById("manual-products").append(productEditor);
+  const rhythmLink = document.createElement("button"); rhythmLink.className="rhythm-link";
+  rhythmLink.innerHTML=icone("clock")+'<span>Ritmo de divulgação<small>Ajustar em Configurações</small></span><span>›</span>';
+  rhythmLink.onclick=()=>mostrarView("tempo"); productEditor.before(rhythmLink);
+  const testAction = document.querySelector('.settings-list button[onclick="mostrarView(\'teste\')"]');
+  if(testAction) document.getElementById("view-tempo").append(testAction);
+  document.querySelectorAll('.settings-list button small').forEach(el=>{
+    if(!el.parentElement.textContent.includes('Aparência') && !el.parentElement.textContent.includes('assinatura')) el.hidden=true;
+  });
 
   // ---------- Inicialização ----------
   if (tg) {
