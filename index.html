@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sua loja — Painel</title>
@@ -787,6 +786,62 @@
   @media(max-width:360px){.overview-metrics>div{padding:12px 8px;column-gap:4px}.model-hero{padding:18px}.hero-symbol{display:none}.manual-thumb{width:36px;height:36px}html[data-model="showcase"] .manual-thumb{width:52px;height:52px}}
 
 .rhythm-details{order:6;margin:0 0 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px}.rhythm-details summary{cursor:pointer;font-size:13px;color:var(--ink);min-height:32px;padding:4px}.rhythm-details summary span{float:right;color:var(--muted);font-size:11px}.rhythm-details[open] summary{margin-bottom:10px}.rhythm-details .cards-ritmo{margin:0}
+
+/* Telas aprovadas: resumo na entrada, configuração nas abas internas. */
+.header {padding-bottom:8px;flex-wrap:nowrap;align-items:flex-start}
+.header .greet h1 {font-size:25px;line-height:1.35;overflow-wrap:anywhere}
+.subscriber-name {font-size:12px;margin-top:4px}
+#view-home>.status-pill {display:inline-flex;border:0;background:none;padding:4px 0;margin-bottom:16px;font-size:12px}
+#view-home .model-hero {display:flex!important;margin:0 0 16px;padding:18px;border-radius:16px;background:linear-gradient(115deg,#243d8c,#1e2866);gap:10px;order:0}
+#view-home .model-hero h2 {font-size:17px;margin:0 0 7px;color:#fff;letter-spacing:0}
+#view-home .model-hero p {font-size:11px;margin:7px 0;line-height:1.5}
+#view-home .model-hero .hero-next {color:#d8ffe9;font-size:11px}
+#view-home .model-hero button {min-height:36px;padding:8px 12px;font-size:11px;margin-top:5px}
+#view-home .hero-copy {flex:1;min-width:0}
+#view-home .hero-symbol {display:block;width:72px;flex-shrink:0;font-size:12px;text-align:center;color:#c5ceff}
+.hero-symbol svg {width:72px;height:72px;display:block}.hero-symbol small {font-size:10px;font-style:italic}
+#view-home .overview-metrics {display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:12px;gap:0;order:1;margin:0 0 22px;background:var(--surface)}
+#view-home .overview-metrics>div {display:flex;flex-direction:column;padding:14px 8px;border:0;border-radius:0;background:none;gap:3px}
+#view-home .overview-metrics>div+div {border-left:1px solid var(--line)}
+#view-home .overview-metrics .metric-icon {display:none}
+#view-home .overview-metrics strong {font-size:25px}
+#view-home .overview-metrics div>span:last-child {font-size:11px}
+#view-home .section-title {order:2;margin:0 0 10px}
+#view-home .section-title h2 {font-size:18px}
+.text-action {background:none;border:0;color:var(--manual);font-size:11px;padding:10px 0;min-height:40px}
+#ofertas-recentes-lista {order:3}
+#view-home .offer {background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 0;margin:0;box-shadow:none}
+#view-home .offer img {width:56px;height:56px;border-radius:9px;object-fit:cover}
+.offer-name {font-size:13px}.offer-price {font-size:12px}
+.profile-card {display:flex;align-items:center;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:20px}
+.profile-avatar {display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--accent-soft);color:var(--manual);font-size:24px}
+.profile-card small,.settings-list small {display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.settings-list {border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.settings-list button {display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:var(--surface);color:var(--ink);border:0;border-bottom:1px solid var(--line);text-align:left;padding:14px 16px;min-height:60px}
+.settings-list button:last-child {border:0}.settings-list strong {font-size:13px;font-weight:500}
+.editor-panel,.help-panel {background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0}
+.editor-panel summary,.help-panel summary {cursor:pointer;min-height:28px;font-size:13px;font-weight:600;color:var(--flame)}
+.editor-panel[open] summary {margin-bottom:16px}.help-panel p {font-size:12px;color:var(--muted)}
+#product-search {width:100%;padding:12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--ink);margin-bottom:12px}
+.product-tabs {display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:4px;margin-bottom:12px}
+.product-tabs button {flex:1;border:0;border-radius:7px;padding:10px;background:none;color:var(--muted)}
+.product-tabs button[aria-pressed="true"] {background:var(--flame);color:var(--button-ink);font-weight:600}
+[hidden] {display:none!important}
+.channel-symbol {font-size:26px;color:var(--manual);padding:8px}
+#canais-lista .canal-item {min-height:90px;gap:10px}
+#manuais-lista .canal-item {padding:12px;border-radius:12px;margin-bottom:10px}
+#manuais-lista .manual-thumb {width:56px;height:56px;object-fit:cover}
+#view-tempo .stat-grid {margin-top:16px}
+#view-ajustes #onboard-card {margin-top:12px}
+@media(max-width:360px){.header .greet h1{font-size:22px}#view-home .hero-symbol{width:52px}.hero-symbol svg{width:52px;height:52px}.subscriber-name{font-size:11px}}
+
+
+body,button,input,select,textarea,h1,h2,h3 {font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.publication-date {display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.offer-chan {color:var(--sucesso);font-size:12px;white-space:nowrap}.offer-chan span{font-size:10px}
+.image-unavailable::before {content:"◇";display:inline-grid;place-items:center;width:36px;height:36px;background:var(--accent-soft);color:var(--muted);border-radius:8px;float:left;margin-right:10px}
+#view-manuais .tipo {text-transform:none;letter-spacing:normal;font-size:11px}
+.settings-list button:hover {background:var(--accent-soft)}
 </style>
 </head>
 <body>
@@ -794,19 +849,16 @@
   <div id="view-home" class="view active">
 
   <div class="header">
-    <div class="greet">
-      <h1>Sua loja</h1>
-      <p id="cliente-nome" class="subscriber-name">Bem-vindo</p>
-    </div>
+    <div class="greet"><h1 id="cliente-nome">Olá 👋</h1><p class="subscriber-name">Sua divulgação, em um só lugar.</p></div>
     <div style="display:flex; align-items:center; gap:8px; position:relative;">
-      <div class="status-pill"><span class="status-dot"></span>Carregando</div>
-      <button onclick="mostrarView('notificacoes')" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; cursor:pointer; position:relative; display:flex; align-items:center; justify-content:center; color:var(--muted);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      
+      <button onclick="mostrarView('notificacoes')" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; cursor:pointer; position:relative; display:flex; align-items:center; justify-content:center; color:var(--muted);" aria-label="Notificações">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
         <span id="notif-badge" style="display:none; position:absolute; top:-3px; right:-3px; width:8px; height:8px; border-radius:50%; background:var(--flame); box-shadow:0 0 0 2px var(--surface);"></span>
       </button>
-      <button id="tema-toggle" onclick="mostrarView('temas')" aria-label="Escolher aparência" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; font-size:16px; cursor:pointer;">🌙</button>
+      
     </div>
-  </div>
+  </div><div class="status-pill"><span class="status-dot"></span>Carregando</div>
 
   <div id="admin-seletor" style="display:none; margin-bottom:14px;">
     <label style="display:block; font-size:11px; color:var(--muted); margin-bottom:5px;">👁️ Visualizando como (admin)</label>
@@ -817,75 +869,25 @@
   <div class="home-main">
 
   <!-- Elemento-assinatura -->
-  <div id="onboard-card" style="display:none; background:linear-gradient(155deg, var(--surface), rgba(0,0,0,0.15) 120%); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:14px;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-      <div style="font-size:13px; font-weight:700;">🚀 Primeiros passos</div>
-      <div id="onboard-prog" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold);"></div>
-    </div>
-    <div style="height:6px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden; margin-bottom:12px;">
-      <div id="onboard-bar-fill" style="height:100%; width:0%; border-radius:100px; background:linear-gradient(90deg,var(--flame-dim),var(--gold)); transition:width .4s ease;"></div>
-    </div>
-    <div id="onboard-itens"></div>
-  </div>
+  
 
-  <div class="section-title overview-heading"><h2>Visão geral</h2><span class="section-caption">Publicações de hoje</span></div>
-  <div class="model-hero"><div class="hero-copy"><span class="hero-kicker">SUA AUTOMAÇÃO</span><h2 id="hero-title">Acompanhe sua loja</h2><p id="hero-message">Status e programação das suas publicações.</p><button onclick="mostrarView('tempo')">Ver programação →</button></div><span class="hero-symbol" aria-hidden="true">↗</span></div>
+  
+  <div class="model-hero"><div class="hero-copy"><h2 id="hero-title">Prepare sua divulgação</h2><p class="hero-next">Consultando programação…</p><p id="hero-message">Conecte seus canais e configure os produtos para começar.</p><button onclick="mostrarView('tempo')">Ver programação →</button></div><span class="hero-symbol" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M20 43 75 22v57L20 60Z" fill="#bdcaff"></path><path d="m28 63 8 23h13l-9-28" fill="#8ea7ff"></path><ellipse cx="76" cy="50" rx="9" ry="29" fill="#233276" stroke="#ced8ff" stroke-width="4"></ellipse><path d="m88 25 9-6m-7 29h10m-12 22 9 6" stroke="#ced8ff" stroke-width="4"></path></svg><small>Sua divulgação<br>todos os dias</small></span></div>
   <div class="overview-metrics"><div><span class="metric-icon">▤</span><strong id="overview-posts">—</strong><span>Publicações hoje</span></div><div><span class="metric-icon">◎</span><strong id="overview-channels">—</strong><span>Canais conectados</span></div></div>
-  <button class="schedule-strip" onclick="mostrarView('tempo')"><span class="schedule-icon">◷</span><span>Próxima publicação manual<small id="schedule-next">Aguardando informações</small></span><span>→</span></button>
-  <details class="rhythm-details"><summary>Ritmo de divulgação <span>Ver detalhes</span></summary><div class="cards-ritmo">
-    <div class="card-ritmo card-ritmo-pool">
-      <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
-      <div class="r-label">Ofertas automáticas</div>
-      <div class="r-count"><span class="skeleton" id="r-pool-count">00</span><small id="r-pool-meta">/ 00</small></div>
-      <div class="r-gauge"><div class="r-gauge-fill-pool" id="r-pool-gauge"></div></div>
-      <div class="r-foot"><span id="r-pool-ritmo">-</span><b>Reinicia à 00:00</b></div>
-    </div>
-
-    <div class="card-ritmo card-ritmo-manual">
-      <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></div>
-      <div class="r-label">Produtos manuais</div>
-      <div class="r-count"><span class="skeleton" id="r-manual-count">00</span><small id="r-manual-meta">/ 00</small></div>
-      <div class="r-gauge"><div class="r-gauge-fill-manual" id="r-manual-gauge"></div></div>
-      <div class="r-foot"><span id="r-manual-ritmo">-</span><b id="r-manual-proximo">-</b></div>
-    </div>
-  </div>
-
-  </details>
-  <div class="quick-actions"><button class="primary-action" onclick="mostrarView('manuais')">＋ Adicionar produto</button><button onclick="mostrarView('canais')">Gerenciar canais →</button><button class="extra-shortcut" onclick="mostrarView('marketplace')">Ofertas automáticas →</button></div>
-  <div class="stat-grid">
-    <div class="stat-card">
-      <div class="icon-badge ib-canais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span></div>
-      <div class="num"><span class="skeleton">00</span></div>
-      <div class="lbl">Canais conectados</div>
-    </div>
-    <div class="stat-card">
-      <div class="icon-badge ib-pool"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span></div>
-      <div class="num"><span class="skeleton">00</span></div>
-      <div class="lbl">Ofertas disponíveis</div>
-    </div>
-    <div class="stat-card">
-      <div class="icon-badge ib-manuais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3.5l-1.7-3.5A2 2 0 0 0 13 2.5h-2a2 2 0 0 0-1.8 1L7.5 7H4a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1Z"/><path d="M12 12v.01"/><path d="M9 10.5a3 3 0 0 0 6 0"/></svg></span></div>
-      <div class="num"><span class="skeleton">00</span></div>
-      <div class="lbl">Produtos manuais</div>
-    </div>
-
-  </div>
+  
+  
+  
+  
 
   <div class="section-title">
-    <h2>Atividade recente</h2>
-  </div>
+    <h2>Últimas publicações</h2>
+  <button class="text-action" onclick="mostrarView('historico')">Ver todas →</button></div>
 
   <div id="ofertas-recentes-lista">
     <div class="empty-state">Carregando...</div>
   </div>
 
-  <a href="https://wa.me/5591982351518" target="_blank" class="ajuda-card">
-    <div class="icon-badge ib-ajuda"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5Z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5Z"/></svg></span></div>
-    <div>
-      <div class="ajuda-nome">Central de suporte</div>
-      <div class="ajuda-sub">Fale com a gente no WhatsApp</div>
-    </div>
-  </a>
+  
 
   </div><!-- /home-main -->
 
@@ -897,41 +899,32 @@
 
   <!-- ===================== VIEW: Meus canais ===================== -->
   <div id="view-canais" class="view">
-    <div class="view-header">
-      <div class="back-btn" onclick="mostrarView('home')">←</div>
-      <h2>📡 Meus canais</h2>
-    </div>
+    <div class="view-header"><h2>Canais</h2></div><p class="settings-intro">Escolha onde suas ofertas aparecem.</p>
 
     <div id="canais-lista"><div class="empty-state">Carregando...</div></div>
 
-    <div class="divider-label">Adicionar canal (Telegram)</div>
-    <div class="field">
+    
+    
+    
+    
+    
+
+    
+    
+
+    
+
+    
+    
+    
+    
+  <details class="editor-panel"><summary>＋ Conectar canal</summary><div class="divider-label">Adicionar canal (Telegram)</div><div class="field">
       <label>ID ou @usuário do canal</label>
       <input type="text" id="canal-destino" placeholder="-1001234567890 ou @meucanal">
-    </div>
-    <div class="field">
+    </div><div class="field">
       <label>Token do bot (deixe vazio pra usar o bot central)</label>
       <input type="text" id="canal-token" placeholder="Opcional">
-    </div>
-    <button class="save-btn" onclick="salvarCanal()">Adicionar canal</button>
-    <div class="toast" id="canal-toast"></div>
-
-    <div class="divider-label" style="margin-top:26px;">🔗 Botões nas postagens (Telegram)</div>
-    <p style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Aparecem clicáveis embaixo de cada oferta postada, um abaixo do outro. Só nesse cliente, não afeta outros. Por enquanto só no Telegram.</p>
-
-    <div id="botoes-lista"><div class="empty-state">Carregando...</div></div>
-
-    <div class="field">
-      <label>Texto do botão</label>
-      <input type="text" id="botao-texto" placeholder="📢 Entre no nosso grupo">
-    </div>
-    <div class="field">
-      <label>Link (Telegram, WhatsApp, site...)</label>
-      <input type="text" id="botao-url" placeholder="https://t.me/seugrupo">
-    </div>
-    <button class="save-btn" onclick="salvarBotao()">Adicionar botão</button>
-    <div class="toast" id="botao-toast"></div>
-  </div>
+    </div><button class="save-btn" onclick="salvarCanal()">Adicionar canal</button><div class="toast" id="canal-toast"></div><button class="save-btn" onclick="mostrarView('whatsapp')">Conectar WhatsApp</button></details><details class="help-panel"><summary>Conectando pela primeira vez?</summary><p>No Telegram, adicione o bot como administrador do canal e permita que publique mensagens. Para WhatsApp, use a conexão por QR Code.</p></details></div>
 
   <!-- ===================== VIEW: Meus filtros ===================== -->
   <div id="view-filtros" class="view">
@@ -1036,7 +1029,42 @@
     </div>
     <button class="save-btn" onclick="salvarTempoManual()">Salvar produtos manuais</button>
     <div class="toast" id="tempo-manual-toast"></div>
+  <details class="rhythm-details"><summary>Ritmo de divulgação <span>Ver detalhes</span></summary><div class="cards-ritmo">
+    <div class="card-ritmo card-ritmo-pool">
+      <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"></circle><path d="M8.5 8.5a5 5 0 0 0 0 7"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M5.5 5.5a9 9 0 0 0 0 13"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg></div>
+      <div class="r-label">Ofertas automáticas</div>
+      <div class="r-count"><span class="skeleton" id="r-pool-count">00</span><small id="r-pool-meta">/ 00</small></div>
+      <div class="r-gauge"><div class="r-gauge-fill-pool" id="r-pool-gauge"></div></div>
+      <div class="r-foot"><span id="r-pool-ritmo">-</span><b>Reinicia à 00:00</b></div>
+    </div>
+
+    <div class="card-ritmo card-ritmo-manual">
+      <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg></div>
+      <div class="r-label">Produtos manuais</div>
+      <div class="r-count"><span class="skeleton" id="r-manual-count">00</span><small id="r-manual-meta">/ 00</small></div>
+      <div class="r-gauge"><div class="r-gauge-fill-manual" id="r-manual-gauge"></div></div>
+      <div class="r-foot"><span id="r-manual-ritmo">-</span><b id="r-manual-proximo">-</b></div>
+    </div>
   </div>
+
+  </details><div class="stat-grid">
+    <div class="stat-card">
+      <div class="icon-badge ib-canais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"></circle><path d="M8.5 8.5a5 5 0 0 0 0 7"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M5.5 5.5a9 9 0 0 0 0 13"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg></span></div>
+      <div class="num"><span class="skeleton">00</span></div>
+      <div class="lbl">Canais conectados</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon-badge ib-pool"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg></span></div>
+      <div class="num"><span class="skeleton">00</span></div>
+      <div class="lbl">Ofertas disponíveis</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon-badge ib-manuais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3.5l-1.7-3.5A2 2 0 0 0 13 2.5h-2a2 2 0 0 0-1.8 1L7.5 7H4a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1Z"></path><path d="M12 12v.01"></path><path d="M9 10.5a3 3 0 0 0 6 0"></path></svg></span></div>
+      <div class="num"><span class="skeleton">00</span></div>
+      <div class="lbl">Produtos manuais</div>
+    </div>
+
+  </div><button class="schedule-strip" onclick="mostrarView('tempo')"><span class="schedule-icon">◷</span><span>Próxima publicação manual<small id="schedule-next">Aguardando informações</small></span><span>→</span></button></div>
 
   <!-- ===================== VIEW: Configurar API (marketplace) ===================== -->
   <div id="view-marketplace" class="view">
@@ -1084,34 +1112,29 @@
 
   <!-- ===================== VIEW: Produtos manuais ===================== -->
   <div id="view-manuais" class="view">
-    <div class="view-header">
-      <div class="back-btn" onclick="mostrarView('home')">←</div>
-      <h2>📦 Produtos manuais</h2>
-    </div>
+    <div class="view-header"><h2>Produtos</h2></div><p class="settings-intro">Organize o que você quer divulgar.</p><input type="search" id="product-search" placeholder="Buscar produto" aria-label="Buscar produto" oninput="filtrarProdutos()"><div class="product-tabs"><button id="products-manual-tab" aria-pressed="true" onclick="selecionarProdutos(false)">Manuais</button><button id="products-auto-tab" aria-pressed="false" onclick="selecionarProdutos(true)">Automáticos</button></div>
 
-    <div class="field">
-      <label for="teste-manual-id">Teste de publicação manual</label>
-      <select id="teste-manual-id"><option value="">Carregue e escolha um produto</option></select>
-      <button class="save-btn" onclick="carregarProdutosTeste(this)">Carregar produtos para teste</button>
-      <button class="save-btn" onclick="publicarTesteManual(this)">Publicar produto escolhido</button>
-      <p id="teste-manual-status" role="status" style="color:var(--muted)">Envia de verdade aos canais cadastrados, respeitando o intervalo de repetição.</p>
-    </div>
-    <div class="selecao-row" id="manuais-selecao" style="display:none;">
-      <button onclick="marcarTodosSalvos(true)">✅ Marcar todos</button>
-      <button onclick="marcarTodosSalvos(false)">⬜ Desmarcar todos</button>
-    </div>
-    <button id="manuais-excluir-btn" class="save-btn" style="display:none; background:rgba(255,90,90,0.12); color:#ff8f8f; border:1px solid rgba(255,90,90,0.35); margin-bottom:10px;" onclick="excluirSelecionadosManuais()">🗑️ Excluir selecionados</button>
-    <div id="manuais-lista"><div class="empty-state">Carregando...</div></div>
-    <div id="manuais-paginacao"></div>
+    
+    
+    
+    
+    
 
-    <div class="divider-label">Adicionar produto</div>
-    <div style="display:flex; gap:8px; margin-bottom:14px;">
+    
+    
+
+    
+
+    
+
+    
+
+    
+  <div id="manual-products"><details class="editor-panel" id="product-editor"><summary>＋ Adicionar produto / Importar</summary><div class="divider-label">Adicionar produto</div><div style="display:flex; gap:8px; margin-bottom:14px;">
       <div class="metodo-btn ativo" id="tab-individual" onclick="mostrarModoManual('individual')" style="flex:1;">1 por vez</div>
       <div class="metodo-btn" id="tab-massa" onclick="mostrarModoManual('massa')" style="flex:1;">Links em massa</div>
       <div class="metodo-btn" id="tab-csv" onclick="mostrarModoManual('csv')" style="flex:1;">CSV Shopee</div>
-    </div>
-
-    <div id="manual-modo-individual">
+    </div><div id="manual-modo-individual">
     <div class="field">
       <label>Link do produto (já com seu link de afiliado)</label>
       <input type="text" id="man-url" placeholder="https://...">
@@ -1146,12 +1169,12 @@
       </div>
     </div>
     <button id="man-salvar-btn" class="save-btn" onclick="salvarManual()">Adicionar produto</button>
-    </div>
-
-    <div id="manual-modo-massa" style="display:none;">
+    </div><div id="manual-modo-massa" style="display:none;">
       <div class="field">
         <label>Cole vários links, um por linha (até 5 por busca)</label>
-        <textarea id="man-massa-urls" rows="6" style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:11px 12px; color:var(--ink); font-family:'Inter',sans-serif; font-size:13px; resize:vertical;" placeholder="https://...&#10;https://...&#10;https://..."></textarea>
+        <textarea id="man-massa-urls" rows="6" style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:11px 12px; color:var(--ink); font-family:'Inter',sans-serif; font-size:13px; resize:vertical;" placeholder="https://...
+https://...
+https://..."></textarea>
       </div>
       <button id="man-massa-buscar-btn" class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="buscarProdutosMassa()">🔍 Buscar todos automaticamente</button>
 
@@ -1163,9 +1186,7 @@
       <div id="man-massa-paginacao"></div>
 
       <button id="man-massa-salvar-btn" class="save-btn" style="display:none; margin-top:10px;" onclick="salvarProdutosMassa()">Cadastrar todos selecionados</button>
-    </div>
-
-    <div id="manual-modo-csv" style="display:none;">
+    </div><div id="manual-modo-csv" style="display:none;">
       <div class="field">
         <label>Cole aqui o texto exportado do painel de afiliado da Shopee (uma linha por produto, até 100 de uma vez)</label>
         <textarea id="man-csv-texto" rows="6" style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:11px 12px; color:var(--ink); font-family:'IBM Plex Mono',monospace; font-size:11px; resize:vertical;" placeholder="23393969622,Nome do produto,&quot;13,99&quot;,3mil+,Loja,16%,&quot;R$2,24&quot;,https://...,https://s.shopee.com.br/..."></textarea>
@@ -1184,10 +1205,10 @@
       <div id="man-csv-paginacao"></div>
 
       <button id="man-csv-salvar-btn" class="save-btn" style="display:none; margin-top:10px;" onclick="salvarCsvShopee()">Cadastrar todos selecionados</button>
-    </div>
-
-    <div class="toast" id="manuais-toast"></div>
-  </div>
+    </div><div class="toast" id="manuais-toast"></div></details><div class="selecao-row" id="manuais-selecao" style="display:none;">
+      <button onclick="marcarTodosSalvos(true)">✅ Marcar todos</button>
+      <button onclick="marcarTodosSalvos(false)">⬜ Desmarcar todos</button>
+    </div><button id="manuais-excluir-btn" class="save-btn" style="display:none; background:rgba(255,90,90,0.12); color:#ff8f8f; border:1px solid rgba(255,90,90,0.35); margin-bottom:10px;" onclick="excluirSelecionadosManuais()">🗑️ Excluir selecionados</button><div id="manuais-lista"><div class="empty-state">Carregando...</div></div><div id="manuais-paginacao"></div></div><div id="automatic-products" hidden=""><p class="settings-intro">Prévia das ofertas elegíveis pelos seus filtros. A seleção pode mudar até o envio.</p><div id="automatic-list"></div><button class="save-btn" onclick="mostrarView('marketplace')">Configurar divulgação automática</button></div></div>
 
   <!-- ===================== VIEW: Conectar WhatsApp ===================== -->
   <div id="view-whatsapp" class="view">
@@ -1232,43 +1253,30 @@
     <div id="notificacoes-lista"><div class="empty-state">Carregando...</div></div>
   </div>
 
-  <div id="view-ajustes" class="view"><div class="view-header"><h2>Ajustes</h2></div><p class="settings-intro">Tudo para deixar sua loja do seu jeito.</p><h3 class="settings-label">Sua loja</h3>  <div class="tools-dock">
-    <div class="dock-item" onclick="mostrarView('canais')">
-      <div class="icon-badge ib-roxo"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span></div>
-      <span class="tt">Meus canais</span>
+  <div id="view-ajustes" class="view"><div class="view-header"><h2>Ajustes</h2></div><p class="settings-intro">Sua loja do seu jeito.</p><div class="profile-card"><span class="profile-avatar">☺</span><div><strong id="profile-name">Minha conta</strong><small>Configurações da sua divulgação</small></div></div><div id="onboard-card" style="display:none; background:linear-gradient(155deg, var(--surface), rgba(0,0,0,0.15) 120%); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:14px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div style="font-size:13px; font-weight:700;">🚀 Primeiros passos</div>
+      <div id="onboard-prog" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold);"></div>
     </div>
-    <div class="dock-item" onclick="mostrarView('filtros')">
-      <div class="icon-badge ib-azul"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span></div>
-      <span class="tt">Meus filtros</span>
+    <div style="height:6px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden; margin-bottom:12px;">
+      <div id="onboard-bar-fill" style="height:100%; width:0%; border-radius:100px; background:linear-gradient(90deg,var(--flame-dim),var(--gold)); transition:width .4s ease;"></div>
     </div>
-    <div class="dock-item" onclick="mostrarView('tempo')">
-      <div class="icon-badge ib-teal"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span></div>
-      <span class="tt">Tempo de divulgação</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('marketplace')">
-      <div class="icon-badge ib-amber"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span></div>
-      <span class="tt">Configurar API</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('whatsapp')">
-      <div class="icon-badge ib-verde"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg></span></div>
-      <span class="tt">Conectar WhatsApp</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('manuais')">
-      <div class="icon-badge ib-rosa"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span></div>
-      <span class="tt">Produtos manuais</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('pagamento')">
-      <div class="icon-badge ib-vermelho"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span></div>
-      <span class="tt">Renovar/Pagar</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('temas')">
-      <span class="ic">🎨</span><span class="tt">Temas</span>
-    </div>
-  </div>
-
-</div>
+    <div id="onboard-itens"></div>
+  </div><h3 class="settings-label">Divulgação</h3><div class="settings-list"><button onclick="mostrarView('marketplace')"><span><strong>Credencial Shopee</strong><small>Configurar e testar conexão</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('filtros')"><span><strong>Filtros de ofertas</strong><small>Escolha o que divulgar</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('tempo')"><span><strong>Programação</strong><small>Intervalos e ritmo de publicação</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('botoes')"><span><strong>Botões das mensagens</strong><small>Personalize suas postagens</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('teste')"><span><strong>Testar publicação</strong><small>Enviar um produto aos seus canais</small></span><span aria-hidden="true">›</span></button></div><h3 class="settings-label">Preferências</h3><div class="settings-list"><button onclick="mostrarView('temas')"><span><strong>Aparência</strong><small>Modelo e Claro / Escuro / Sistema</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('notificacoes')"><span><strong>Notificações</strong><small>Avisos e atualizações</small></span><span aria-hidden="true">›</span></button></div><h3 class="settings-label">Conta e ajuda</h3><div class="settings-list"><button onclick="mostrarView('pagamento')"><span><strong>Minha assinatura</strong><small>Consultar plano e renovar</small></span><span aria-hidden="true">›</span></button><button onclick="window.open('https://wa.me/5591982351518','_blank','noopener')"><span><strong>Falar com suporte</strong><small>Ajuda pelo WhatsApp</small></span><span aria-hidden="true">›</span></button></div></div>
   <div id="view-temas" class="view"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar aos ajustes">←</button><h2>Aparência</h2></div><p class="settings-intro">Escolha como você prefere usar sua loja. Sua escolha fica salva neste dispositivo.</p><h3 class="settings-label">Modelo de interface</h3><div class="model-options"><button type="button" class="tema-card model-card" data-model="balanced" onclick="aplicarModelo('balanced')" aria-pressed="false"><span class="model-preview preview-balanced" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Essencial</span><span class="tema-desc">Verde e azul · indicadores e atalhos</span></span><span class="tema-check">✓</span></button><button type="button" class="tema-card model-card" data-model="showcase" onclick="aplicarModelo('showcase')" aria-pressed="false"><span class="model-preview preview-showcase" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Destaque</span><span class="tema-desc">Azul · cartão principal e fotos maiores</span></span><span class="tema-check">✓</span></button><button type="button" class="tema-card model-card" data-model="compact" onclick="aplicarModelo('compact')" aria-pressed="false"><span class="model-preview preview-compact" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Compacto</span><span class="tema-desc">Verde · listas e controles enxutos</span></span><span class="tema-check">✓</span></button></div><h3 class="settings-label">Iluminação</h3><div class="mode-options" aria-label="Iluminação"><button class="tema-card" data-tema="light" onclick="aplicarTema('light')" aria-pressed="false">☀ Claro</button><button class="tema-card" data-tema="dark" onclick="aplicarTema('dark')" aria-pressed="false">☾ Escuro</button><button class="tema-card" data-tema="system" onclick="aplicarTema('system')" aria-pressed="false">▣ Sistema</button></div><p id="theme-feedback" role="status" class="settings-intro"></p></div>
-  <nav class="bottom-nav" aria-label="Navegação principal">
+  <div class="view" id="view-historico"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar">←</button><h2>Publicações recentes</h2></div><p class="settings-intro">Últimas publicações disponíveis no histórico.</p><div class="publication-history" id="historico-lista"></div></div><div class="view" id="view-botoes"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar">←</button><h2>Botões das mensagens</h2></div><div class="divider-label" style="margin-top:26px;">🔗 Botões nas postagens (Telegram)</div><p style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Aparecem clicáveis embaixo de cada oferta postada, um abaixo do outro. Só nesse cliente, não afeta outros. Por enquanto só no Telegram.</p><div id="botoes-lista"><div class="empty-state">Carregando...</div></div><div class="field">
+      <label>Texto do botão</label>
+      <input type="text" id="botao-texto" placeholder="📢 Entre no nosso grupo">
+    </div><div class="field">
+      <label>Link (Telegram, WhatsApp, site...)</label>
+      <input type="text" id="botao-url" placeholder="https://t.me/seugrupo">
+    </div><button class="save-btn" onclick="salvarBotao()">Adicionar botão</button><div class="toast" id="botao-toast"></div></div><div class="view" id="view-teste"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar">←</button><h2>Testar publicação</h2></div><div class="field">
+      <label for="teste-manual-id">Teste de publicação manual</label>
+      <select id="teste-manual-id"><option value="">Carregue e escolha um produto</option></select>
+      <button class="save-btn" onclick="carregarProdutosTeste(this)">Carregar produtos para teste</button>
+      <button class="save-btn" onclick="publicarTesteManual(this)">Publicar produto escolhido</button>
+      <p id="teste-manual-status" role="status" style="color:var(--muted)">Envia de verdade aos canais cadastrados, respeitando o intervalo de repetição.</p>
+    </div></div><nav class="bottom-nav" aria-label="Navegação principal">
     <button data-view="home" class="selected" aria-current="page" onclick="mostrarView('home')"><span aria-hidden="true">⌂</span>Início</button>
     <button data-view="manuais" onclick="mostrarView('manuais')"><span aria-hidden="true">◇</span>Produtos</button>
     <button data-view="canais" onclick="mostrarView('canais')"><span aria-hidden="true">◎</span>Canais</button>
@@ -1460,13 +1468,15 @@
       carregarDashboard();
     } else {
       tg?.BackButton?.show();
-      if (nome === "canais") { carregarCanais(); carregarBotoes(); }
+      if (nome === "canais") carregarCanais();
+      if (nome === "botoes") carregarBotoes();
+      if (nome === "historico" || nome === "ajustes") carregarDashboard();
       if (nome === "filtros") carregarFiltros();
       if (nome === "tempo") carregarTempo();
       if (nome === "marketplace") carregarMarketplace();
       if (nome === "temas") atualizarIconeTema(themePreference);
       if (nome === "notificacoes") carregarNotificacoes();
-      if (nome === "manuais") carregarManuais();
+      if (nome === "manuais") selecionarProdutos(produtosAutomaticos);
       if (nome === "whatsapp") iniciarTelaWhatsapp();
       if (nome === "pagamento") iniciarTelaPagamento();
     }
@@ -1492,6 +1502,12 @@
     return labels[minutos] || `${minutos} min`;
   }
 
+  function escaparHTML(value) { return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#39;"}[char])); }
+  function dataPublicacao(texto) {
+    if (!texto) return "";
+    const date = new Date(texto.replace(" ", "T") + (/[zZ]|[+-]\d{2}:\d{2}$/.test(texto) ? "" : "Z"));
+    return Number.isNaN(date.getTime()) ? "" : date.toLocaleString("pt-BR", {timeZone:"America/Sao_Paulo",day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+  }
   function imagemProdutoSegura(url) {
     try { const parsed = new URL(url); return ["https:", "http:"].includes(parsed.protocol) ? parsed.href.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;") : ""; } catch (_) { return ""; }
   }
@@ -1509,12 +1525,12 @@
       const emoji = o.tipo === "manual" ? "✍️" : "🛒";
       return `
         <div class="offer">
-          <img src="${o.imagem_url || ''}" alt="" onerror="this.style.visibility='hidden'">
+          <img src="${imagemProdutoSegura(o.imagem_url)}" alt="" onerror="this.style.display='none'; this.nextElementSibling?.classList.add('image-unavailable')">
           <div class="offer-body">
-            <div class="offer-name">${o.produto_nome}</div>
-            <div class="offer-price">${precoHtml}</div>
+            <div class="offer-name">${escaparHTML(o.produto_nome)}</div>
+            <div class="offer-price">${precoHtml}</div><small class="publication-date">${escaparHTML(dataPublicacao(o.postado_em))}</small>
           </div>
-          <div class="offer-chan">${emoji}</div>
+          <div class="offer-chan" title="Publicação registrada">✓ <span>Enviado</span></div>
         </div>
       `;
     }).join("");
@@ -1532,10 +1548,12 @@
         return;
       }
       document.getElementById("dashboard-erro")?.remove();
-      document.getElementById("cliente-nome").textContent = dados.nome || "Bem-vindo";
+      document.getElementById("cliente-nome").textContent = "Olá, " + (dados.nome || "bem-vindo") + " 👋";
+      document.getElementById("profile-name").textContent = dados.nome || "Minha conta";
       document.getElementById("overview-posts").textContent = (Number(dados.posts_pool_hoje) || 0) + (Number(dados.posts_manual_hoje) || 0);
       document.getElementById("overview-channels").textContent = dados.canais_conectados;
-      document.getElementById("hero-title").textContent = dados.motor_rodando ? "Sua automação está ativa" : "Sua automação está parada";
+      document.getElementById("hero-title").textContent = dados.motor_rodando && dados.canais_conectados > 0 ? (dados.onboarding?.completo ? "Tudo pronto para divulgar" : "Sua divulgação em movimento") : "Prepare sua divulgação";
+      document.querySelector(".hero-next").textContent = dados.proximo_manual ? (dados.proximo_manual === "agora" ? "Publicação manual aguardando execução" : "Próxima publicação manual às " + dados.proximo_manual) : "Confira sua programação";
       document.getElementById("hero-message").textContent = dados.motor_rodando ? "Acompanhe os produtos e a programação dos seus canais." : "Verifique a configuração e o status das publicações.";
       document.getElementById("schedule-next").textContent = dados.proximo_manual === "agora" ? "Já está na hora" : dados.proximo_manual ? "Às " + dados.proximo_manual : "Aguardando primeiro envio";
 
@@ -1584,15 +1602,16 @@
       document.querySelectorAll(".stat-card .num")[1].textContent = dados.produtos_disponiveis;
       document.querySelectorAll(".stat-card .num")[2].textContent = dados.produtos_manuais;
       renderizarOfertasRecentes(dados.ultimas_divulgadas);
+      document.getElementById("historico-lista").innerHTML = document.getElementById("ofertas-recentes-lista").innerHTML;
 
       const statusPill = document.querySelector(".status-pill");
       if (!dados.motor_rodando) {
-        statusPill.innerHTML = `<span class="status-dot" style="background:#ff5a5a"></span>Parado`;
+        statusPill.innerHTML = `<span class="status-dot" style="background:#ff5a5a"></span>Automação parada`;
         statusPill.style.background = "rgba(255,90,90,0.12)";
         statusPill.style.borderColor = "rgba(255,90,90,0.35)";
         statusPill.style.color = "#ff5a5a";
       } else {
-        statusPill.innerHTML = `<span class="status-dot"></span>Rodando`;
+        statusPill.innerHTML = `<span class="status-dot"></span>Automação ativa`;
         statusPill.style.background = "";
         statusPill.style.borderColor = "";
         statusPill.style.color = "";
@@ -1612,7 +1631,7 @@
       }
       lista.innerHTML = dados.canais.map(c => `
         <div class="canal-item">
-          <div class="info">${c.destino}<div class="tipo">${c.tipo}</div></div>
+          <span class="channel-symbol" aria-hidden="true">${c.tipo === "telegram" ? "➤" : "◉"}</span><div class="info">${escaparHTML(c.destino)}<div class="tipo">${escaparHTML(c.tipo)} · Cadastrado</div></div>
           <button class="del" onclick="removerCanal(${c.channel_id})">🗑️</button>
         </div>
       `).join("");
@@ -1792,6 +1811,31 @@
   let manuaisPagina = 0;
   let manuaisSelecionados = new Set();
 
+  let produtosAutomaticos = false;
+  let ofertasAutomaticas = [];
+  function filtrarProdutos() {
+    if (produtosAutomaticos) renderizarAutomaticos();
+    else { manuaisPagina = 0; renderizarPaginaManuais(); }
+  }
+  function renderizarAutomaticos() {
+    const termo = document.getElementById("product-search").value.toLocaleLowerCase("pt-BR");
+    const lista = ofertasAutomaticas.filter(o => String(o.produto_nome).toLocaleLowerCase("pt-BR").includes(termo));
+    document.getElementById("automatic-list").innerHTML = lista.length ? lista.map(o => `<div class="canal-item"><div class="info">${escaparHTML(o.produto_nome)}<div class="tipo">R$ ${formatarPrecoBR(o.preco)}</div></div></div>`).join("") : '<p class="empty-state">Nenhuma oferta nesta prévia para a busca atual.</p>';
+  }
+  async function selecionarProdutos(automaticos) {
+    produtosAutomaticos = automaticos;
+    document.getElementById("manual-products").hidden = automaticos;
+    document.getElementById("automatic-products").hidden = !automaticos;
+    document.getElementById("products-manual-tab").setAttribute("aria-pressed", String(!automaticos));
+    document.getElementById("products-auto-tab").setAttribute("aria-pressed", String(automaticos));
+    if (!automaticos) { carregarManuais(); return; }
+    const area = document.getElementById("automatic-list");
+    area.textContent = "Carregando ofertas…";
+    const dados = await chamarApi("/api/testes/automatico");
+    if (dados.error) { area.textContent = dados.error; return; }
+    ofertasAutomaticas = dados.ofertas || [];
+    renderizarAutomaticos();
+  }
   function carregarManuais() {
     const lista = document.getElementById("manuais-lista");
     lista.innerHTML = `<div class="empty-state">Carregando...</div>`;
@@ -1819,18 +1863,20 @@
 
     blocoSelecao.style.display = "flex";
     const inicio = manuaisPagina * ITENS_POR_PAGINA;
-    const fatia = manuaisTodos.slice(inicio, inicio + ITENS_POR_PAGINA);
+    const termo = document.getElementById("product-search").value.toLocaleLowerCase("pt-BR");
+    const filtrados = manuaisTodos.filter(m => String(m.produto_nome).toLocaleLowerCase("pt-BR").includes(termo));
+    const fatia = filtrados.slice(inicio, inicio + ITENS_POR_PAGINA);
     lista.innerHTML = fatia.map(m => `
       <div class="canal-item">
         <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:0;">
           <input type="checkbox" ${manuaisSelecionados.has(m.id) ? "checked" : ""} onchange="alternarSelecaoManual(${m.id}, this.checked)">
-          <img class="manual-thumb" src="${imagemProdutoSegura(m.imagem_url)}" alt="" onerror="this.style.visibility='hidden'">
-          <div class="info">${m.produto_nome}<div class="tipo">R$${formatarPrecoBR(m.preco)} · ${m.vezes_por_dia}x/dia</div></div>
+          <img class="manual-thumb" src="${imagemProdutoSegura(m.imagem_url)}" alt="" onerror="this.style.display='none'; this.nextElementSibling?.classList.add('image-unavailable')">
+          <div class="info">${escaparHTML(m.produto_nome)}<div class="tipo">R$${formatarPrecoBR(m.preco)} · ${m.vezes_por_dia}x/dia</div></div>
         </div>
         <button class="del" onclick="removerManual(${m.id})">🗑️</button>
       </div>
     `).join("");
-    renderizarPaginacao("manuais-paginacao", manuaisTodos.length, manuaisPagina, "irParaPaginaManuais");
+    renderizarPaginacao("manuais-paginacao", filtrados.length, manuaisPagina, "irParaPaginaManuais");
     atualizarBotaoExcluirManuais();
   }
 
@@ -2428,5 +2474,6 @@
   }
 </script>
 
-</body>
-</html>
+
+
+</body></html>
