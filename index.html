@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Painel — SuporteNetcell</title>
+<title>Sua loja — Painel</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
@@ -635,6 +635,158 @@
   .mkt-badge.ativo{ background:rgba(255,106,61,0.08); border-color:rgba(255,106,61,0.3); }
   .mkt-badge.ativo .nome{ color:var(--ink); }
   .mkt-badge.em-breve{ opacity:0.4; }
+
+  /* Identidade Sua loja: três paletas, uma estrutura de navegação. */
+  :root, html[data-theme="dark"] {
+    color-scheme:dark; --app-bg:#141e2b; --app-surface:#1e2b3b; --app-ink:#edf3fa;
+    --app-muted:#a7b7cc; --app-line:#344459; --app-flame:#41d6aa; --app-flame-dim:#239e7b;
+    --app-mint:#41d6aa; --app-gold:#73b3ff; --app-manual:#73b3ff; --app-manual-dim:#3977c1;
+    --sucesso:#41d6aa; --button-ink:#102820; --accent-soft:#213f43;
+  }
+  html[data-theme="green"] {
+    color-scheme:dark; --app-bg:#171d1d; --app-surface:#232e2d; --app-ink:#eef6f2;
+    --app-muted:#b0c1b9; --app-line:#3a4a44; --app-flame:#67dcb0; --app-flame-dim:#359d77;
+    --app-mint:#67dcb0; --app-gold:#b4dcc7; --app-manual:#a2d6c4; --app-manual-dim:#5fa68b;
+    --sucesso:#67dcb0; --button-ink:#102820; --accent-soft:#28483c;
+  }
+  html[data-theme="light"] {
+    color-scheme:light; --app-bg:#f0f3f9; --app-surface:#ffffff; --app-ink:#182640;
+    --app-muted:#52637c; --app-line:#d3dcea; --app-flame:#304fb5; --app-flame-dim:#243c8a;
+    --app-mint:#16764f; --app-gold:#304fb5; --app-manual:#304fb5; --app-manual-dim:#243c8a;
+    --sucesso:#16764f; --button-ink:#ffffff; --accent-soft:#e8edf9;
+  }
+  html {background:var(--bg);scroll-padding-bottom:100px}
+  body {max-width:760px;padding:24px 18px calc(100px + env(safe-area-inset-bottom));line-height:1.5}
+  h1,h2,h3 {font-family:'Inter',sans-serif;letter-spacing:-.025em}
+  .header {gap:12px;flex-wrap:wrap;padding:4px 0 24px}
+  .header .greet h1 {font-size:28px;line-height:1.2}
+  .subscriber-name {margin:6px 0 0;color:var(--muted);font-size:14px;overflow-wrap:anywhere}
+  .header .greet {min-width:0;flex:1 1 150px}
+  .header button {min-width:44px;min-height:44px;color:var(--ink)}
+  .status-pill {font-family:inherit;font-size:11px;padding:7px 9px}
+  .status-dot {animation:none}
+  .home-grid {display:block}
+  .section-title {margin:6px 0 14px;gap:12px}
+  .section-title h2 {font-size:18px}
+  .section-caption {font-size:11px;color:var(--muted)}
+  .card-ritmo,.flame-card {background:var(--surface);border-radius:16px;padding:18px 14px}
+  .card-ritmo::before,.flame-card::before {display:none}
+  .card-ritmo .r-label {font-size:12px}
+  .card-ritmo .r-count {font-family:inherit;font-size:30px;margin-top:12px}
+  .card-ritmo .r-foot {font-size:11px}
+  .card-ritmo .icone-badge {color:var(--flame);background:var(--accent-soft);width:32px;height:32px}
+  .card-ritmo-manual .icone-badge {color:var(--manual)}
+  .r-gauge {background:var(--line);height:5px}
+  .stat-card {padding:16px 12px;border-radius:14px}
+  .stat-card .num {font-family:inherit;margin-top:8px;font-size:24px}
+  .stat-card .lbl {font-size:11px;line-height:1.5}
+  .icon-badge {color:var(--manual)}
+  .quick-actions {display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+  button {font-family:inherit;cursor:pointer}
+  .quick-actions button {padding:14px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--manual);font-weight:600;font-size:12px;min-height:48px}
+  .quick-actions .primary-action,.save-btn {background:var(--flame);color:var(--button-ink)}
+  .offer-card,.ajuda-card,.notif-item,.canal-item,.plano-card {box-shadow:none;border-radius:14px}
+  .settings-intro {color:var(--muted);font-size:14px;margin:0 0 24px}
+  .settings-label {font-size:14px;margin:20px 0 10px}
+  .tools-dock {display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .dock-item {align-items:flex-start;text-align:left;padding:18px;min-height:90px;border-radius:14px}
+  .dock-item .tt {font-size:13px;color:var(--ink);font-weight:600}
+  .dock-item .icon-badge {margin-bottom:6px}
+  .tema-card {width:100%;text-align:left;color:var(--ink);font-family:inherit;min-height:92px}
+  .tema-card.ativo {border:2px solid var(--flame);padding:15px;background:var(--accent-soft)}
+  .tema-nome,.tema-desc {display:block}
+  .tema-desc {font-size:12px;line-height:1.5}
+  .swatch-dark {background:#223b55;color:#41d6aa}
+  .swatch-green {background:#293f35;color:#67dcb0}
+  .swatch-light {background:#e8edf9;color:#304fb5}
+  .swatch-system {background:var(--bg);color:var(--ink)}
+  .bottom-nav {position:fixed;z-index:30;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:760px;display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -8px 32px #00000014}
+  .bottom-nav button {background:transparent;border:0;border-radius:10px;color:var(--muted);font-size:11px;display:flex;align-items:center;flex-direction:column;gap:2px;padding:5px;min-height:54px}
+  .bottom-nav button span {font-size:24px;line-height:1.2}
+  .bottom-nav .selected {color:var(--flame);background:var(--accent-soft);font-weight:600}
+  .view-header {padding:4px 0 14px;margin-bottom:12px}
+  .view-header h2 {font-size:23px}
+  .back-btn {border:1px solid var(--line);background:var(--surface);color:var(--ink);min-width:44px;min-height:44px}
+  input,select,textarea {max-width:100%;font-size:16px!important}
+  button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {outline:2px solid var(--manual);outline-offset:3px}
+  .skeleton {background:var(--line);animation:none}
+  html[data-theme="light"] .toast.err {color:#ae2424}
+  #dashboard-erro {padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+  @media(max-width:360px) {body{padding-left:12px;padding-right:12px}.stat-card{padding:12px 8px}.section-caption{font-size:10px}.tema-card{gap:10px}.tema-preview{width:42px;height:42px}}
+
+
+  /* Modelo e iluminação independentes: todos os modelos têm modo claro e escuro. */
+  html[data-model="compact"][data-theme="dark"] {--app-bg:#141c1b;--app-surface:#202c29;--app-line:#35483f;--app-flame:#64dcac;--app-manual:#98d6ba;--app-muted:#acc3b7;--accent-soft:#284438}
+  html[data-model="compact"][data-theme="light"] {--app-bg:#edf5f0;--app-flame:#176644;--app-manual:#236949;--accent-soft:#dcefe3}
+  html[data-model="showcase"][data-theme="dark"] {--app-bg:#191d30;--app-surface:#252b43;--app-line:#404866;--app-flame:#adbbff;--app-manual:#b5c4ff;--app-muted:#b5bfd9;--accent-soft:#343d60;--button-ink:#17213a}
+  .mode-options {display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+  .mode-options .tema-card {justify-content:center;min-height:52px;padding:10px;font-size:13px}
+  .model-preview {display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:8px;width:56px;height:56px;flex-shrink:0;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+  .model-preview i {background:var(--flame);opacity:.6;border-radius:3px}
+  .preview-balanced i:last-child {grid-column:span 2}
+  .preview-showcase i:first-child {grid-column:span 2;min-height:20px}
+  .preview-compact {grid-template-columns:1fr}
+  .home-main {display:flex;flex-direction:column}
+  .home-main>.overview-heading {order:0}
+  .model-hero {display:none;order:1;border-radius:20px;padding:24px;background:#303f9a;color:#fff;align-items:center;gap:12px;margin-bottom:18px}
+  .hero-kicker {font-size:10px;letter-spacing:.14em;color:#dce3ff}
+  .model-hero h2 {font-size:23px;line-height:1.25;margin:10px 0}
+  .model-hero p {font-size:13px;color:#e2e8ff;line-height:1.6}
+  .model-hero button {border:0;background:#fff;color:#263678;padding:12px 16px;border-radius:10px;font-weight:600}
+  .hero-symbol {font-size:64px;color:#c5ceff}
+  .overview-metrics {display:grid;grid-template-columns:1fr 1fr;gap:12px;order:2;margin-bottom:14px}
+  .overview-metrics>div {display:grid;grid-template-columns:32px 1fr;background:var(--surface);border:1px solid var(--line);padding:16px;border-radius:12px;column-gap:10px;align-items:center}
+  .overview-metrics strong {font-size:26px;line-height:1.2}
+  .overview-metrics .metric-icon {grid-row:span 2;color:var(--flame);font-size:24px}
+  .overview-metrics div>span:last-child {font-size:11px;color:var(--muted)}
+  .schedule-strip {order:3;display:flex;align-items:center;gap:12px;width:100%;padding:16px;margin-bottom:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);text-align:left}
+  .schedule-strip>span:nth-child(2) {flex:1;font-size:13px}
+  .schedule-strip small {display:block;color:var(--muted);margin-top:4px}
+  .schedule-icon {color:var(--manual);font-size:30px}
+  .quick-actions {order:4;margin:0 0 18px}
+  .extra-shortcut {display:none}
+  .cards-ritmo {order:5}
+  .stat-grid {order:6}
+  .home-main>.section-title:not(.overview-heading) {order:7;margin-top:8px}
+  #ofertas-recentes-lista {order:8}
+  .home-main>.ajuda-card {order:9;margin-top:18px}
+  #onboard-card {order:-1}
+  .manual-thumb {width:48px;height:48px;object-fit:cover;border-radius:8px;background:var(--bg);flex-shrink:0}
+  .offer-name,.canal-item .info {overflow-wrap:anywhere;min-width:0}
+  html[data-model="balanced"] .tools-dock {grid-template-columns:1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  html[data-model="balanced"] .dock-item {flex-direction:row;align-items:center;min-height:62px;border:0;border-radius:0;border-bottom:1px solid var(--line);gap:14px}
+  html[data-model="balanced"] .dock-item:last-child {border-bottom:0}
+  html[data-model="balanced"] .dock-item .icon-badge {margin:0}
+  html[data-model="showcase"] .model-hero {display:flex}
+  html[data-model="showcase"] .home-main>.overview-heading {display:none}
+  html[data-model="showcase"] .schedule-strip {order:5}
+  html[data-model="showcase"] .quick-actions {grid-template-columns:repeat(3,1fr)}
+  html[data-model="showcase"] .quick-actions button {min-height:84px;background:var(--surface);color:var(--flame);font-size:12px}
+  html[data-model="showcase"] .extra-shortcut {display:block}
+  html[data-model="showcase"] .cards-ritmo {order:6}
+  html[data-model="showcase"] .stat-grid {order:6}
+  html[data-model="showcase"] .offer img,html[data-model="showcase"] .manual-thumb {width:76px;height:76px;border-radius:12px}
+  html[data-model="showcase"] .offer,html[data-model="showcase"] #manuais-lista .canal-item {padding:18px;border-radius:18px;margin-bottom:14px}
+  html[data-model="showcase"] .view-header h2 {font-size:27px}
+  html[data-model="compact"] .overview-metrics {grid-template-columns:1fr;gap:8px}
+  html[data-model="compact"] .overview-metrics>div {grid-template-columns:30px 52px 1fr;padding:12px}
+  html[data-model="compact"] .overview-metrics .metric-icon {grid-row:auto}
+  html[data-model="compact"] .overview-metrics strong {font-size:22px}
+  html[data-model="compact"] .cards-ritmo {grid-template-columns:1fr;gap:8px}
+  html[data-model="compact"] .card-ritmo {display:grid;grid-template-columns:1fr 1fr;padding:12px;border-radius:10px;column-gap:8px}
+  html[data-model="compact"] .card-ritmo .icone-badge {display:none}
+  html[data-model="compact"] .card-ritmo .r-count {margin:0;justify-content:flex-end;font-size:22px}
+  html[data-model="compact"] .r-gauge {grid-column:span 2}
+  html[data-model="compact"] .r-foot {grid-column:span 2;display:flex;justify-content:space-between;gap:8px}
+  html[data-model="compact"] .offer,html[data-model="compact"] .canal-item {padding:10px;border-radius:8px;margin-bottom:6px}
+  html[data-model="compact"] .offer img,html[data-model="compact"] .manual-thumb {width:40px;height:40px;border-radius:6px}
+  html[data-model="compact"] .tools-dock {grid-template-columns:1fr 1fr;gap:8px}
+  html[data-model="compact"] .dock-item {min-height:62px;padding:12px;flex-direction:row;align-items:center}
+  html[data-model="compact"] .dock-item .tt {font-size:12px}
+  html[data-model="compact"] .header .greet h1 {font-size:24px}
+  @media(max-width:360px){.overview-metrics>div{padding:12px 8px;column-gap:4px}.model-hero{padding:18px}.hero-symbol{display:none}.manual-thumb{width:36px;height:36px}html[data-model="showcase"] .manual-thumb{width:52px;height:52px}}
+
+.rhythm-details{order:6;margin:0 0 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px}.rhythm-details summary{cursor:pointer;font-size:13px;color:var(--ink);min-height:32px;padding:4px}.rhythm-details summary span{float:right;color:var(--muted);font-size:11px}.rhythm-details[open] summary{margin-bottom:10px}.rhythm-details .cards-ritmo{margin:0}
 </style>
 </head>
 <body>
@@ -643,8 +795,8 @@
 
   <div class="header">
     <div class="greet">
-      <div class="eyebrow">Suporte Netcell</div>
-      <h1>Olá 👋</h1>
+      <h1>Sua loja</h1>
+      <p id="cliente-nome" class="subscriber-name">Bem-vindo</p>
     </div>
     <div style="display:flex; align-items:center; gap:8px; position:relative;">
       <div class="status-pill"><span class="status-dot"></span>Carregando</div>
@@ -652,7 +804,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
         <span id="notif-badge" style="display:none; position:absolute; top:-3px; right:-3px; width:8px; height:8px; border-radius:50%; background:var(--flame); box-shadow:0 0 0 2px var(--surface);"></span>
       </button>
-      <button id="tema-toggle" onclick="alternarTemaSimples()" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; font-size:16px; cursor:pointer;">🌙</button>
+      <button id="tema-toggle" onclick="mostrarView('temas')" aria-label="Escolher aparência" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; width:36px; height:36px; font-size:16px; cursor:pointer;">🌙</button>
     </div>
   </div>
 
@@ -676,10 +828,14 @@
     <div id="onboard-itens"></div>
   </div>
 
-  <div class="cards-ritmo">
+  <div class="section-title overview-heading"><h2>Visão geral</h2><span class="section-caption">Publicações de hoje</span></div>
+  <div class="model-hero"><div class="hero-copy"><span class="hero-kicker">SUA AUTOMAÇÃO</span><h2 id="hero-title">Acompanhe sua loja</h2><p id="hero-message">Status e programação das suas publicações.</p><button onclick="mostrarView('tempo')">Ver programação →</button></div><span class="hero-symbol" aria-hidden="true">↗</span></div>
+  <div class="overview-metrics"><div><span class="metric-icon">▤</span><strong id="overview-posts">—</strong><span>Publicações hoje</span></div><div><span class="metric-icon">◎</span><strong id="overview-channels">—</strong><span>Canais conectados</span></div></div>
+  <button class="schedule-strip" onclick="mostrarView('tempo')"><span class="schedule-icon">◷</span><span>Próxima publicação manual<small id="schedule-next">Aguardando informações</small></span><span>→</span></button>
+  <details class="rhythm-details"><summary>Ritmo de divulgação <span>Ver detalhes</span></summary><div class="cards-ritmo">
     <div class="card-ritmo card-ritmo-pool">
       <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
-      <div class="r-label">🧲 Pool (API)</div>
+      <div class="r-label">Ofertas automáticas</div>
       <div class="r-count"><span class="skeleton" id="r-pool-count">00</span><small id="r-pool-meta">/ 00</small></div>
       <div class="r-gauge"><div class="r-gauge-fill-pool" id="r-pool-gauge"></div></div>
       <div class="r-foot"><span id="r-pool-ritmo">-</span><b>Reinicia à 00:00</b></div>
@@ -687,13 +843,15 @@
 
     <div class="card-ritmo card-ritmo-manual">
       <div class="icone-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></div>
-      <div class="r-label">📦 Manuais</div>
+      <div class="r-label">Produtos manuais</div>
       <div class="r-count"><span class="skeleton" id="r-manual-count">00</span><small id="r-manual-meta">/ 00</small></div>
       <div class="r-gauge"><div class="r-gauge-fill-manual" id="r-manual-gauge"></div></div>
       <div class="r-foot"><span id="r-manual-ritmo">-</span><b id="r-manual-proximo">-</b></div>
     </div>
   </div>
 
+  </details>
+  <div class="quick-actions"><button class="primary-action" onclick="mostrarView('manuais')">＋ Adicionar produto</button><button onclick="mostrarView('canais')">Gerenciar canais →</button><button class="extra-shortcut" onclick="mostrarView('marketplace')">Ofertas automáticas →</button></div>
   <div class="stat-grid">
     <div class="stat-card">
       <div class="icon-badge ib-canais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span></div>
@@ -703,7 +861,7 @@
     <div class="stat-card">
       <div class="icon-badge ib-pool"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span></div>
       <div class="num"><span class="skeleton">00</span></div>
-      <div class="lbl">Ofertas no pool</div>
+      <div class="lbl">Ofertas disponíveis</div>
     </div>
     <div class="stat-card">
       <div class="icon-badge ib-manuais"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3.5l-1.7-3.5A2 2 0 0 0 13 2.5h-2a2 2 0 0 0-1.8 1L7.5 7H4a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1Z"/><path d="M12 12v.01"/><path d="M9 10.5a3 3 0 0 0 6 0"/></svg></span></div>
@@ -714,7 +872,7 @@
   </div>
 
   <div class="section-title">
-    <h2>Últimas divulgadas</h2>
+    <h2>Atividade recente</h2>
   </div>
 
   <div id="ofertas-recentes-lista">
@@ -724,52 +882,16 @@
   <a href="https://wa.me/5591982351518" target="_blank" class="ajuda-card">
     <div class="icon-badge ib-ajuda"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5Z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5Z"/></svg></span></div>
     <div>
-      <div class="ajuda-nome">Suporte Netcell</div>
+      <div class="ajuda-nome">Central de suporte</div>
       <div class="ajuda-sub">Fale com a gente no WhatsApp</div>
     </div>
   </a>
 
   </div><!-- /home-main -->
 
-  <div class="tools-dock">
-    <div class="dock-item" onclick="mostrarView('canais')">
-      <div class="icon-badge ib-roxo"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span></div>
-      <span class="tt">Meus canais</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('filtros')">
-      <div class="icon-badge ib-azul"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span></div>
-      <span class="tt">Meus filtros</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('tempo')">
-      <div class="icon-badge ib-teal"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span></div>
-      <span class="tt">Tempo de divulgação</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('marketplace')">
-      <div class="icon-badge ib-amber"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span></div>
-      <span class="tt">Configurar API</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('whatsapp')">
-      <div class="icon-badge ib-verde"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg></span></div>
-      <span class="tt">Conectar WhatsApp</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('manuais')">
-      <div class="icon-badge ib-rosa"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span></div>
-      <span class="tt">Produtos manuais</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('pagamento')">
-      <div class="icon-badge ib-vermelho"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span></div>
-      <span class="tt">Renovar/Pagar</span>
-    </div>
-    <div class="dock-item" onclick="mostrarView('temas')">
-      <span class="ic">🎨</span><span class="tt">Temas</span>
-    </div>
-  </div>
-
   </div><!-- /home-grid -->
 
-  <div class="demo-note">
-    ✨ Todas as ferramentas do painel já usam dados reais do seu bot.
-  </div>
+
 
   </div><!-- /view-home -->
 
@@ -951,10 +1073,13 @@
     </div>
     <div class="field">
       <label>App Secret</label>
-      <input type="text" id="m-app-secret" placeholder="Seu App Secret da Shopee">
+      <input type="password" autocomplete="off" id="m-app-secret" placeholder="Seu App Secret da Shopee">
     </div>
     <button class="save-btn" onclick="salvarMarketplace()">Salvar credencial</button>
     <div class="toast" id="marketplace-toast"></div>
+    <button class="save-btn" onclick="executarTestePainel('credencial', this)">Testar credencial salva</button>
+    <button class="save-btn" onclick="executarTestePainel('automatico', this)">Simular ofertas automáticas</button>
+    <p id="testes-status" role="status" style="white-space:pre-line;color:var(--muted)"></p>
   </div>
 
   <!-- ===================== VIEW: Produtos manuais ===================== -->
@@ -964,6 +1089,13 @@
       <h2>📦 Produtos manuais</h2>
     </div>
 
+    <div class="field">
+      <label for="teste-manual-id">Teste de publicação manual</label>
+      <select id="teste-manual-id"><option value="">Carregue e escolha um produto</option></select>
+      <button class="save-btn" onclick="carregarProdutosTeste(this)">Carregar produtos para teste</button>
+      <button class="save-btn" onclick="publicarTesteManual(this)">Publicar produto escolhido</button>
+      <p id="teste-manual-status" role="status" style="color:var(--muted)">Envia de verdade aos canais cadastrados, respeitando o intervalo de repetição.</p>
+    </div>
     <div class="selecao-row" id="manuais-selecao" style="display:none;">
       <button onclick="marcarTodosSalvos(true)">✅ Marcar todos</button>
       <button onclick="marcarTodosSalvos(false)">⬜ Desmarcar todos</button>
@@ -1018,7 +1150,7 @@
 
     <div id="manual-modo-massa" style="display:none;">
       <div class="field">
-        <label>Cole vários links, um por linha (até 30 de uma vez)</label>
+        <label>Cole vários links, um por linha (até 5 por busca)</label>
         <textarea id="man-massa-urls" rows="6" style="width:100%; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:11px 12px; color:var(--ink); font-family:'Inter',sans-serif; font-size:13px; resize:vertical;" placeholder="https://...&#10;https://...&#10;https://..."></textarea>
       </div>
       <button id="man-massa-buscar-btn" class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="buscarProdutosMassa()">🔍 Buscar todos automaticamente</button>
@@ -1100,23 +1232,48 @@
     <div id="notificacoes-lista"><div class="empty-state">Carregando...</div></div>
   </div>
 
-  <div id="view-temas" class="view">
-    <div class="view-header">
-      <div class="back-btn" onclick="mostrarView('home')">←</div>
-      <h2>🎨 Temas</h2>
+  <div id="view-ajustes" class="view"><div class="view-header"><h2>Ajustes</h2></div><p class="settings-intro">Tudo para deixar sua loja do seu jeito.</p><h3 class="settings-label">Sua loja</h3>  <div class="tools-dock">
+    <div class="dock-item" onclick="mostrarView('canais')">
+      <div class="icon-badge ib-roxo"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.5 5.5a9 9 0 0 0 0 13"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span></div>
+      <span class="tt">Meus canais</span>
     </div>
-
-    <p style="font-size:12.5px; color:var(--muted); margin-bottom:14px;">Escuro e claro ficam no botão do topo, na tela inicial. Aqui é só o tema especial:</p>
-
-    <div class="tema-card" data-tema="neon" onclick="alternarTemaNeon()">
-      <div class="tema-preview" style="background:linear-gradient(135deg,#A855F7,#4F9EFF);">✨</div>
-      <div>
-        <div class="tema-nome">Neon</div>
-        <div class="tema-desc">Visual premium, ícones com brilho colorido</div>
-      </div>
-      <div class="tema-check">✓</div>
+    <div class="dock-item" onclick="mostrarView('filtros')">
+      <div class="icon-badge ib-azul"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span></div>
+      <span class="tt">Meus filtros</span>
+    </div>
+    <div class="dock-item" onclick="mostrarView('tempo')">
+      <div class="icon-badge ib-teal"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span></div>
+      <span class="tt">Tempo de divulgação</span>
+    </div>
+    <div class="dock-item" onclick="mostrarView('marketplace')">
+      <div class="icon-badge ib-amber"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span></div>
+      <span class="tt">Configurar API</span>
+    </div>
+    <div class="dock-item" onclick="mostrarView('whatsapp')">
+      <div class="icon-badge ib-verde"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg></span></div>
+      <span class="tt">Conectar WhatsApp</span>
+    </div>
+    <div class="dock-item" onclick="mostrarView('manuais')">
+      <div class="icon-badge ib-rosa"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span></div>
+      <span class="tt">Produtos manuais</span>
+    </div>
+    <div class="dock-item" onclick="mostrarView('pagamento')">
+      <div class="icon-badge ib-vermelho"><span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span></div>
+      <span class="tt">Renovar/Pagar</span>
+    </div>
+    <div class="dock-item" onclick="mostrarView('temas')">
+      <span class="ic">🎨</span><span class="tt">Temas</span>
     </div>
   </div>
+
+</div>
+  <div id="view-temas" class="view"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar aos ajustes">←</button><h2>Aparência</h2></div><p class="settings-intro">Escolha como você prefere usar sua loja. Sua escolha fica salva neste dispositivo.</p><h3 class="settings-label">Modelo de interface</h3><div class="model-options"><button type="button" class="tema-card model-card" data-model="balanced" onclick="aplicarModelo('balanced')" aria-pressed="false"><span class="model-preview preview-balanced" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Essencial</span><span class="tema-desc">Verde e azul · indicadores e atalhos</span></span><span class="tema-check">✓</span></button><button type="button" class="tema-card model-card" data-model="showcase" onclick="aplicarModelo('showcase')" aria-pressed="false"><span class="model-preview preview-showcase" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Destaque</span><span class="tema-desc">Azul · cartão principal e fotos maiores</span></span><span class="tema-check">✓</span></button><button type="button" class="tema-card model-card" data-model="compact" onclick="aplicarModelo('compact')" aria-pressed="false"><span class="model-preview preview-compact" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Compacto</span><span class="tema-desc">Verde · listas e controles enxutos</span></span><span class="tema-check">✓</span></button></div><h3 class="settings-label">Iluminação</h3><div class="mode-options" aria-label="Iluminação"><button class="tema-card" data-tema="light" onclick="aplicarTema('light')" aria-pressed="false">☀ Claro</button><button class="tema-card" data-tema="dark" onclick="aplicarTema('dark')" aria-pressed="false">☾ Escuro</button><button class="tema-card" data-tema="system" onclick="aplicarTema('system')" aria-pressed="false">▣ Sistema</button></div><p id="theme-feedback" role="status" class="settings-intro"></p></div>
+  <nav class="bottom-nav" aria-label="Navegação principal">
+    <button data-view="home" class="selected" aria-current="page" onclick="mostrarView('home')"><span aria-hidden="true">⌂</span>Início</button>
+    <button data-view="manuais" onclick="mostrarView('manuais')"><span aria-hidden="true">◇</span>Produtos</button>
+    <button data-view="canais" onclick="mostrarView('canais')"><span aria-hidden="true">◎</span>Canais</button>
+    <button data-view="ajustes" onclick="mostrarView('ajustes')"><span aria-hidden="true">⚙</span>Ajustes</button>
+  </nav>
 
 <script>
   const API_BASE = "https://afiliados.netcellsshpainel.pro"; // URL permanente (Cloudflare Tunnel)
@@ -1125,24 +1282,53 @@
   let initData = "";
   let verClientId = null; // se o admin escolher outro cliente, fica aqui
 
-  // Tema: se o cliente já escolheu antes, usa essa escolha. Senão, começa
-  // sempre escuro (em vez de seguir o tema do Telegram) - resolve o problema
-  // de ficar muito claro/branco pra quem usa o Telegram no modo claro.
-  const temaSalvo = localStorage.getItem("netcell_tema") || "dark";
-  document.documentElement.setAttribute("data-theme", temaSalvo);
-  atualizarIconeTema(temaSalvo);
-
+  const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+  const themeKey = "sualoja_tema_" + (tg?.initDataUnsafe?.user?.id || "local");
+  const validThemes = ["dark", "light", "system"];
+  const modelKey = themeKey + "_modelo";
+  const validModels = ["balanced", "showcase", "compact"];
+  let modelPreference = "balanced";
+  let themePreference = "dark";
+  try {
+    const saved = localStorage.getItem(themeKey) || localStorage.getItem("netcell_tema");
+    themePreference = validThemes.includes(saved) ? saved : "dark";
+    const oldModel = saved === "light" ? "showcase" : ["green", "neon"].includes(saved) ? "compact" : "balanced";
+    const model = localStorage.getItem(modelKey) || oldModel;
+    modelPreference = validModels.includes(model) ? model : "balanced";
+  } catch (_) { /* O painel continua funcionando quando o armazenamento é bloqueado. */ }
+  function renderTheme() {
+    const effective = themePreference === "system" ? (themeMedia.matches ? "dark" : "light") : themePreference;
+    document.documentElement.setAttribute("data-theme", effective);
+    document.documentElement.setAttribute("data-model", modelPreference);
+    document.querySelectorAll("[data-model].model-card").forEach(el => {
+      const active = el.dataset.model === modelPreference;
+      el.classList.toggle("ativo", active); el.setAttribute("aria-pressed", String(active));
+    });
+    atualizarIconeTema(themePreference);
+    try {
+      const bg = getComputedStyle(document.documentElement).getPropertyValue("--app-bg").trim();
+      tg?.setHeaderColor?.(bg);
+      tg?.setBackgroundColor?.(bg);
+    } catch (_) { /* Telegram antigo pode não aceitar cores personalizadas. */ }
+  }
+  function aplicarModelo(model) {
+    if (!validModels.includes(model)) return;
+    modelPreference = model;
+    let saved = true;
+    try { localStorage.setItem(modelKey, model); } catch (_) { saved = false; }
+    renderTheme();
+    document.getElementById("theme-feedback").textContent = saved ? "Modelo salvo. A iluminação escolhida foi mantida." : "Modelo aplicado nesta sessão; armazenamento indisponível.";
+  }
   function aplicarTema(tema) {
-    document.documentElement.setAttribute("data-theme", tema);
-    localStorage.setItem("netcell_tema", tema);
-    atualizarIconeTema(tema);
+    if (!validThemes.includes(tema)) return;
+    themePreference = tema;
+    let saved = true;
+    try { localStorage.setItem(themeKey, tema); } catch (_) { saved = false; }
+    renderTheme();
+    document.getElementById("theme-feedback").textContent = saved ? "Aparência salva neste dispositivo." : "Tema aplicado. Este navegador não permitiu salvar a preferência.";
   }
-
-  // Ativa o Neon se não estiver ativo, ou volta pro escuro se já estiver
-  function alternarTemaNeon() {
-    const atual = document.documentElement.getAttribute("data-theme");
-    aplicarTema(atual === "neon" ? "dark" : "neon");
-  }
+  themeMedia.addEventListener?.("change", () => { if (themePreference === "system") renderTheme(); });
+  renderTheme();
 
   // ---------- Notificações internas ----------
   function formatarDataHoraNotif(texto) {
@@ -1180,19 +1366,13 @@
     chamarApi("/api/notificacoes/marcar_todas_lidas", {}).then(() => carregarNotificacoes());
   }
 
-  // Botão do topo: alterna só entre claro/escuro (o Neon fica só na aba "Temas")
-  function alternarTemaSimples() {
-    const atual = document.documentElement.getAttribute("data-theme");
-    aplicarTema(atual === "light" ? "dark" : "light");
-  }
-
   function atualizarIconeTema(tema) {
-    const icones = {dark: "🌙", light: "☀️", neon: "✨"};
     const btn = document.getElementById("tema-toggle");
-    if (btn) btn.textContent = icones[tema] || "🌙";
-
-    document.querySelectorAll(".tema-card").forEach(el => {
-      el.classList.toggle("ativo", el.dataset.tema === tema);
+    if (btn) btn.textContent = {dark:"☾", green:"◐", light:"☀", system:"◒"}[tema] || "☾";
+    document.querySelectorAll(".tema-card[data-tema]").forEach(el => {
+      const selected = el.dataset.tema === tema;
+      el.classList.toggle("ativo", selected);
+      el.setAttribute("aria-pressed", String(selected));
     });
   }
 
@@ -1264,6 +1444,13 @@
   function mostrarView(nome) {
     pararPollingWhatsapp();
     pararPollingPagamento();
+    const activeNav = ["home", "manuais", "canais"].includes(nome) ? nome : "ajustes";
+    document.querySelectorAll(".bottom-nav button").forEach(button => {
+      button.classList.toggle("selected", button.dataset.view === activeNav);
+      if (button.dataset.view === activeNav) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
+    });
+    window.scrollTo(0, 0);
     document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
     document.getElementById(`view-${nome}`).classList.add("active");
     if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
@@ -1277,7 +1464,7 @@
       if (nome === "filtros") carregarFiltros();
       if (nome === "tempo") carregarTempo();
       if (nome === "marketplace") carregarMarketplace();
-      if (nome === "temas") atualizarIconeTema(document.documentElement.getAttribute("data-theme"));
+      if (nome === "temas") atualizarIconeTema(themePreference);
       if (nome === "notificacoes") carregarNotificacoes();
       if (nome === "manuais") carregarManuais();
       if (nome === "whatsapp") iniciarTelaWhatsapp();
@@ -1305,6 +1492,9 @@
     return labels[minutos] || `${minutos} min`;
   }
 
+  function imagemProdutoSegura(url) {
+    try { const parsed = new URL(url); return ["https:", "http:"].includes(parsed.protocol) ? parsed.href.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;") : ""; } catch (_) { return ""; }
+  }
   function renderizarOfertasRecentes(lista) {
     const container = document.getElementById("ofertas-recentes-lista");
     if (!lista || !lista.length) {
@@ -1332,8 +1522,22 @@
 
   function carregarDashboard() {
     chamarApi("/api/dashboard").then(dados => {
-      if (dados.error) { console.error(dados.error); return; }
-      document.querySelector(".header .greet h1").textContent = `Olá, ${dados.nome} 👋`;
+      if (dados.error) {
+        document.querySelector(".status-pill").textContent = "Falha na conexão";
+        const area = document.getElementById("dashboard-erro") || document.createElement("p");
+        area.id = "dashboard-erro";
+        area.setAttribute("role", "alert");
+        area.textContent = dados.error + " Feche e reabra o painel para tentar novamente.";
+        if (!area.parentNode) document.getElementById("view-home").prepend(area);
+        return;
+      }
+      document.getElementById("dashboard-erro")?.remove();
+      document.getElementById("cliente-nome").textContent = dados.nome || "Bem-vindo";
+      document.getElementById("overview-posts").textContent = (Number(dados.posts_pool_hoje) || 0) + (Number(dados.posts_manual_hoje) || 0);
+      document.getElementById("overview-channels").textContent = dados.canais_conectados;
+      document.getElementById("hero-title").textContent = dados.motor_rodando ? "Sua automação está ativa" : "Sua automação está parada";
+      document.getElementById("hero-message").textContent = dados.motor_rodando ? "Acompanhe os produtos e a programação dos seus canais." : "Verifique a configuração e o status das publicações.";
+      document.getElementById("schedule-next").textContent = dados.proximo_manual === "agora" ? "Já está na hora" : dados.proximo_manual ? "Às " + dados.proximo_manual : "Aguardando primeiro envio";
 
       // Badge de notificação
       document.getElementById("notif-badge").style.display = dados.notificacoes_nao_lidas > 0 ? "block" : "none";
@@ -1620,6 +1824,7 @@
       <div class="canal-item">
         <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:0;">
           <input type="checkbox" ${manuaisSelecionados.has(m.id) ? "checked" : ""} onchange="alternarSelecaoManual(${m.id}, this.checked)">
+          <img class="manual-thumb" src="${imagemProdutoSegura(m.imagem_url)}" alt="" onerror="this.style.visibility='hidden'">
           <div class="info">${m.produto_nome}<div class="tipo">R$${formatarPrecoBR(m.preco)} · ${m.vezes_por_dia}x/dia</div></div>
         </div>
         <button class="del" onclick="removerManual(${m.id})">🗑️</button>
@@ -1754,7 +1959,7 @@
     const texto = document.getElementById("man-massa-urls").value.trim();
     const urls = texto.split("\n").map(u => u.trim()).filter(u => u);
     if (!urls.length) { mostrarToast("manuais-toast", "Cola pelo menos um link.", false); return; }
-    if (urls.length > 30) { mostrarToast("manuais-toast", "Máximo de 30 links por vez.", false); return; }
+    if (urls.length > 5) { mostrarToast("manuais-toast", "Máximo de 5 links por busca.", false); return; }
 
     const btn = document.getElementById("man-massa-buscar-btn");
     btn.disabled = true;
@@ -1857,6 +2062,11 @@
     if (!texto) { mostrarToast("manuais-toast", "Cola o texto exportado primeiro.", false); return; }
 
     const buscarImagens = document.getElementById("man-csv-buscar-imagens").checked;
+    const linhas = texto.split(/\r?\n/).filter(linha => linha.trim());
+    if (linhas.length > 100 || (buscarImagens && linhas.length > 5)) {
+      mostrarToast("manuais-toast", buscarImagens ? "Com imagens, importe até 5 produtos por vez." : "Importe até 100 produtos por vez.", false);
+      return;
+    }
     const btn = document.getElementById("man-csv-buscar-btn");
     btn.disabled = true;
     btn.textContent = buscarImagens ? "⏳ Processando e buscando imagens... pode levar alguns minutos" : "⏳ Processando...";
@@ -2096,11 +2306,57 @@
     if (pagPollingInterval) { clearInterval(pagPollingInterval); pagPollingInterval = null; }
   }
 
+
+  async function executarTestePainel(tipo, botao) {
+    const status = document.getElementById("testes-status");
+    botao.disabled = true;
+    status.textContent = "Verificando...";
+    try {
+      const dados = await chamarApi("/api/testes/" + tipo, {}, 30000);
+      status.textContent = dados.error || dados.mensagem || "Verificação concluída.";
+      if (dados.ofertas) {
+        status.textContent += "\n" + (dados.ofertas.length
+          ? dados.ofertas.map(o => o.produto_nome + " — R$ " + formatarPrecoBR(o.preco)).join("\n")
+          : "Nenhuma oferta disponível para os filtros atuais.");
+      }
+    } finally { botao.disabled = false; }
+  }
+
+  async function carregarProdutosTeste(botao) {
+    botao.disabled = true;
+    const select = document.getElementById("teste-manual-id");
+    const status = document.getElementById("teste-manual-status");
+    select.replaceChildren(new Option("Escolha um produto", ""));
+    try {
+      const dados = await chamarApi("/api/manuais");
+      if (dados.error) { status.textContent = dados.error; return; }
+      for (const produto of dados.manuais || []) select.add(new Option(produto.produto_nome, produto.id));
+      status.textContent = dados.manuais.length ? "Escolha um produto. O teste publicará nos seus canais." : "Cadastre um produto primeiro.";
+    } finally { botao.disabled = false; }
+  }
+
+  async function publicarTesteManual(botao) {
+    const id = Number(document.getElementById("teste-manual-id").value);
+    const status = document.getElementById("teste-manual-status");
+    if (!id) { status.textContent = "Escolha um produto primeiro."; return; }
+    if (!window.confirm("Publicar este produto agora nos canais cadastrados? Este envio é real e respeita o intervalo de repetição.")) return;
+    botao.disabled = true;
+    status.textContent = "Solicitando envio. Se a resposta demorar, confira os canais antes de repetir.";
+    try {
+      const dados = await chamarApi("/api/testes/manual", {id, confirmar_envio: true}, 90000);
+      status.textContent = dados.error || dados.mensagem;
+    } finally { botao.disabled = false; }
+  }
+
   function iniciarTelaPagamento() {
     const el = document.getElementById("pag-conteudo");
     el.innerHTML = `<div class="empty-state">Carregando...</div>`;
     chamarApi("/api/planos").then(dados => {
       if (dados.error) { el.innerHTML = `<div class="empty-state">${dados.error}</div>`; return; }
+      if (dados.pode_renovar === false) {
+        el.textContent = dados.motivo_renovacao || "A renovação será liberada nos últimos 3 dias do plano.";
+        return;
+      }
       if (!dados.planos.length) {
         el.innerHTML = `<div class="empty-state">Nenhum plano disponível ainda.</div>`;
         return;
@@ -2159,6 +2415,12 @@
     }, 5000);
   }
 
+  document.querySelectorAll(".dock-item, .back-btn").forEach(el => {
+    if (el.tagName !== "BUTTON") {
+      el.setAttribute("role", "button"); el.tabIndex = 0;
+      el.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); el.click(); } });
+    }
+  });
   // ---------- Inicialização ----------
   if (tg) {
     carregarDashboard();
