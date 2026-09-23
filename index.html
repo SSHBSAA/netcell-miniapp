@@ -1280,7 +1280,7 @@ https://..."></textarea>
       </div>
     </div>
 
-    <div id="pag-conteudo">
+    <div id="pix-pendentes"></div><div id="pag-conteudo">
       <div class="empty-state">Carregando...</div>
     </div>
     <div class="toast" id="pagamento-toast"></div>
@@ -2450,7 +2450,31 @@ https://..."></textarea>
     } finally { botao.disabled = false; }
   }
 
+  async function carregarPixPendentes() {
+    const area = document.getElementById("pix-pendentes");
+    area.textContent = "Consultando cobranças pendentes…";
+    const dados = await chamarApi("/api/pagamento/pendentes");
+    if (dados.error) { area.textContent = dados.error; return; }
+    area.innerHTML = (dados.pagamentos || []).map(p => `<div class="plano-card"><div>PIX pendente #${Number(p.payment_id)}<br><strong>R$ ${formatarPrecoBR(p.valor)}</strong></div><button class="danger-action" onclick="cancelarPix(${Number(p.payment_id)},this)">Cancelar PIX</button></div>`).join("");
+  }
+  async function cancelarPix(id, botao) {
+    if (!window.confirm("Cancelar este PIX no Mercado Pago? Após a confirmação, você poderá gerar outro. Pagamentos aprovados não podem ser cancelados.")) return;
+    botao.disabled = true;
+    botao.textContent = "Confirmando…";
+    pararPollingPagamento();
+    const dados = await chamarApi("/api/pagamento/cancelar", {payment_id:id, confirmar:true}, 90000);
+    if (dados.error) {
+      mostrarToast("pagamento-toast", dados.error, false);
+      botao.disabled = false; botao.textContent = "Cancelar PIX";
+      iniciarPollingPagamento(id);
+      return;
+    }
+    iniciarTelaPagamento();
+    mostrarToast("pagamento-toast", dados.mensagem, true);
+  }
   function iniciarTelaPagamento() {
+    pararPollingPagamento();
+    carregarPixPendentes();
     const el = document.getElementById("pag-conteudo");
     el.innerHTML = `<div class="empty-state">Carregando...</div>`;
     chamarApi("/api/planos").then(dados => {
@@ -2495,6 +2519,7 @@ https://..."></textarea>
         <button class="save-btn" style="background:var(--surface); color:var(--ink); border:1px solid var(--line);" onclick="copiarPix('${pixEscapado}')">📋 Copiar código</button>
         <div class="status-badge pending" style="margin-top:14px;">⏳ Aguardando pagamento...</div>
       `;
+      carregarPixPendentes();
       iniciarPollingPagamento(dados.payment_id);
     });
   }
@@ -2508,7 +2533,14 @@ https://..."></textarea>
     pararPollingPagamento();
     pagPollingInterval = setInterval(() => {
       chamarApi("/api/pagamento/status", {payment_id: paymentId}).then(dados => {
+        if (["cancelled", "cancelado", "rejected", "recusado"].includes(dados.status)) {
+          pararPollingPagamento();
+          document.getElementById("pag-conteudo").innerHTML = '<p>Esta cobrança foi encerrada.</p><button class="save-btn" onclick="iniciarTelaPagamento()">Escolher plano</button>';
+          carregarPixPendentes();
+          return;
+        }
         if (dados.status === "aprovado") {
+          carregarPixPendentes();
           pararPollingPagamento();
           document.getElementById("pag-conteudo").innerHTML = `<div class="status-badge working">✅ Pagamento aprovado!</div>`;
           carregarDashboard();
