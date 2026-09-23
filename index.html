@@ -842,6 +842,17 @@ body,button,input,select,textarea,h1,h2,h3 {font-family:Inter,system-ui,-apple-s
 .image-unavailable::before {content:"◇";display:inline-grid;place-items:center;width:36px;height:36px;background:var(--accent-soft);color:var(--muted);border-radius:8px;float:left;margin-right:10px}
 #view-manuais .tipo {text-transform:none;letter-spacing:normal;font-size:11px}
 .settings-list button:hover {background:var(--accent-soft)}
+
+.ui-icon {width:24px;height:24px;display:inline-block;vertical-align:middle;flex-shrink:0}
+.brand-icon {width:30px;height:30px;display:inline-block;vertical-align:middle;flex-shrink:0}
+.bottom-nav button {gap:5px}.bottom-nav button>span {display:flex;align-items:center;justify-content:center;height:27px}
+.bottom-nav .selected {background:transparent;position:relative}
+.bottom-nav .selected::after {content:"";position:absolute;bottom:0;width:22px;height:3px;border-radius:4px;background:var(--flame)}
+.bottom-nav .selected .ui-icon {stroke-width:2.2}
+.settings-icon {display:flex;align-items:center;justify-content:center;width:30px;flex-shrink:0;color:var(--manual)}
+.settings-list button>span:nth-child(2) {flex:1;min-width:0}
+.channel-symbol {padding:0;display:flex}.channel-symbol .brand-icon {width:42px;height:42px}
+.save-btn .brand-icon {width:22px;height:22px;margin-right:9px}.view-header h2 .brand-icon{margin-right:7px}
 </style>
 </head>
 <body>
@@ -1284,6 +1295,8 @@ https://..."></textarea>
   </nav>
 
 <script>
+  const interfaceIcons = {"home": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z\"/></svg>", "products": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 7V6a4 4 0 0 1 8 0v1M5 7h14l1 14H4L5 7Z\"/></svg>", "channels": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 10 15-6v16L3 14v-4Zm15-1h3v6h-3M6 15l2 6h4l-2-5\"/></svg>", "settings": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 3-1 3-3 1-2 3 2 2-1 3 3 2 1 3h4l1-3 3-1 2-3-2-2 1-3-3-2-1-3H9Z\" transform=\"translate(2 0)\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>", "filter": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 4h18l-7 8v7l-4 2v-9L3 4Z\"/></svg>", "clock": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 6v6l4 2\"/></svg>", "message": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 4H3v13h4v4l5-4h9V4Z\"/></svg>", "send": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 3 18 9-18 9 3-9-3-9Zm3 9h15\"/></svg>", "palette": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12a9 9 0 1 0-9 9h1a2 2 0 0 0 1-4 2 2 0 0 1 1-4h4a2 2 0 0 0 2-1Z\"/><path d=\"M7 10h.01M10 6h.01M15 6h.01\" stroke-width=\"3\"/></svg>", "bell": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 9a6 6 0 0 1 12 0c0 6 3 8 3 8H3s3-2 3-8M10 21h4\"/></svg>", "crown": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 6 5 4 4-7 4 7 5-4-2 13H5L3 6Zm2 16h14\"/></svg>", "support": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 13v-2a9 9 0 0 1 18 0v7a3 3 0 0 1-3 3h-4M3 12h4v7H3v-7Zm14 0h4v7h-4v-7Z\"/></svg>", "user": "<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21v-2a8 8 0 0 1 16 0v2\"/></svg>", "telegram": "<svg class=\"brand-icon telegram-icon\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#229ED9\"/><path d=\"m7 15 18-7-3 17-6-5-3 3 1-6 8-7-10 6Z\" fill=\"white\"/></svg>", "whatsapp": "<svg class=\"brand-icon whatsapp-icon\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#179E56\"/><path d=\"m7 26 1.5-5A10 10 0 1 1 12 25L7 26Z\" fill=\"none\" stroke=\"white\" stroke-width=\"1.8\"/><path d=\"M12 10c-2 0-2 3-1 5 2 4 6 7 9 6 2-1 2-3 1-3l-3-1-1 2c-3-1-4-3-5-5l2-1-1-3Z\" fill=\"white\"/></svg>", "shopee": "<svg class=\"brand-icon shopee-icon\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><path d=\"M5 10h22l1 20H4L5 10Z\" fill=\"#EE4D2D\"/><path d=\"M11 11V7a5 5 0 0 1 10 0v4\" fill=\"none\" stroke=\"#EE4D2D\" stroke-width=\"2.5\"/><path d=\"M21 15c-5-3-11 1-6 4l3 1c5 3 0 7-6 4\" fill=\"none\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>"};
+  function icone(nome) { return interfaceIcons[nome] || interfaceIcons.channels; }
   const API_BASE = "https://afiliados.netcellsshpainel.pro"; // URL permanente (Cloudflare Tunnel)
 
   const tg = window.Telegram?.WebApp;
@@ -1631,7 +1644,7 @@ https://..."></textarea>
       }
       lista.innerHTML = dados.canais.map(c => `
         <div class="canal-item">
-          <span class="channel-symbol" aria-hidden="true">${c.tipo === "telegram" ? "➤" : "◉"}</span><div class="info">${escaparHTML(c.destino)}<div class="tipo">${escaparHTML(c.tipo)} · Cadastrado</div></div>
+          <span class="channel-symbol" aria-hidden="true">${icone(String(c.tipo).toLowerCase() === "telegram" ? "telegram" : String(c.tipo).toLowerCase() === "whatsapp" ? "whatsapp" : "channels")}</span><div class="info">${escaparHTML(c.destino)}<div class="tipo">${escaparHTML(c.tipo)} · Cadastrado</div></div>
           <button class="del" onclick="removerCanal(${c.channel_id})">🗑️</button>
         </div>
       `).join("");
@@ -2467,6 +2480,27 @@ https://..."></textarea>
       el.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); el.click(); } });
     }
   });
+
+  const navIcons = {home:"home", manuais:"products", canais:"channels", ajustes:"settings"};
+  document.querySelectorAll(".bottom-nav button").forEach(button => {
+    button.querySelector("span").innerHTML = icone(navIcons[button.dataset.view]);
+  });
+  const settingsIcons = {marketplace:"shopee", filtros:"filter", tempo:"clock", botoes:"message", teste:"send", temas:"palette", notificacoes:"bell", pagamento:"crown"};
+  document.querySelectorAll(".settings-list button").forEach(button => {
+    const action = button.getAttribute("onclick") || "";
+    const target = action.match(/mostrarView\('([^']+)'\)/)?.[1];
+    const badge = document.createElement("span"); badge.className = "settings-icon";
+    badge.innerHTML = icone(settingsIcons[target] || "whatsapp"); button.prepend(badge);
+  });
+  document.querySelector(".profile-avatar").innerHTML = icone("user");
+  document.querySelectorAll("button").forEach(button => {
+    if (button.textContent.trim() === "Conectar WhatsApp") button.insertAdjacentHTML("afterbegin", icone("whatsapp"));
+  });
+  const waTitle = document.querySelector("#view-whatsapp h2");
+  if (waTitle) waTitle.innerHTML = icone("whatsapp") + " Conectar WhatsApp";
+  const marketplaceTitle = document.querySelector("#view-marketplace h2");
+  if (marketplaceTitle) marketplaceTitle.innerHTML = icone("shopee") + " Credencial Shopee";
+
   // ---------- Inicialização ----------
   if (tg) {
     carregarDashboard();
