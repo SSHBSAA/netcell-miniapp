@@ -973,6 +973,192 @@ html[data-estilo="vitrine"] #view-home .offer-price{font-size:15px;font-weight:7
 html[data-estilo="vitrine"] #manuais-lista .manual-thumb{width:76px!important;height:76px!important;border-radius:14px!important}
 html[data-estilo="vitrine"] .bottom-nav{background:#FFFFFF}
 
+/* ---------- Layout próprio de cada estilo: Início, Canais e barra de baixo ---------- */
+#estilo-home{display:none}
+html[data-estilo] #estilo-home{display:block}
+html[data-estilo] #view-home>:not(#estilo-home):not(#admin-seletor):not(#dashboard-erro){display:none!important}
+.eh{display:none;flex-direction:column;gap:16px}
+html[data-estilo="pro"] .eh-pro,html[data-estilo="essencial"] .eh-essencial,html[data-estilo="vitrine"] .eh-vitrine{display:flex}
+.so-vitrine{display:none}
+html[data-estilo="vitrine"] .so-vitrine{display:inline}
+html[data-estilo="vitrine"] .so-padrao{display:none}
+
+/* peças comuns do Início */
+.eh-topo{display:flex;align-items:center;gap:12px}
+.eh-quem{flex:1;min-width:0}
+.eh-ola{font-family:var(--estilo-titulo);font-size:22px;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
+.eh-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.eh-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.eh-sino{position:relative;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;flex:none;padding:0}
+.eh-ponto{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:#F97316}
+.eh-ponto[hidden]{display:none}
+.eh-bolinha{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+.eh-barra{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.eh-barra i{display:block;height:100%;width:0;background:var(--flame);border-radius:4px}
+.eh-secao{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.eh-secao h2{font-family:var(--estilo-titulo);font-size:17px;margin:0}
+.eh-secao .text-action{font-size:13px;font-weight:600;color:var(--flame)}
+.eh-ico{display:flex;align-items:center;justify-content:center;flex:none}
+.eh-lista{display:flex;flex-direction:column;gap:10px}
+.eh-item{display:flex;align-items:center;gap:12px}
+.eh-foto{width:52px;height:52px;border-radius:10px;object-fit:cover;flex:none;background:var(--accent-soft)}
+.sem-foto{display:block}
+.eh-item-txt{flex:1;min-width:0}
+.eh-item-nome{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eh-item-preco{display:flex;gap:8px;align-items:baseline;margin-top:2px}
+.eh-item-preco b{color:var(--sucesso);font-size:14px}
+.eh-item-preco s{font-size:12px;color:var(--muted)}
+.eh-item-hora{text-align:right;font-size:11px;color:var(--muted);flex:none}
+.eh-item-hora span{display:block}
+
+/* A · Escuro Pro */
+.eh-pro .eh-avatar{background:#16324A;color:#7DD3FC;font-family:var(--estilo-titulo);font-size:18px}
+.eh-pro .eh-status{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;font-size:13px;background:#0F2A22;border:1px solid #14532D;color:#A7F3D0}
+.eh-pro .eh-status b{margin-left:auto;color:#6EE7B7;font-weight:600}
+.eh-pro .eh-status[data-estado="parado"],.eh-pro .eh-status[data-estado="alerta"]{background:#3A2410;border-color:#7C4A16;color:#FDBA74}
+.eh-kpi{padding:18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.eh-kpi-topo{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.eh-kpi-num{display:flex;align-items:baseline;gap:8px}
+.eh-kpi-num strong{font-family:var(--estilo-titulo);font-size:48px;line-height:1}
+.eh-kpi-num span{color:var(--muted);font-size:14px}
+.eh-split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.eh-split>div{padding:10px 12px;border-radius:10px;background:#0E1626}
+.eh-split span{display:block;font-size:12px;color:var(--muted)}
+.eh-split b{font-size:18px}
+.eh-atalhos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.eh-atalhos button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px 4px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:11px;min-height:72px}
+.eh-pro .ico-verde{color:#34D399}.eh-pro .ico-azul{color:#7DD3FC}.eh-pro .ico-amarelo{color:#FBBF24}.eh-pro .ico-lilas{color:#C4B5FD}
+.eh-pro .eh-item{padding:10px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.eh-pro .eh-foto{background:#1B2740}
+.eh-pro .eh-item-hora span{color:#7DD3FC}
+
+/* B · Claro Essencial */
+.eh-essencial .eh-topo{align-items:flex-start}
+.eh-marca{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.eh-essencial .eh-ola{font-size:24px;font-weight:800;margin-top:2px}
+.eh-essencial .eh-sino{border-radius:50%;background:#FFFFFF}
+.eh-essencial .eh-ponto{background:#DC2626}
+.eh-chip{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:600;background:#ECFDF3;color:#15803D}
+.eh-chip[data-estado="alerta"]{background:#FFF7ED;color:#B45309}
+.eh-hoje{padding:18px;border-radius:18px;background:#FFFFFF;border:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.eh-hoje-topo{display:flex;justify-content:space-between;align-items:center}
+.eh-hoje-topo h2{margin:0;font-size:15px;font-weight:700}
+.eh-hoje-topo span{font-size:12px;color:var(--muted)}
+.eh-tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.eh-tres strong{display:block;font-size:28px;font-weight:800;line-height:1.1}
+.eh-tres span{font-size:12px;color:var(--muted)}
+.eh-essencial .eh-barra{height:6px;background:#E8EDF6}
+.eh-legenda{font-size:12px;color:var(--muted);margin-top:-8px}
+.eh-legenda:empty{display:none}
+.eh-agenda{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;background:#EFF4FF;border:0;color:var(--ink);font-size:13px;text-align:left;width:100%}
+.eh-agenda>span:nth-child(2){flex:1}
+.eh-agenda b,.eh-agenda .eh-ico{color:#1D4ED8}
+.eh-linhas{border-radius:18px;background:#FFFFFF;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+.eh-linhas button{display:flex;align-items:center;gap:12px;padding:12px 16px;border:0;border-bottom:1px solid #EEF1F6;background:none;color:var(--ink);text-align:left;min-height:60px;width:100%}
+.eh-linhas button:last-child{border-bottom:0}
+.eh-linhas .eh-ico{width:36px;height:36px;border-radius:10px}
+.eh-linhas .eh-txt{flex:1;font-size:14px;font-weight:600}
+.eh-linhas small{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
+.eh-linhas>button>svg{color:#94A3B8;flex:none}
+.eh-essencial .ico-azul{background:#EFF4FF;color:#1D4ED8}.eh-essencial .ico-amarelo{background:#FFF7ED;color:#B45309}.eh-essencial .ico-lilas{background:#F3E8FF;color:#7E22CE}
+.eh-cartao{padding:10px;border-radius:14px;background:#FFFFFF;border:1px solid var(--line)}
+.eh-essencial .eh-foto{width:48px;height:48px;background:#EEF2F7}
+
+/* C · Vitrine */
+.eh-logo{flex:1;font-family:Sora,sans-serif;font-size:20px;font-weight:800;letter-spacing:-.02em}
+.eh-logo span{color:#C2410C}
+.eh-vitrine .eh-sino{border-radius:50%;background:#FFFFFF}
+.eh-vitrine .eh-avatar{background:#17130F;color:#FBFAF7}
+.eh-hero{padding:18px;border-radius:20px;background:#17130F;color:#FBFAF7;display:flex;flex-direction:column;gap:14px}
+.eh-hero-ola{font-size:13px;color:#CFC6BA}
+.eh-hero-linha{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.eh-hero-linha strong{display:block;font-family:Sora,sans-serif;font-size:44px;font-weight:800;line-height:1}
+.eh-hero-linha span{font-size:13px;color:#CFC6BA}
+.eh-hero-prox{text-align:right}
+.eh-hero-prox span{display:block;font-size:12px}
+.eh-hero-prox b{font-family:Sora,sans-serif;font-size:22px;color:#FDBA74}
+.eh-hero-chips{display:flex;gap:8px;flex-wrap:wrap}
+.eh-hero-chips span{padding:6px 10px;border-radius:999px;background:#2A231C;font-size:12px}
+.eh-hero-chips span:empty{display:none}
+.eh-carrossel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:18px;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none}
+.eh-carrossel::-webkit-scrollbar{display:none}
+.eh-carrossel>.empty-state{flex:1}
+.eh-produto{width:150px;flex:none;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px}
+.eh-produto-foto{position:relative;width:150px;height:150px;border-radius:16px;overflow:hidden;background:#EFE9E1}
+.eh-produto-img{width:100%;height:100%;object-fit:cover;display:block}
+.eh-selo{position:absolute;top:10px;left:10px;padding:4px 8px;border-radius:8px;background:#C2410C;color:#FFFFFF;font-size:12px;font-weight:700}
+.eh-produto-nome{font-size:13px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.eh-produto-preco{font-size:15px;font-weight:700}
+.eh-blocos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.eh-blocos button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;background:#FFFFFF;border:1px solid var(--line);color:var(--ink);text-align:left;min-height:96px}
+.eh-blocos .eh-ico{color:#C2410C}
+.eh-blocos b{font-size:14px}
+.eh-blocos small{font-size:12px;color:var(--muted)}
+
+/* Canais */
+.ec-topo{display:none}
+html[data-estilo] .ec-topo{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px}
+html[data-estilo] .canais-legado{display:none!important}
+.ec-titulo{font-family:var(--estilo-titulo);font-size:26px!important;margin:0;line-height:1.2}
+html[data-estilo="essencial"] .ec-titulo{font-weight:800}
+html[data-estilo="vitrine"] .ec-titulo{font-weight:800;letter-spacing:-.02em}
+.ec-resumo{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.ec-novo{display:none}
+html[data-estilo="essencial"] .ec-novo{display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;border:0;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700;min-height:44px;flex:none}
+html[data-estilo] #channel-editor{display:block!important}
+html[data-estilo] #channel-editor>summary{display:none}
+html[data-estilo] .divider-label{font-family:inherit;letter-spacing:.02em}
+.ec-lista{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.ec-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"ico txt selo" "ico txt remover" "aviso aviso aviso" "acoes acoes acoes";align-items:center;column-gap:12px;row-gap:8px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--estilo-raio)}
+.ec-ico{grid-area:ico;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ec-ico .brand-icon{width:42px;height:42px}
+.ec-txt{grid-area:txt;min-width:0}
+.ec-txt strong{display:block;font-size:15px;font-weight:600;overflow-wrap:anywhere}
+.ec-txt small{display:block;font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.ec-selo{grid-area:selo;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700;background:var(--accent-soft);color:var(--sucesso);white-space:nowrap}
+.ec-card[data-estado="conferindo"] .ec-selo{color:var(--muted);background:transparent;border:1px solid var(--line)}
+.ec-card[data-estado="alerta"]{border-color:#EA580C88}
+.ec-card[data-estado="alerta"] .ec-selo{background:#F9731624;color:#EA580C}
+.ec-aviso{grid-area:aviso;margin:0;font-size:12px;color:var(--muted);display:none}
+.ec-acoes{grid-area:acoes;display:none;gap:8px;justify-content:flex-end;align-items:center}
+.ec-card[data-estado="alerta"] .ec-acoes{display:flex}
+.ec-reconectar{display:none;flex:1;padding:11px;border:0;border-radius:10px;background:#EA580C;color:#FFFFFF;font-weight:700;min-height:44px}
+.ec-card[data-estado="alerta"] .ec-aviso{display:block}
+.ec-card[data-estado="alerta"] .ec-reconectar{display:block}
+.ec-remover{grid-area:remover;justify-self:end;background:none;border:0;color:var(--muted);font-size:12px;padding:4px 0 4px 8px;min-height:32px}
+html[data-estilo="essencial"] .ec-lista{gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#FFFFFF}
+html[data-estilo="essencial"] .ec-card{border:0;border-radius:0!important;border-bottom:1px solid #EEF1F6}
+html[data-estilo="essencial"] .ec-card:last-child{border-bottom:0}
+html[data-estilo="essencial"] .ec-card[data-estado="alerta"]{background:#FFFBF5}
+html[data-estilo="essencial"] .ec-ico{border-radius:50%}
+html[data-estilo="vitrine"] .ec-lista{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+html[data-estilo="vitrine"] .ec-card{grid-template-columns:1fr auto;grid-template-areas:"ico selo" "txt txt" "acoes acoes" "remover remover";align-items:start;border-radius:18px!important}
+html[data-estilo="vitrine"] .ec-remover{justify-self:start;padding-left:0}
+html[data-estilo="vitrine"] .ec-card[data-estado="alerta"]{background:#FFF4EC}
+html[data-estilo="vitrine"] .ec-aviso{display:none!important}
+html[data-estilo="vitrine"] .ec-acoes{justify-content:flex-start;flex-wrap:wrap}
+html[data-estilo="vitrine"] .ec-reconectar{flex:none;width:100%;padding:9px;font-size:13px;background:#C2410C}
+
+/* escolha do bot no formulário */
+html[data-estilo="essencial"] .bot-choice{grid-template-columns:1fr 1fr}
+html[data-estilo="essencial"] .bot-option{flex-direction:column;border-radius:14px}
+html[data-estilo="essencial"] .bot-option:has(input:checked){background:#EFF4FF}
+html[data-estilo="vitrine"] .bot-choice{grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:#F1ECE5}
+html[data-estilo="vitrine"] .bot-option{position:relative;justify-content:center;text-align:center;border:0;background:transparent;padding:10px 6px;border-radius:11px}
+html[data-estilo="vitrine"] .bot-option input{position:absolute;opacity:0;pointer-events:none}
+html[data-estilo="vitrine"] .bot-option small{display:none}
+html[data-estilo="vitrine"] .bot-option:has(input:checked){background:#17130F;box-shadow:none}
+html[data-estilo="vitrine"] .bot-option:has(input:checked) b{color:#FBFAF7}
+html[data-estilo="vitrine"] .bot-option:has(input:focus-visible){outline:2px solid #C2410C;outline-offset:2px}
+
+/* barra de baixo: botão + no meio (Vitrine) */
+.bottom-nav b{font-weight:inherit}
+.nav-mais{display:none!important}
+html[data-estilo="vitrine"] .bottom-nav{grid-template-columns:repeat(5,1fr)}
+html[data-estilo="vitrine"] .bottom-nav .nav-mais{display:flex!important;align-items:center;justify-content:center;align-self:center;justify-self:center;width:54px;height:54px;min-height:54px;margin-top:-24px;padding:0;border-radius:50%;background:#C2410C;color:#FFFFFF;box-shadow:0 6px 16px rgba(194,65,12,.35)}
+.nav-mais i{display:flex}
+.nav-mais svg{width:24px;height:24px}
+
 /* Tela Aparência: os três estilos com uma miniatura */
 .estilo-options{display:grid;gap:10px}
 .estilo-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font-family:inherit;cursor:pointer;min-height:92px}
@@ -992,6 +1178,81 @@ html[data-estilo="vitrine"] .bottom-nav{background:#FFFFFF}
 <body>
 
   <div id="view-home" class="view active">
+
+  <!-- Início no layout de cada estilo (Ajustes → Aparência). Preenchido por preencherInicioEstilos(). -->
+  <div id="estilo-home">
+
+  <section class="eh eh-pro" aria-label="Resumo">
+    <header class="eh-topo">
+      <div class="eh-avatar" data-p="iniciais">·</div>
+      <div class="eh-quem"><div class="eh-ola" data-p="ola">Olá</div><div class="eh-sub" data-p="plano-linha">Carregando…</div></div>
+      <button class="eh-sino" onclick="mostrarView('notificacoes')" aria-label="Notificações"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span class="eh-ponto" data-p="ponto"></span></button>
+    </header>
+    <div class="eh-status" data-p-classe="status"><span class="eh-bolinha"></span><span data-p="status">Carregando…</span><b data-p="proxima"></b></div>
+    <section class="eh-kpi">
+      <div class="eh-kpi-topo"><span>Publicações hoje</span><span data-p="meta-txt"></span></div>
+      <div class="eh-kpi-num"><strong data-p="posts">—</strong><span data-p="de-meta"></span></div>
+      <div class="eh-barra"><i data-p-largura="barra"></i></div>
+      <div class="eh-split"><div><span>Automáticas</span><b data-p="auto">—</b></div><div><span>Manuais</span><b data-p="manual">—</b></div></div>
+    </section>
+    <div class="eh-atalhos">
+      <button onclick="atalhoProduto()"><span class="eh-ico ico-verde"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>Produto</button>
+      <button onclick="mostrarView('canais')"><span class="eh-ico ico-azul"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"></path></svg></span>Canal</button>
+      <button onclick="mostrarView('filtros')"><span class="eh-ico ico-amarelo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg></span>Filtros</button>
+      <button onclick="mostrarView('tempo')"><span class="eh-ico ico-lilas"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>Ritmo</button>
+    </div>
+    <div class="eh-secao"><h2>Últimas publicações</h2><button class="text-action" onclick="mostrarView('historico')">Ver todas</button></div>
+    <div class="eh-lista" data-lista="linhas"></div>
+  </section>
+
+  <section class="eh eh-essencial" aria-label="Resumo">
+    <header class="eh-topo">
+      <div class="eh-quem"><div class="eh-marca">NetCell Afiliados</div><div class="eh-ola" data-p="ola">Olá</div><div class="eh-chip" data-p-classe="chip"><span class="eh-bolinha"></span><span data-p="plano-chip">Carregando…</span></div></div>
+      <button class="eh-sino" onclick="mostrarView('notificacoes')" aria-label="Notificações"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span class="eh-ponto" data-p="ponto"></span></button>
+    </header>
+    <section class="eh-hoje">
+      <div class="eh-hoje-topo"><h2>Hoje</h2><span data-p="status">Carregando…</span></div>
+      <div class="eh-tres">
+        <div><strong data-p="posts">—</strong><span>publicadas</span></div>
+        <div><strong data-p="fila">—</strong><span>ofertas na fila</span></div>
+        <div><strong data-p="canais">—</strong><span>canais</span></div>
+      </div>
+      <div class="eh-barra"><i data-p-largura="barra"></i></div>
+      <div class="eh-legenda" data-p="ritmo-dia"></div>
+      <button class="eh-agenda" onclick="mostrarView('tempo')"><span class="eh-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span><span data-p="proxima-frase">Confira sua programação</span><b>Agenda</b></button>
+    </section>
+    <nav class="eh-linhas" aria-label="Atalhos">
+      <button onclick="atalhoProduto()"><span class="eh-ico ico-azul"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span><span class="eh-txt">Adicionar produto</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+      <button onclick="mostrarView('filtros')"><span class="eh-ico ico-amarelo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg></span><span class="eh-txt">Filtros de ofertas</span><small data-p="desconto-curto"></small><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+      <button onclick="mostrarView('tempo')"><span class="eh-ico ico-lilas"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span><span class="eh-txt">Ritmo de divulgação</span><small data-p="ritmo-txt"></small><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+    </nav>
+    <div class="eh-secao"><h2>Últimas publicações</h2><button class="text-action" onclick="mostrarView('historico')">Ver todas</button></div>
+    <div class="eh-lista" data-lista="cartoes"></div>
+  </section>
+
+  <section class="eh eh-vitrine" aria-label="Resumo">
+    <header class="eh-topo">
+      <div class="eh-logo">Net<span>Cell</span></div>
+      <button class="eh-sino" onclick="mostrarView('notificacoes')" aria-label="Notificações"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span class="eh-ponto" data-p="ponto"></span></button>
+      <div class="eh-avatar" data-p="iniciais">·</div>
+    </header>
+    <section class="eh-hero">
+      <div class="eh-hero-ola" data-p="vitrine-ola">Sua vitrine hoje</div>
+      <div class="eh-hero-linha">
+        <div><strong data-p="posts">—</strong><span>ofertas publicadas</span></div>
+        <div class="eh-hero-prox"><span>próxima</span><b data-p="proxima-hora">—</b></div>
+      </div>
+      <div class="eh-hero-chips"><span data-p="canais-chip">— canais</span><span data-p="fila-chip">— na fila</span><span data-p="validade-chip"></span></div>
+    </section>
+    <div class="eh-secao"><h2>Acabou de sair</h2><button class="text-action" onclick="mostrarView('historico')">Ver todas</button></div>
+    <div class="eh-carrossel" data-lista="vitrine"></div>
+    <div class="eh-blocos">
+      <button onclick="mostrarView('filtros')"><span class="eh-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg></span><b>Filtros</b><small data-p="desconto-txt">Escolha o que divulgar</small></button>
+      <button onclick="mostrarView('tempo')"><span class="eh-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span><b>Ritmo</b><small data-p="ritmo-txt"></small></button>
+    </div>
+  </section>
+
+  </div>
 
   <div class="header">
     <div class="greet"><h1 id="cliente-nome">Olá 👋</h1><p class="subscriber-name">Sua divulgação, em um só lugar.</p></div>
@@ -1044,9 +1305,10 @@ html[data-estilo="vitrine"] .bottom-nav{background:#FFFFFF}
 
   <!-- ===================== VIEW: Meus canais ===================== -->
   <div id="view-canais" class="view">
-    <div class="view-header"><h2>Canais</h2></div><p class="settings-intro">Escolha onde suas ofertas aparecem.</p>
+    <div class="view-header canais-legado"><h2>Canais</h2></div><p class="settings-intro canais-legado">Escolha onde suas ofertas aparecem.</p>
+    <header class="ec-topo"><div><h2 class="ec-titulo"><span class="so-padrao">Canais</span><span class="so-vitrine">Seus canais</span></h2><p class="ec-resumo" id="canais-resumo">Onde suas ofertas aparecem.</p></div><button class="ec-novo" onclick="abrirConexao()">＋ Novo</button></header>
 
-    <button class="connect-primary" onclick="abrirConexao()">＋ Conectar canal</button><h3 class="settings-label">Seus canais</h3><div id="canais-lista"><div class="empty-state">Carregando...</div></div>
+    <button class="connect-primary canais-legado" onclick="abrirConexao()">＋ Conectar canal</button><h3 class="settings-label canais-legado">Seus canais</h3><div id="canais-lista"><div class="empty-state">Carregando...</div></div>
 
     
     
@@ -1436,8 +1698,9 @@ https://..."></textarea>
     </div></div><nav class="bottom-nav" aria-label="Navegação principal">
     <button data-view="home" class="selected" aria-current="page" onclick="mostrarView('home')"><span aria-hidden="true">⌂</span>Início</button>
     <button data-view="manuais" onclick="mostrarView('manuais')"><span aria-hidden="true">◇</span>Produtos</button>
+    <button class="nav-mais" onclick="atalhoProduto()" aria-label="Adicionar produto"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></i></button>
     <button data-view="canais" onclick="mostrarView('canais')"><span aria-hidden="true">◎</span>Canais</button>
-    <button data-view="ajustes" onclick="mostrarView('ajustes')"><span aria-hidden="true">⚙</span>Ajustes</button>
+    <button data-view="ajustes" onclick="mostrarView('ajustes')"><span aria-hidden="true">⚙</span><b class="so-padrao">Ajustes</b><b class="so-vitrine">Conta</b></button>
   </nav>
 
 <script>
@@ -1488,6 +1751,10 @@ https://..."></textarea>
       tg?.setHeaderColor?.(bg);
       tg?.setBackgroundColor?.(bg);
     } catch (_) { /* Telegram antigo pode não aceitar cores personalizadas. */ }
+  }
+  function abrirFormularioCanalNosEstilos() {
+    const painel = document.getElementById("channel-editor");
+    if (painel && document.documentElement.dataset.estilo) painel.open = true;
   }
   function aplicarEstilo(estilo) {
     if (!ESTILOS[estilo]) return;
@@ -1633,7 +1900,7 @@ https://..."></textarea>
       carregarDashboard();
     } else {
       tg?.BackButton?.show();
-      if (nome === "canais") carregarCanais();
+      if (nome === "canais") { abrirFormularioCanalNosEstilos(); carregarCanais(); }
       if (nome === "botoes") carregarBotoes();
       if (nome === "historico" || nome === "ajustes") carregarDashboard();
       if (nome === "filtros") carregarFiltros();
@@ -1702,6 +1969,94 @@ https://..."></textarea>
     }).join("");
   }
 
+  function atalhoProduto() {
+    mostrarView("manuais");
+    setTimeout(() => abrirEditorProduto("individual"), 60);
+  }
+
+  // Preenche os três layouts do Início ao mesmo tempo (só o do estilo escolhido aparece).
+  function preencherInicioEstilos(dados) {
+    const raiz = document.getElementById("estilo-home");
+    if (!raiz) return;
+    const nome = String(dados.nome || "").trim();
+    const primeiro = nome.split(/\s+/)[0] || "";
+    const iniciais = nome.split(/\s+/).filter(Boolean).slice(0, 2).map(n => n[0]).join("").toUpperCase() || "·";
+    const pool = Number(dados.posts_pool_hoje) || 0, manual = Number(dados.posts_manual_hoje) || 0;
+    const posts = pool + manual;
+    const meta = (Number(dados.meta_diaria) || 0) + (Number(dados.meta_diaria_manual) || 0);
+    const pct = meta > 0 ? Math.min(100, Math.round((posts / meta) * 100)) : 0;
+    const vencido = dados.plano_ativo === false;
+    const parado = !dados.motor_rodando;
+    const prox = dados.proximo_manual;
+    const valores = {
+      "iniciais": iniciais,
+      "ola": primeiro ? `Olá, ${primeiro}` : "Olá",
+      "vitrine-ola": primeiro ? `Sua vitrine hoje, ${primeiro}` : "Sua vitrine hoje",
+      "plano-linha": vencido ? "Plano vencido · renove em Ajustes" : dados.validade ? `Plano ativo até ${dados.validade}` : "Plano ativo",
+      "plano-chip": vencido ? "Plano vencido" : dados.validade ? `Plano ativo até ${dados.validade}` : "Plano ativo",
+      "status": vencido ? "Divulgação pausada" : parado ? "Automação parada" : "Automação ativa",
+      "proxima": vencido || parado ? "" : prox === "agora" ? "postando agora" : prox ? `próxima às ${prox}` : "",
+      "proxima-frase": prox === "agora" ? "Publicação manual na hora de sair" : prox ? `Próxima postagem às ${prox}` : "Confira sua programação",
+      "proxima-hora": prox === "agora" ? "agora" : prox || "—",
+      "posts": posts,
+      "auto": pool,
+      "manual": manual,
+      "meta-txt": meta ? `meta ${meta}` : "",
+      "de-meta": meta ? `de ${meta}` : "",
+      "ritmo-dia": meta ? `${posts} de ${meta} do ritmo diário` : "",
+      "fila": Number(dados.produtos_disponiveis) || 0,
+      "canais": Number(dados.canais_conectados) || 0,
+      "canais-chip": `${Number(dados.canais_conectados) || 0} canais`,
+      "fila-chip": `${Number(dados.produtos_disponiveis) || 0} na fila`,
+      "validade-chip": dados.validade ? `até ${String(dados.validade).slice(0, 5)}` : "",
+      "desconto-txt": dados.desconto_minimo ? `desconto a partir de ${dados.desconto_minimo}%` : "Escolha o que divulgar",
+      "desconto-curto": dados.desconto_minimo ? `a partir de ${dados.desconto_minimo}%` : "",
+      "ritmo-txt": dados.intervalo_minutos ? `${dados.posts_por_ciclo || 1} a cada ${formatarMinutos(dados.intervalo_minutos)}` : "",
+      "ponto": "",
+    };
+    raiz.querySelectorAll("[data-p]").forEach(el => {
+      const chave = el.dataset.p;
+      if (chave === "ponto") { el.hidden = !(dados.notificacoes_nao_lidas > 0); return; }
+      if (chave in valores) el.textContent = valores[chave];
+    });
+    raiz.querySelectorAll('[data-p-largura="barra"]').forEach(el => { el.style.width = pct + "%"; });
+    const classe = vencido ? "alerta" : parado ? "parado" : "ok";
+    raiz.querySelectorAll("[data-p-classe]").forEach(el => { el.dataset.estado = classe; });
+    raiz.querySelectorAll("[data-p-vazio]").forEach(el => { el.hidden = !el.textContent; });
+
+    const lista = Array.isArray(dados.ultimas_divulgadas) ? dados.ultimas_divulgadas : [];
+    const preco = o => `R$ ${formatarPrecoBR(o.preco)}`;
+    const desconto = o => o.preco_original && o.preco_original > o.preco ? Math.round((1 - o.preco / o.preco_original) * 100) : 0;
+    const foto = (o, cls) => {
+      const src = imagemProdutoSegura(o.imagem_url);
+      return src ? `<img class="${cls}" src="${src}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'${cls} sem-foto'}))">`
+                 : `<span class="${cls} sem-foto"></span>`;
+    };
+    const vazio = '<div class="empty-state">Nada divulgado ainda.</div>';
+    raiz.querySelectorAll('[data-lista="linhas"]').forEach(el => {
+      el.innerHTML = lista.length ? lista.slice(0, 4).map(o => `
+        <div class="eh-item">${foto(o, "eh-foto")}
+          <div class="eh-item-txt"><div class="eh-item-nome">${escaparHTML(o.produto_nome)}</div>
+            <div class="eh-item-preco"><b>${preco(o)}</b>${desconto(o) ? `<s>R$ ${formatarPrecoBR(o.preco_original)}</s>` : ""}</div></div>
+          <div class="eh-item-hora">${escaparHTML(dataPublicacao(o.postado_em).slice(-5))}<span>${o.tipo === "manual" ? "manual" : "automática"}</span></div>
+        </div>`).join("") : vazio;
+    });
+    raiz.querySelectorAll('[data-lista="cartoes"]').forEach(el => {
+      el.innerHTML = lista.length ? lista.slice(0, 3).map(o => `
+        <div class="eh-item eh-cartao">${foto(o, "eh-foto")}
+          <div class="eh-item-txt"><div class="eh-item-nome">${escaparHTML(o.produto_nome)}</div>
+            <div class="eh-item-preco"><b>${preco(o)}</b>${desconto(o) ? `<s>R$ ${formatarPrecoBR(o.preco_original)}</s>` : ""}</div></div>
+          <div class="eh-item-hora">${escaparHTML(dataPublicacao(o.postado_em).slice(-5))}</div>
+        </div>`).join("") : vazio;
+    });
+    raiz.querySelectorAll('[data-lista="vitrine"]').forEach(el => {
+      el.innerHTML = lista.length ? lista.slice(0, 6).map(o => `
+        <article class="eh-produto"><div class="eh-produto-foto">${foto(o, "eh-produto-img")}${desconto(o) ? `<span class="eh-selo">-${desconto(o)}%</span>` : ""}</div>
+          <div class="eh-produto-nome">${escaparHTML(o.produto_nome)}</div><div class="eh-produto-preco">${preco(o)}</div></article>`).join("")
+        : vazio;
+    });
+  }
+
   function carregarDashboard() {
     chamarApi("/api/dashboard").then(dados => {
       if (dados.error) {
@@ -1714,6 +2069,7 @@ https://..."></textarea>
         return;
       }
       document.getElementById("dashboard-erro")?.remove();
+      try { preencherInicioEstilos(dados); } catch (erro) { console.error("Início dos estilos:", erro); }
       document.getElementById("cliente-nome").textContent = "Olá, " + (dados.nome || "bem-vindo") + " 👋";
       document.getElementById("profile-name").textContent = dados.nome || "Minha conta";
       document.querySelector(".profile-avatar").textContent = (dados.nome || "Minha conta").split(/\s+/).filter(Boolean).slice(0,2).map(n=>n[0]).join("").toUpperCase();
@@ -1804,14 +2160,26 @@ https://..."></textarea>
         lista.innerHTML = `<div class="empty-state">Nenhum canal ainda.</div>`;
         return;
       }
+      const telegrams = dados.canais.filter(c => String(c.tipo).toLowerCase() === "telegram").length;
+      const whats = dados.canais.length - telegrams;
+      const resumo = document.getElementById("canais-resumo");
+      if (resumo) resumo.textContent = `${dados.canais.length} canal(is) cadastrado(s)` + (whats ? " · conferindo o WhatsApp…" : "");
+      lista.classList.add("ec-lista");
       lista.innerHTML = dados.canais.map(c => {
         const tipo = String(c.tipo).toLowerCase();
-        const nome = c.nome || c.titulo || (tipo === "telegram" ? "Canal Telegram" : "Canal WhatsApp");
-        return `<article class="connection-card">
-          <span class="channel-symbol">${icone(tipo)}</span>
-          <div class="connection-body"><strong>${escaparHTML(nome)}</strong><span class="channel-platform">${tipo === "telegram" ? "Telegram" : "WhatsApp"}</span><span class="channel-state">● Cadastrado</span><small class="channel-destination">${escaparHTML(c.destino)}</small>${tipo === "telegram" ? `<small class="channel-bot">${c.bot_proprio ? "🛠️ Posta pelo seu bot" : "🤖 Posta pelo nosso bot" + (botCentral ? " " + escaparHTML(botCentral) : "")}</small>` : ""}
-          <details class="channel-manage"><summary>Gerenciar ›</summary><p>Destino cadastrado. A conexão e as permissões são verificadas durante o envio.</p><button class="danger-action" onclick="removerCanal(${Number(c.channel_id)})">Remover canal</button></details></div></article>`;
+        const ehTelegram = tipo === "telegram";
+        const titulo = ehTelegram ? c.destino : "Canal do WhatsApp";
+        const sub = ehTelegram ? (c.bot_proprio ? "Telegram · seu bot" : "Telegram · nosso bot" + (botCentral ? " " + botCentral : "")) : "WhatsApp · canal";
+        return `<article class="ec-card" title="${escaparHTML(c.destino)}" data-tipo="${ehTelegram ? "telegram" : "whatsapp"}" data-estado="${ehTelegram ? "ok" : "conferindo"}">
+          <span class="ec-ico ec-ico-${ehTelegram ? "tg" : "wa"}">${icone(ehTelegram ? "telegram" : "whatsapp")}</span>
+          <div class="ec-txt"><strong>${escaparHTML(titulo)}</strong><small>${escaparHTML(sub)}</small></div>
+          <span class="ec-selo">${ehTelegram ? "Ativo" : "Conferindo…"}</span>
+          <button class="ec-remover" onclick="removerCanal(${Number(c.channel_id)})">Remover</button>
+          <p class="ec-aviso">As ofertas não estão saindo neste canal. Reconecte o número para voltar.</p>
+          <div class="ec-acoes"><button class="ec-reconectar" onclick="mostrarView('whatsapp')">Reconectar WhatsApp</button></div>
+        </article>`;
       }).join("");
+      conferirWhatsappCanais(whats);
     });
   }
 
@@ -1827,6 +2195,20 @@ https://..."></textarea>
     document.getElementById("bot-central-nome").textContent = botCentral
       ? `Posta pelo ${botCentral}. O jeito mais simples: não precisa criar nada.`
       : "O jeito mais simples: não precisa criar nada.";
+  }
+
+  // Status de verdade do WhatsApp (a conexão do número no servidor de WhatsApp)
+  function conferirWhatsappCanais(qtdWhats) {
+    if (!qtdWhats) return;
+    chamarApi("/api/whatsapp/status", {}, 20000).then(dados => {
+      const ok = dados && dados.status === "WORKING";
+      document.querySelectorAll('.ec-card[data-tipo="whatsapp"]').forEach(card => {
+        card.dataset.estado = ok ? "ok" : "alerta";
+        card.querySelector(".ec-selo").textContent = ok ? "Ativo" : "Desconectado";
+      });
+      const resumo = document.getElementById("canais-resumo");
+      if (resumo) resumo.textContent = resumo.textContent.replace(" · conferindo o WhatsApp…", ok ? "" : " · WhatsApp desconectado");
+    });
   }
 
   function salvarCanal() {
@@ -2695,7 +3077,7 @@ https://..."></textarea>
   });
 
   const navIcons = {home:"home", manuais:"tag", canais:"channels", ajustes:"settings"};
-  document.querySelectorAll(".bottom-nav button").forEach(button => {
+  document.querySelectorAll(".bottom-nav button[data-view]").forEach(button => {
     button.querySelector("span").innerHTML = icone(navIcons[button.dataset.view]);
   });
   const settingsIcons = {marketplace:"shopee", filtros:"filter", tempo:"clock", botoes:"message", teste:"send", temas:"palette", notificacoes:"bell", pagamento:"crown"};
