@@ -4,6 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sua loja — Painel</title><meta name="app-version" content="2026-09-23-layout-4">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
@@ -897,6 +899,94 @@ html[data-theme="dark"] body{background:radial-gradient(ellipse at 85% 20%,#162b
 @media(max-width:360px){body{padding-left:14px;padding-right:14px}.connection-card{gap:10px;padding:14px 10px}.connection-card .brand-icon{width:42px;height:42px}}
 
 .product-menu{position:relative;align-self:flex-start}.product-menu summary{list-style:none;cursor:pointer;color:var(--muted);font-size:22px;padding:0 8px}.product-menu[open] .danger-action{position:absolute;right:0;top:30px;z-index:5;background:var(--surface);min-width:90px}
+
+/* ================= Estilos do painel (Aparência): A · Escuro Pro, B · Claro Essencial, C · Vitrine =================
+   Ficam por último pra valer sobre as camadas anteriores. O cliente escolhe em Ajustes → Aparência. */
+html[data-estilo]{--estilo-titulo:Inter,system-ui,sans-serif;--estilo-raio:14px}
+html[data-estilo] body{background:var(--bg)}
+html[data-estilo] h1,html[data-estilo] h2,html[data-estilo] h3,html[data-estilo] .header .greet h1,html[data-estilo] .view-header h2{font-family:var(--estilo-titulo)}
+html[data-estilo] .connect-primary,html[data-estilo] .save-btn{background:var(--flame);color:var(--button-ink);border-radius:12px;font-weight:700}
+html[data-estilo] .card-ritmo,html[data-estilo] .flame-card,html[data-estilo] .connection-card,html[data-estilo] .editor-panel,html[data-estilo] .help-panel,html[data-estilo] .settings-list,html[data-estilo] .profile-card,html[data-estilo] .plano-card,html[data-estilo] .notif-item,html[data-estilo] #manuais-lista .canal-item,html[data-estilo] .rhythm-details,html[data-estilo] .tema-card{border-radius:var(--estilo-raio)!important}
+html[data-estilo] #view-home .overview-metrics{border-radius:var(--estilo-raio)}
+html[data-estilo] .bottom-nav .selected{color:var(--flame);font-weight:700}
+html[data-estilo] .bottom-nav .selected::after{display:block;content:"";position:absolute;bottom:2px;width:22px;height:3px;border-radius:3px;background:var(--flame)}
+html[data-estilo] .danger-action{border-color:var(--perigo);color:var(--perigo)}
+
+/* A · Escuro Pro — azul-noite, verde de destaque, títulos em Space Grotesk */
+html[data-estilo="pro"]{
+  color-scheme:dark;
+  --app-bg:#0B1220;--app-surface:#121A2B;--app-line:#1F2A40;--app-ink:#E8EDF5;--app-muted:#93A0B8;
+  --app-flame:#34D399;--app-flame-dim:#059669;--app-mint:#34D399;--app-gold:#7DD3FC;--app-manual:#7DD3FC;--app-manual-dim:#0369A1;
+  --sucesso:#34D399;--button-ink:#052E1B;--accent-soft:#0F2A22;--perigo:#FCA5A5;
+  --estilo-titulo:'Space Grotesk',Inter,sans-serif;--estilo-raio:16px;
+}
+html[data-estilo="pro"] body{background:#0B1220}
+html[data-estilo="pro"] #view-home .model-hero{background:#121A2B;border:1px solid #1F2A40}
+html[data-estilo="pro"] #view-home .model-hero h2{color:#E8EDF5}
+html[data-estilo="pro"] #view-home .model-hero p{color:#93A0B8}
+html[data-estilo="pro"] #view-home .model-hero .hero-next{color:#6EE7B7}
+html[data-estilo="pro"] #view-home .model-hero button{background:#34D399;color:#052E1B;border:0;border-radius:10px;font-weight:700}
+html[data-estilo="pro"] #view-home .hero-symbol{color:#34D399}
+html[data-estilo="pro"] #view-home>.status-pill{background:#0F2A22;border:1px solid #14532D;border-radius:10px;padding:8px 12px;color:#A7F3D0}
+html[data-estilo="pro"] .bottom-nav{background:#0E1626;border-top-color:#1F2A40}
+
+/* B · Claro Essencial — fundo claro, cartões brancos, azul de destaque */
+html[data-estilo="essencial"]{
+  color-scheme:light;
+  --app-bg:#F4F6FA;--app-surface:#FFFFFF;--app-line:#E3E8F0;--app-ink:#0F172A;--app-muted:#5B6475;
+  --app-flame:#2563EB;--app-flame-dim:#1D4ED8;--app-mint:#15803D;--app-gold:#1D4ED8;--app-manual:#1D4ED8;--app-manual-dim:#1E40AF;
+  --sucesso:#15803D;--button-ink:#FFFFFF;--accent-soft:#EFF4FF;--perigo:#B91C1C;
+  --estilo-titulo:'Plus Jakarta Sans',Inter,sans-serif;--estilo-raio:18px;
+}
+html[data-estilo="essencial"] body,html[data-estilo="essencial"] button,html[data-estilo="essencial"] input,html[data-estilo="essencial"] select,html[data-estilo="essencial"] textarea{font-family:'Plus Jakarta Sans',Inter,sans-serif}
+html[data-estilo="essencial"] .header .greet h1{font-weight:800}
+html[data-estilo="essencial"] #view-home .model-hero{background:#FFFFFF;border:1px solid #E3E8F0}
+html[data-estilo="essencial"] #view-home .model-hero h2{color:#0F172A}
+html[data-estilo="essencial"] #view-home .model-hero p{color:#5B6475}
+html[data-estilo="essencial"] #view-home .model-hero .hero-next{color:#1D4ED8;font-weight:600}
+html[data-estilo="essencial"] #view-home .model-hero button{background:#2563EB;color:#FFFFFF;border:0;border-radius:999px;font-weight:700}
+html[data-estilo="essencial"] #view-home .hero-symbol{color:#2563EB}
+html[data-estilo="essencial"] #view-home>.status-pill{background:#ECFDF3;color:#15803D;border-radius:999px;padding:6px 12px;font-weight:600}
+html[data-estilo="essencial"] #view-home .offer{background:#FFFFFF;border:1px solid #E3E8F0;border-radius:14px;padding:10px;margin-bottom:8px}
+html[data-estilo="essencial"] .bottom-nav{background:#FFFFFF}
+
+/* C · Vitrine — creme, cartão preto em destaque, laranja e fotos grandes */
+html[data-estilo="vitrine"]{
+  color-scheme:light;
+  --app-bg:#FBFAF7;--app-surface:#FFFFFF;--app-line:#E7E2DA;--app-ink:#17130F;--app-muted:#6B635A;
+  --app-flame:#C2410C;--app-flame-dim:#9A3412;--app-mint:#15803D;--app-gold:#C2410C;--app-manual:#C2410C;--app-manual-dim:#9A3412;
+  --sucesso:#15803D;--button-ink:#FFFFFF;--accent-soft:#FFF4EC;--perigo:#B91C1C;
+  --estilo-titulo:Sora,Inter,sans-serif;--estilo-raio:20px;
+}
+html[data-estilo="vitrine"] body,html[data-estilo="vitrine"] button,html[data-estilo="vitrine"] input,html[data-estilo="vitrine"] select,html[data-estilo="vitrine"] textarea{font-family:'DM Sans',Inter,sans-serif}
+html[data-estilo="vitrine"] .header .greet h1,html[data-estilo="vitrine"] .view-header h2{font-weight:800;letter-spacing:-.02em}
+html[data-estilo="vitrine"] #view-home .model-hero{background:#17130F;border:0}
+html[data-estilo="vitrine"] #view-home .model-hero h2{color:#FBFAF7}
+html[data-estilo="vitrine"] #view-home .model-hero p{color:#CFC6BA}
+html[data-estilo="vitrine"] #view-home .model-hero .hero-next{color:#FDBA74;font-weight:600}
+html[data-estilo="vitrine"] #view-home .model-hero button{background:#C2410C;color:#FFFFFF;border:0;border-radius:12px;font-weight:700}
+html[data-estilo="vitrine"] #view-home .hero-symbol{color:#FDBA74}
+html[data-estilo="vitrine"] #view-home>.status-pill{color:#15803D;font-weight:600}
+html[data-estilo="vitrine"] #view-home .offer img{width:84px;height:84px;border-radius:16px}
+html[data-estilo="vitrine"] #view-home .offer-name{font-size:14px;font-weight:600}
+html[data-estilo="vitrine"] #view-home .offer-price{font-size:15px;font-weight:700}
+html[data-estilo="vitrine"] #manuais-lista .manual-thumb{width:76px!important;height:76px!important;border-radius:14px!important}
+html[data-estilo="vitrine"] .bottom-nav{background:#FFFFFF}
+
+/* Tela Aparência: os três estilos com uma miniatura */
+.estilo-options{display:grid;gap:10px}
+.estilo-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font-family:inherit;cursor:pointer;min-height:92px}
+.estilo-card.ativo{border:2px solid var(--flame);padding:13px;background:var(--accent-soft)}
+.estilo-card .tema-check{margin-left:auto;color:var(--flame);font-size:18px;opacity:0}
+.estilo-card.ativo .tema-check{opacity:1}
+.estilo-mini{width:58px;height:80px;flex:none;border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px;border:1px solid rgba(127,127,127,.25)}
+.estilo-mini i{display:block;border-radius:4px}
+.estilo-mini .m-hero{height:22px}.estilo-mini .m-linha{height:8px}.estilo-mini .m-linha.curta{width:60%}.estilo-mini .m-nav{margin-top:auto;height:8px}
+.mini-pro{background:#0B1220}.mini-pro .m-hero{background:#121A2B;border:1px solid #34D399}.mini-pro .m-linha{background:#1F2A40}.mini-pro .m-nav{background:#34D399}
+.mini-essencial{background:#F4F6FA}.mini-essencial .m-hero{background:#FFFFFF;border:1px solid #2563EB}.mini-essencial .m-linha{background:#E3E8F0}.mini-essencial .m-nav{background:#2563EB}
+.mini-vitrine{background:#FBFAF7}.mini-vitrine .m-hero{background:#17130F}.mini-vitrine .m-linha{background:#EFE9E1}.mini-vitrine .m-nav{background:#C2410C}
+.estilo-card .tema-nome{display:block;font-size:14px;font-weight:700;margin-bottom:3px}
+.estilo-card .tema-desc{display:block;font-size:12px;color:var(--muted);line-height:1.45}
 </style>
 </head>
 <body>
@@ -1330,7 +1420,7 @@ https://..."></textarea>
     </div>
     <div id="onboard-itens"></div>
   </div><h3 class="settings-label">Divulgação</h3><div class="settings-list"><button onclick="mostrarView('marketplace')"><span><strong>Credencial Shopee</strong><small>Configurar e testar conexão</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('filtros')"><span><strong>Filtros de ofertas</strong><small>Escolha o que divulgar</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('tempo')"><span><strong>Programação</strong><small>Intervalos e ritmo de publicação</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('botoes')"><span><strong>Botões das mensagens</strong><small>Personalize suas postagens</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('teste')"><span><strong>Testar publicação</strong><small>Enviar um produto aos seus canais</small></span><span aria-hidden="true">›</span></button></div><h3 class="settings-label">Preferências</h3><div class="settings-list"><button onclick="mostrarView('temas')"><span><strong>Aparência</strong><small>Modelo e Claro / Escuro / Sistema</small></span><span aria-hidden="true">›</span></button><button onclick="mostrarView('notificacoes')"><span><strong>Notificações</strong><small>Avisos e atualizações</small></span><span aria-hidden="true">›</span></button></div><h3 class="settings-label">Conta e ajuda</h3><div class="settings-list"><button onclick="mostrarView('pagamento')"><span><strong>Minha assinatura</strong><small>Consultar plano e renovar</small></span><span aria-hidden="true">›</span></button><button onclick="window.open('https://wa.me/5591982351518','_blank','noopener')"><span><strong>Falar com suporte</strong><small>Ajuda pelo WhatsApp</small></span><span aria-hidden="true">›</span></button></div></div>
-  <div id="view-temas" class="view"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar aos ajustes">←</button><h2>Aparência</h2></div><p class="settings-intro">Escolha como você prefere usar sua loja. Sua escolha fica salva neste dispositivo.</p><h3 class="settings-label">Modelo de interface</h3><div class="model-options"><button type="button" class="tema-card model-card" data-model="balanced" onclick="aplicarModelo('balanced')" aria-pressed="false"><span class="model-preview preview-balanced" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Essencial</span><span class="tema-desc">Verde e azul · indicadores e atalhos</span></span><span class="tema-check">✓</span></button><button type="button" class="tema-card model-card" data-model="showcase" onclick="aplicarModelo('showcase')" aria-pressed="false"><span class="model-preview preview-showcase" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Destaque</span><span class="tema-desc">Azul · cartão principal e fotos maiores</span></span><span class="tema-check">✓</span></button><button type="button" class="tema-card model-card" data-model="compact" onclick="aplicarModelo('compact')" aria-pressed="false"><span class="model-preview preview-compact" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="tema-nome">Compacto</span><span class="tema-desc">Verde · listas e controles enxutos</span></span><span class="tema-check">✓</span></button></div><h3 class="settings-label">Iluminação</h3><div class="mode-options" aria-label="Iluminação"><button class="tema-card" data-tema="light" onclick="aplicarTema('light')" aria-pressed="false">☀ Claro</button><button class="tema-card" data-tema="dark" onclick="aplicarTema('dark')" aria-pressed="false">☾ Escuro</button><button class="tema-card" data-tema="system" onclick="aplicarTema('system')" aria-pressed="false">▣ Sistema</button></div><p id="theme-feedback" role="status" class="settings-intro"></p></div>
+  <div id="view-temas" class="view"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar aos ajustes">←</button><h2>Aparência</h2></div><p class="settings-intro">Escolha o estilo do seu painel. A escolha fica salva neste aparelho e você pode trocar quando quiser.</p><div class="estilo-options"><button type="button" class="estilo-card" data-estilo="pro" onclick="aplicarEstilo('pro')" aria-pressed="false"><span class="estilo-mini mini-pro" aria-hidden="true"><i class="m-hero"></i><i class="m-linha"></i><i class="m-linha curta"></i><i class="m-nav"></i></span><span><span class="tema-nome">A · Escuro Pro</span><span class="tema-desc">Fundo escuro, verde de destaque. Confortável à noite.</span></span><span class="tema-check" aria-hidden="true">✓</span></button><button type="button" class="estilo-card" data-estilo="essencial" onclick="aplicarEstilo('essencial')" aria-pressed="false"><span class="estilo-mini mini-essencial" aria-hidden="true"><i class="m-hero"></i><i class="m-linha"></i><i class="m-linha curta"></i><i class="m-nav"></i></span><span><span class="tema-nome">B · Claro Essencial</span><span class="tema-desc">Fundo claro, cartões brancos e azul. Limpo e fácil de ler.</span></span><span class="tema-check" aria-hidden="true">✓</span></button><button type="button" class="estilo-card" data-estilo="vitrine" onclick="aplicarEstilo('vitrine')" aria-pressed="false"><span class="estilo-mini mini-vitrine" aria-hidden="true"><i class="m-hero"></i><i class="m-linha"></i><i class="m-linha curta"></i><i class="m-nav"></i></span><span><span class="tema-nome">C · Vitrine</span><span class="tema-desc">Creme e laranja, fotos dos produtos maiores.</span></span><span class="tema-check" aria-hidden="true">✓</span></button></div><p id="theme-feedback" role="status" class="settings-intro" style="margin-top:14px"></p></div>
   <div class="view" id="view-historico"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar">←</button><h2>Publicações recentes</h2></div><p class="settings-intro">Últimas publicações disponíveis no histórico.</p><div class="publication-history" id="historico-lista"></div></div><div class="view" id="view-botoes"><div class="view-header"><button class="back-btn" onclick="mostrarView('ajustes')" aria-label="Voltar">←</button><h2>Botões das mensagens</h2></div><div class="divider-label" style="margin-top:26px;">🔗 Botões nas postagens (Telegram)</div><p style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Aparecem clicáveis embaixo de cada oferta postada, um abaixo do outro. Só nesse cliente, não afeta outros. Por enquanto só no Telegram.</p><div id="botoes-lista"><div class="empty-state">Carregando...</div></div><div class="field">
       <label>Texto do botão</label>
       <input type="text" id="botao-texto" placeholder="📢 Entre no nosso grupo">
@@ -1362,50 +1452,55 @@ https://..."></textarea>
 
   const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
   const themeKey = "sualoja_tema_" + (tg?.initDataUnsafe?.user?.id || "local");
-  const validThemes = ["dark", "light", "system"];
-  const modelKey = themeKey + "_modelo";
-  const validModels = ["balanced", "showcase", "compact"];
-  let modelPreference = "balanced";
-  let themePreference = "dark";
+  // Estilos do painel (Ajustes → Aparência). Cada estilo já define as cores e o arranjo.
+  const estiloKey = themeKey + "_estilo";
+  const ESTILOS = {
+    pro: {tema: "dark", modelo: "balanced"},
+    essencial: {tema: "light", modelo: "balanced"},
+    vitrine: {tema: "light", modelo: "showcase"},
+  };
+  let estiloPreference = "pro";
   try {
-    const saved = localStorage.getItem(themeKey) || localStorage.getItem("netcell_tema");
-    themePreference = validThemes.includes(saved) ? saved : "dark";
-    const oldModel = saved === "light" ? "showcase" : ["green", "neon"].includes(saved) ? "compact" : "balanced";
-    const model = localStorage.getItem(modelKey) || oldModel;
-    modelPreference = validModels.includes(model) ? model : "balanced";
+    const salvo = localStorage.getItem(estiloKey);
+    if (ESTILOS[salvo]) {
+      estiloPreference = salvo;
+    } else {
+      // quem já usava o modo claro começa no Claro Essencial
+      const antigo = localStorage.getItem(themeKey) || localStorage.getItem("netcell_tema");
+      estiloPreference = antigo === "light" ? "essencial" : "pro";
+    }
   } catch (_) { /* O painel continua funcionando quando o armazenamento é bloqueado. */ }
+  let themePreference = ESTILOS[estiloPreference].tema;
   function renderTheme() {
-    const effective = themePreference === "system" ? (themeMedia.matches ? "dark" : "light") : themePreference;
-    document.documentElement.setAttribute("data-theme", effective);
-    document.documentElement.setAttribute("data-model", modelPreference);
-    document.querySelectorAll("[data-model].model-card").forEach(el => {
-      const active = el.dataset.model === modelPreference;
-      el.classList.toggle("ativo", active); el.setAttribute("aria-pressed", String(active));
+    const estilo = ESTILOS[estiloPreference];
+    themePreference = estilo.tema;
+    const raiz = document.documentElement;
+    raiz.setAttribute("data-estilo", estiloPreference);
+    raiz.setAttribute("data-theme", estilo.tema);
+    raiz.setAttribute("data-model", estilo.modelo);
+    document.querySelectorAll(".estilo-card[data-estilo]").forEach(el => {
+      const ativo = el.dataset.estilo === estiloPreference;
+      el.classList.toggle("ativo", ativo); el.setAttribute("aria-pressed", String(ativo));
     });
     atualizarIconeTema(themePreference);
     try {
-      const bg = getComputedStyle(document.documentElement).getPropertyValue("--app-bg").trim();
+      const bg = getComputedStyle(raiz).getPropertyValue("--app-bg").trim();
       tg?.setHeaderColor?.(bg);
       tg?.setBackgroundColor?.(bg);
     } catch (_) { /* Telegram antigo pode não aceitar cores personalizadas. */ }
   }
-  function aplicarModelo(model) {
-    if (!validModels.includes(model)) return;
-    modelPreference = model;
-    let saved = true;
-    try { localStorage.setItem(modelKey, model); } catch (_) { saved = false; }
+  function aplicarEstilo(estilo) {
+    if (!ESTILOS[estilo]) return;
+    estiloPreference = estilo;
+    let salvo = true;
+    try { localStorage.setItem(estiloKey, estilo); } catch (_) { salvo = false; }
     renderTheme();
-    document.getElementById("theme-feedback").textContent = saved ? "Modelo salvo. A iluminação escolhida foi mantida." : "Modelo aplicado nesta sessão; armazenamento indisponível.";
+    const aviso = document.getElementById("theme-feedback");
+    if (aviso) aviso.textContent = salvo ? "Estilo salvo neste aparelho." : "Estilo aplicado nesta sessão; este aparelho não permitiu salvar.";
   }
-  function aplicarTema(tema) {
-    if (!validThemes.includes(tema)) return;
-    themePreference = tema;
-    let saved = true;
-    try { localStorage.setItem(themeKey, tema); } catch (_) { saved = false; }
-    renderTheme();
-    document.getElementById("theme-feedback").textContent = saved ? "Aparência salva neste dispositivo." : "Tema aplicado. Este navegador não permitiu salvar a preferência.";
-  }
-  themeMedia.addEventListener?.("change", () => { if (themePreference === "system") renderTheme(); });
+  // compatibilidade com botões antigos
+  function aplicarTema(tema) { aplicarEstilo(tema === "light" ? "essencial" : "pro"); }
+  function aplicarModelo(modelo) { if (modelo === "showcase") aplicarEstilo("vitrine"); }
   renderTheme();
 
   // ---------- Notificações internas ----------
