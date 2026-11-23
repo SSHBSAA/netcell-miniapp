@@ -866,6 +866,18 @@ html[data-theme="dark"] body{background:radial-gradient(ellipse at 85% 20%,#162b
 #product-search{font-size:13px!important;padding:10px 12px;margin:0 0 12px;height:40px}
 .product-tabs{margin:0 0 10px;border-radius:8px}.product-tabs button{font-size:12px;padding:8px}
 #product-editor:not([open]),#channel-editor:not([open]){display:none}
+.bot-choice-title{font-size:13px;font-weight:600;color:var(--ink);margin:0 0 8px}
+.bot-choice{display:grid;gap:8px;margin-bottom:14px}
+.bot-option{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--surface)}
+.bot-option:has(input:checked){border-color:var(--flame);box-shadow:0 0 0 1px var(--flame)}
+.bot-option input{margin-top:3px;accent-color:var(--flame);flex:none}
+.bot-option span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.bot-option b{font-size:13px;color:var(--ink)}
+.bot-option small{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.bot-steps{margin:0 0 12px 18px;padding:0;font-size:12px;color:var(--muted);display:grid;gap:4px}
+.bot-steps code,.bot-admin-hint code{font-size:11px}
+.bot-admin-hint{font-size:12px;color:var(--muted);margin:4px 0 12px}
+.channel-bot{display:block;font-size:11px;color:var(--muted)}
 #manuais-selecao{display:none!important}#manuais-lista input[type="checkbox"]{display:none}
 #manuais-lista .canal-item{padding:9px!important;border-radius:9px!important;min-height:86px;margin-bottom:9px!important}
 #manuais-lista .manual-thumb{width:64px!important;height:64px!important;border-radius:7px!important}
@@ -961,13 +973,25 @@ html[data-theme="dark"] body{background:radial-gradient(ellipse at 85% 20%,#162b
     
     
     
-  <details class="editor-panel" id="channel-editor"><summary>Configurar conexão</summary><div class="divider-label">Adicionar canal (Telegram)</div><div class="field">
+  <details class="editor-panel" id="channel-editor"><summary>Conectar canal</summary><div class="divider-label">Canal do Telegram</div>
+    <p class="bot-choice-title">Qual bot vai postar no seu canal?</p>
+    <div class="bot-choice" role="radiogroup" aria-label="Bot que posta no canal">
+      <label class="bot-option"><input type="radio" name="canal-bot" value="central" checked onchange="alternarBotCanal()"><span><b>🤖 Usar o nosso bot</b><small id="bot-central-nome">O jeito mais simples: não precisa criar nada.</small></span></label>
+      <label class="bot-option"><input type="radio" name="canal-bot" value="proprio" onchange="alternarBotCanal()"><span><b>🛠️ Usar meu próprio bot</b><small>As ofertas saem com o nome e a foto do seu bot.</small></span></label>
+    </div>
+    <div id="canal-token-area" style="display:none">
+      <ol class="bot-steps"><li>No Telegram, abra o <b>@BotFather</b> e envie <code>/newbot</code>.</li><li>Escolha um nome e um @ terminado em <b>bot</b>.</li><li>Copie o <b>token</b> que ele mandar (algo como <code>123456789:AAH...</code>) e cole abaixo.</li></ol>
+      <div class="field">
+        <label>Token do seu bot</label>
+        <input type="text" id="canal-token" placeholder="123456789:AAH..." autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="field">
       <label>ID ou @usuário do canal</label>
       <input type="text" id="canal-destino" placeholder="-1001234567890 ou @meucanal">
-    </div><div class="field">
-      <label>Token do bot (deixe vazio pra usar o bot central)</label>
-      <input type="text" id="canal-token" placeholder="Opcional">
-    </div><button class="save-btn" onclick="salvarCanal()">Adicionar canal</button><div class="toast" id="canal-toast"></div><button class="save-btn" onclick="mostrarView('whatsapp')">Conectar WhatsApp</button></details><details class="help-panel" open><summary>Conectando pela primeira vez?</summary><p>No Telegram, adicione o bot como administrador do canal e permita que publique mensagens. Para WhatsApp, use a conexão por QR Code.</p></details></div>
+    </div>
+    <p class="bot-admin-hint">⚠️ Antes de salvar, adicione <b id="canal-admin-bot">o nosso bot</b> como <b>administrador</b> do canal, com permissão para <b>publicar mensagens</b>.</p>
+    <button class="save-btn" onclick="salvarCanal()">Adicionar canal</button><div class="toast" id="canal-toast"></div><div class="divider-label">WhatsApp</div><button class="save-btn" onclick="mostrarView('whatsapp')">Conectar WhatsApp</button></details><details class="help-panel" open><summary>Conectando pela primeira vez?</summary><p>No Telegram, escolha se as ofertas saem pelo <b>nosso bot</b> (mais simples) ou por um <b>bot seu</b>, criado no @BotFather. Nos dois casos, o bot precisa ser administrador do canal com permissão de publicar. Para WhatsApp, use a conexão por QR Code.</p></details></div>
 
   <!-- ===================== VIEW: Meus filtros ===================== -->
   <div id="view-filtros" class="view">
@@ -1679,6 +1703,8 @@ https://..."></textarea>
     lista.innerHTML = `<div class="empty-state">Carregando...</div>`;
     chamarApi("/api/canais").then(dados => {
       if (dados.error) { lista.innerHTML = `<div class="empty-state">${escaparHTML(dados.error)}</div>`; return; }
+      botCentral = dados.bot_central || "";
+      alternarBotCanal();
       if (!dados.canais.length) {
         lista.innerHTML = `<div class="empty-state">Nenhum canal ainda.</div>`;
         return;
@@ -1688,20 +1714,36 @@ https://..."></textarea>
         const nome = c.nome || c.titulo || (tipo === "telegram" ? "Canal Telegram" : "Canal WhatsApp");
         return `<article class="connection-card">
           <span class="channel-symbol">${icone(tipo)}</span>
-          <div class="connection-body"><strong>${escaparHTML(nome)}</strong><span class="channel-platform">${tipo === "telegram" ? "Telegram" : "WhatsApp"}</span><span class="channel-state">● Cadastrado</span><small class="channel-destination">${escaparHTML(c.destino)}</small>
+          <div class="connection-body"><strong>${escaparHTML(nome)}</strong><span class="channel-platform">${tipo === "telegram" ? "Telegram" : "WhatsApp"}</span><span class="channel-state">● Cadastrado</span><small class="channel-destination">${escaparHTML(c.destino)}</small>${tipo === "telegram" ? `<small class="channel-bot">${c.bot_proprio ? "🛠️ Posta pelo seu bot" : "🤖 Posta pelo nosso bot" + (botCentral ? " " + escaparHTML(botCentral) : "")}</small>` : ""}
           <details class="channel-manage"><summary>Gerenciar ›</summary><p>Destino cadastrado. A conexão e as permissões são verificadas durante o envio.</p><button class="danger-action" onclick="removerCanal(${Number(c.channel_id)})">Remover canal</button></details></div></article>`;
       }).join("");
     });
   }
 
+  let botCentral = "";
+  function botProprioEscolhido() {
+    const marcado = document.querySelector('input[name="canal-bot"]:checked');
+    return !!marcado && marcado.value === "proprio";
+  }
+  function alternarBotCanal() {
+    const proprio = botProprioEscolhido();
+    document.getElementById("canal-token-area").style.display = proprio ? "block" : "none";
+    document.getElementById("canal-admin-bot").textContent = proprio ? "o seu bot" : (botCentral || "o nosso bot");
+    document.getElementById("bot-central-nome").textContent = botCentral
+      ? `Posta pelo ${botCentral}. O jeito mais simples: não precisa criar nada.`
+      : "O jeito mais simples: não precisa criar nada.";
+  }
+
   function salvarCanal() {
     const destino = document.getElementById("canal-destino").value.trim();
-    const bot_token = document.getElementById("canal-token").value.trim();
+    const proprio = botProprioEscolhido();
+    const bot_token = proprio ? document.getElementById("canal-token").value.trim() : "";
+    if (proprio && !bot_token) { mostrarToast("canal-toast", "Cole o token do seu bot (do @BotFather).", false); return; }
     if (!destino) { mostrarToast("canal-toast", "Preencha o ID/usuário do canal.", false); return; }
 
-    chamarApi("/api/canais/adicionar", {destino, bot_token}).then(dados => {
+    chamarApi("/api/canais/adicionar", {destino, bot_token}, 30000).then(dados => {
       if (dados.error) { mostrarToast("canal-toast", dados.error, false); return; }
-      mostrarToast("canal-toast", "Canal adicionado!", true);
+      mostrarToast("canal-toast", dados.bot ? `Canal adicionado! As ofertas vão sair pelo ${dados.bot}.` : "Canal adicionado!", true);
       document.getElementById("canal-destino").value = "";
       document.getElementById("canal-token").value = "";
       carregarCanais();
